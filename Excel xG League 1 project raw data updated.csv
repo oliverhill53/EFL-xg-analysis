@@ -1,0 +1,553 @@
+﻿Match ID,Date,Home Team,Away Team,Home xG,Away xG,Home Goals,Away Goals,xG Difference (Home - Away ,Goal difference ,Total xG,Total Goals,xG Overperformance (Home) ,xG Overperformance (Away),Result,Match ID count
+L1_0001,15/08/2026,Barnsley,Bromley,1.32,1.42,0,1,-0.1,-1,2.74,1,-1.32,-0.42,Away Win,1
+L1_0002,15/08/2026,Blackpool,Wycombe Wanderers,2.37,1.29,1,1,1.08,0,3.66,2,-1.37,-0.29,Draw,1
+L1_0003,15/08/2026,Bradford City,Peterborough United,1.97,1.11,2,0,0.86,2,3.08,2,0.03,-1.11,Home Win,1
+L1_0004,15/08/2026,Burton Albion,Stevenage,0.94,0.53,1,1,0.41,0,1.47,2,0.06,0.47,Draw,1
+L1_0005,15/08/2026,Cambridge United,Wigan Athletic,1.74,2.2,3,2,-0.46,1,3.94,5,1.26,-0.2,Home Win,1
+L1_0006,15/08/2026,Huddersfield Town,AFC Wimbledon,1.24,0.38,3,0,0.86,3,1.62,3,1.76,-0.38,Home Win,1
+L1_0007,15/08/2026,Leyton Orient,Sheffield Wednesday,1.38,2.84,1,2,-1.46,-1,4.22,3,-0.38,-0.84,Away Win,1
+L1_0008,15/08/2026,Mansfield Town,Doncaster Rovers,1.44,1.06,2,1,0.38,1,2.5,3,0.56,-0.06,Home Win,1
+L1_0009,15/08/2026,Notts County,Leicester City,2.18,0.74,1,1,1.44,0,2.92,2,-1.18,0.26,Draw,1
+L1_0010,15/08/2026,Oxford United,Milton Keynes Dons,1.83,2.2,2,2,-0.37,0,4.03,4,0.17,-0.2,Draw,1
+L1_0011,15/08/2026,Plymouth Argyle,Stockport County,0.92,1.81,1,3,-0.89,-2,2.73,4,0.08,1.19,Away Win,1
+L1_0012,15/08/2026,Reading,Luton Town,1.61,1.65,3,4,-0.04,-1,3.26,7,1.39,2.35,Away Win,1
+L1_0013,20/08/2026,Sheffield Wednesday,Bradford City,1.49,0.59,0,1,0.9,-1,2.08,1,-1.49,0.41,Away Win,1
+L1_0014,22/08/2026,AFC Wimbledon,Reading,0.37,1.28,0,0,-0.91,0,1.65,0,-0.37,-1.28,Draw,1
+L1_0015,22/08/2026,Bromley,Cambridge United,0.58,0.59,1,1,-0.01,0,1.17,2,0.42,0.41,Draw,1
+L1_0016,22/08/2026,Doncaster Rovers,Barnsley,1.82,0.45,0,0,1.37,0,2.27,0,-1.82,-0.45,Draw,1
+L1_0017,22/08/2026,Leicester City,Burton Albion,1.31,0.81,1,2,0.5,-1,2.12,3,-0.31,1.19,Away Win,1
+L1_0018,22/08/2026,Luton Town,Notts County,1.85,0.76,2,2,1.09,0,2.61,4,0.15,1.24,Draw,1
+L1_0019,22/08/2026,Milton Keynes Dons,Huddersfield Town,1.54,2.28,1,1,-0.74,0,3.82,2,-0.54,-1.28,Draw,1
+L1_0020,22/08/2026,Peterborough United,Mansfield Town,1.39,1.25,2,1,0.14,1,2.64,3,0.61,-0.25,Home Win,1
+L1_0021,22/08/2026,Stevenage,Oxford United,1.17,1.36,1,2,-0.19,-1,2.53,3,-0.17,0.64,Away Win,1
+L1_0022,22/08/2026,Stockport County,Blackpool,3.54,1.79,1,2,1.75,-1,5.33,3,-2.54,0.21,Away Win,1
+L1_0023,22/08/2026,Wigan Athletic,Leyton Orient,1.6,1.25,0,2,0.35,-2,2.85,2,-1.6,0.75,Away Win,1
+L1_0024,22/08/2026,Wycombe Wanderers,Plymouth Argyle,1.89,0.76,1,1,1.13,0,2.65,2,-0.89,0.24,Draw,1
+L1_0025,29/08/2026,Blackpool,Peterborough United,2.73,1.72,4,0,1.01,4,4.45,4,1.27,-1.72,Home Win,1
+L1_0026,29/08/2026,Cambridge United,Huddersfield Town,1.22,1.13,1,2,0.09,-1,2.35,3,-0.22,0.87,Away Win,1
+L1_0027,29/08/2026,Leyton Orient,Barnsley,0.73,1.99,1,3,-1.26,-2,2.72,4,0.27,1.01,Away Win,1
+L1_0028,29/08/2026,Milton Keynes Dons,Leicester City,0.57,1.53,0,0,-0.96,0,2.1,0,-0.57,-1.53,Draw,1
+L1_0029,29/08/2026,Notts County,Burton Albion,2.29,0.11,2,1,2.18,1,2.4,3,-0.29,0.89,Home Win,1
+L1_0030,29/08/2026,Plymouth Argyle,Bradford City,1.16,0.9,2,0,0.26,2,2.06,2,0.84,-0.9,Home Win,1
+L1_0031,29/08/2026,Sheffield Wednesday,Bromley,4.52,1.5,7,2,3.02,5,6.02,9,2.48,0.5,Home Win,1
+L1_0032,29/08/2026,Stevenage,Doncaster Rovers,0.47,0.65,2,2,-0.18,0,1.12,4,1.53,1.35,Draw,1
+L1_0033,29/08/2026,Stockport County,Wycombe Wanderers,1.34,0.94,5,1,0.4,4,2.28,6,3.66,0.06,Home Win,1
+L1_0034,30/08/2026,AFC Wimbledon,Wigan Athletic,0.72,2.99,1,0,-2.27,1,3.71,1,0.28,-2.99,Home Win,1
+L1_0035,30/08/2026,Mansfield Town,Luton Town,1.37,1.35,5,2,0.02,3,2.72,7,3.63,0.65,Home Win,1
+L1_0036,01/09/2026,Bradford City,Cambridge United,2.18,0.44,1,2,1.74,-1,2.62,3,-1.18,1.56,Away Win,1
+L1_0037,01/09/2026,Bromley,Leyton Orient,0.63,1.94,0,5,-1.31,-5,2.57,5,-0.63,3.06,Away Win,1
+L1_0038,01/09/2026,Doncaster Rovers,Notts County,1.12,0.87,1,1,0.25,0,1.99,2,-0.12,0.13,Draw,1
+L1_0039,01/09/2026,Huddersfield Town,Oxford United,3.62,1.01,3,1,2.61,2,4.63,4,-0.62,-0.01,Home Win,1
+L1_0040,01/09/2026,Leicester City,Plymouth Argyle,1.76,1.13,2,0,0.63,2,2.89,2,0.24,-1.13,Home Win,1
+L1_0041,01/09/2026,Peterborough United,Stevenage,0.91,0.47,0,0,0.44,0,1.38,0,-0.91,-0.47,Draw,1
+L1_0042,01/09/2026,Wycombe Wanderers,Sheffield Wednesday,1.02,2.56,1,2,-1.54,-1,3.58,3,-0.02,-0.56,Away Win,1
+L1_0043,02/09/2026,Barnsley,Blackpool,1.97,2.4,2,1,-0.43,1,4.37,3,0.03,-1.4,Home Win,1
+L1_0044,02/09/2026,Burton Albion,AFC Wimbledon,0.93,1.43,4,1,-0.5,3,2.36,5,3.07,-0.43,Home Win,1
+L1_0045,02/09/2026,Luton Town,Stockport County,1.4,0.84,2,0,0.56,2,2.24,2,0.6,-0.84,Home Win,1
+L1_0046,02/09/2026,Reading,Mansfield Town,2.35,2.8,5,0,-0.45,5,5.15,5,2.65,-2.8,Home Win,1
+L1_0047,02/09/2026,Wigan Athletic,Milton Keynes Dons,2.68,1.37,3,1,1.31,2,4.05,4,0.32,-0.37,Home Win,1
+L1_0048,05/09/2026,Barnsley,Stevenage,1.83,1.93,1,5,-0.1,-4,3.76,6,-0.83,3.07,Away Win,1
+L1_0049,05/09/2026,Bradford City,Mansfield Town,1.03,0.48,1,0,0.55,1,1.51,1,-0.03,-0.48,Home Win,1
+L1_0050,05/09/2026,Burton Albion,Cambridge United,2.31,0.9,2,2,1.41,0,3.21,4,-0.31,1.1,Draw,1
+L1_0051,05/09/2026,Doncaster Rovers,Plymouth Argyle,2.33,2.65,2,3,-0.32,-1,4.98,5,-0.33,0.35,Away Win,1
+L1_0052,05/09/2026,Huddersfield Town,Notts County,1.41,1.24,1,1,0.17,0,2.65,2,-0.41,-0.24,Draw,1
+L1_0053,05/09/2026,Leicester City,Oxford United,1.03,2.31,0,4,-1.28,-4,3.34,4,-1.03,1.69,Away Win,1
+L1_0054,05/09/2026,Luton Town,Leyton Orient,2.21,0.56,1,1,1.65,0,2.77,2,-1.21,0.44,Draw,1
+L1_0055,05/09/2026,Peterborough United,Sheffield Wednesday,1.97,1.36,1,2,0.61,-1,3.33,3,-0.97,0.64,Away Win,1
+L1_0056,05/09/2026,Reading,Blackpool,3.5,0.51,3,1,2.99,2,4.01,4,-0.5,0.49,Home Win,1
+L1_0057,05/09/2026,Wigan Athletic,Stockport County,0.73,2.15,0,4,-1.42,-4,2.88,4,-0.73,1.85,Away Win,1
+L1_0058,05/09/2026,Wycombe Wanderers,Milton Keynes Dons,0.89,1.65,3,3,-0.76,0,2.54,6,2.11,1.35,Draw,1
+L1_0059,07/09/2026,Bromley,AFC Wimbledon,0.55,1.22,0,2,-0.67,-2,1.77,2,-0.55,0.78,Away Win,1
+L1_0060,08/09/2026,Oxford United,Reading,,,,,,,,,,,,1
+L1_0061,10/09/2026,Stevenage,Luton Town,1.31,0.89,2,1,0.42,1,2.2,3,0.69,0.11,Home Win,1
+L1_0062,12/09/2026,AFC Wimbledon,Doncaster Rovers,0.81,2.41,1,0,-1.6,1,3.22,1,0.19,-2.41,Home Win,1
+L1_0063,12/09/2026,Blackpool,Bromley,1.17,1.38,2,2,-0.21,0,2.55,4,0.83,0.62,Draw,1
+L1_0064,12/09/2026,Cambridge United,Reading,0.94,1.99,2,1,-1.05,1,2.93,3,1.06,-0.99,Home Win,1
+L1_0065,12/09/2026,Leyton Orient,Wycombe Wanderers,0.88,1.16,2,3,-0.28,-1,2.04,5,1.12,1.84,Away Win,1
+L1_0066,12/09/2026,Mansfield Town,Huddersfield Town,0.86,1.36,0,0,-0.5,0,2.22,0,-0.86,-1.36,Draw,1
+L1_0067,12/09/2026,Milton Keynes Dons,Peterborough United,1.24,1.21,1,1,0.03,0,2.45,2,-0.24,-0.21,Draw,1
+L1_0068,12/09/2026,Notts County,Bradford City,0.49,0.5,0,1,-0.01,-1,0.99,1,-0.49,0.5,Away Win,1
+L1_0069,12/09/2026,Oxford United,Burton Albion,1.21,0.47,3,0,0.74,3,1.68,3,1.79,-0.47,Home Win,1
+L1_0070,12/09/2026,Plymouth Argyle,Barnsley,0.99,0.77,3,0,0.22,3,1.76,3,2.01,-0.77,Home Win,1
+L1_0071,12/09/2026,Sheffield Wednesday,Wigan Athletic,0.82,1.59,0,0,-0.77,0,2.41,0,-0.82,-1.59,Draw,1
+L1_0072,12/09/2026,Stockport County,Leicester City,2.29,1.21,3,4,1.08,-1,3.5,7,0.71,2.79,Away Win,1
+L1_0073,17/09/2026,AFC Wimbledon,Milton Keynes Dons,1.24,1.06,0,0,0.18,0,2.3,0,-1.24,-1.06,Draw,1
+L1_0074,19/09/2026,Barnsley,Leicester City,1.18,2.4,1,1,-1.22,0,3.58,2,-0.18,-1.4,Draw,1
+L1_0075,19/09/2026,Blackpool,Plymouth Argyle,0.66,2.77,2,4,-2.11,-2,3.43,6,1.34,1.23,Away Win,1
+L1_0076,19/09/2026,Bromley,Huddersfield Town,0.39,2.73,2,1,-2.34,1,3.12,3,1.61,-1.73,Home Win,1
+L1_0077,19/09/2026,Burton Albion,Mansfield Town,0.85,1.87,2,2,-1.02,0,2.72,4,1.15,0.13,Draw,1
+L1_0078,19/09/2026,Leyton Orient,Stevenage,0.37,1.56,1,0,-1.19,1,1.93,1,0.63,-1.56,Home Win,1
+L1_0079,19/09/2026,Luton Town,Bradford City,0.85,0.28,0,1,0.57,-1,1.13,1,-0.85,0.72,Away Win,1
+L1_0080,19/09/2026,Oxford United,Cambridge United,0.77,1.36,1,1,-0.59,0,2.13,2,0.23,-0.36,Draw,1
+L1_0081,19/09/2026,Peterborough United,Doncaster Rovers,1.51,1.51,0,2,0,-2,3.02,2,-1.51,0.49,Away Win,1
+L1_0082,19/09/2026,Reading,Notts County,2.44,0.58,2,0,1.86,2,3.02,2,-0.44,-0.58,Home Win,1
+L1_0083,19/09/2026,Sheffield Wednesday,Stockport County,1.18,1.58,0,0,-0.4,0,2.76,0,-1.18,-1.58,Draw,1
+L1_0084,19/09/2026,Wigan Athletic,Wycombe Wanderers,0.44,1.43,0,1,-0.99,-1,1.87,1,-0.44,-0.43,Away Win,1
+L1_0085,26/09/2026,Bradford City,Barnsley,,,,,,,,,,,,1
+L1_0086,26/09/2026,Cambridge United,AFC Wimbledon,1.3,1.07,1,1,0.23,0,2.37,2,-0.3,-0.07,Draw,1
+L1_0087,26/09/2026,Doncaster Rovers,Oxford United,,,,,,,,,,,,1
+L1_0088,26/09/2026,Huddersfield Town,Luton Town,,,,,,,,,,,,1
+L1_0089,26/09/2026,Leicester City,Wigan Athletic,,,,,,,,,,,,1
+L1_0090,26/09/2026,Mansfield Town,Leyton Orient,,,,,,,,,,,,1
+L1_0091,26/09/2026,Milton Keynes Dons,Bromley,,,,,,,,,,,,1
+L1_0092,26/09/2026,Notts County,Blackpool,,,,,,,,,,,,1
+L1_0093,26/09/2026,Plymouth Argyle,Burton Albion,2.52,0.99,0,1,1.53,-1,3.51,1,-2.52,0.01,Away Win,1
+L1_0094,26/09/2026,Stevenage,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0095,26/09/2026,Stockport County,Peterborough United,1.76,1.83,1,0,-0.07,1,3.59,1,-0.76,-1.83,Home Win,1
+L1_0096,26/09/2026,Wycombe Wanderers,Reading,1.96,1.25,2,2,0.71,0,3.21,4,0.04,0.75,Draw,1
+L1_0097,03/10/2026,AFC Wimbledon,Stevenage,,,,,,,,,,,,1
+L1_0098,03/10/2026,Barnsley,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0099,03/10/2026,Blackpool,Leicester City,,,,,,,,,,,,1
+L1_0100,03/10/2026,Bromley,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0101,03/10/2026,Burton Albion,Huddersfield Town,,,,,,,,,,,,1
+L1_0102,03/10/2026,Leyton Orient,Plymouth Argyle,,,,,,,,,,,,1
+L1_0103,03/10/2026,Luton Town,Doncaster Rovers,,,,,,,,,,,,1
+L1_0104,03/10/2026,Oxford United,Stockport County,,,,,,,,,,,,1
+L1_0105,03/10/2026,Peterborough United,Notts County,,,,,,,,,,,,1
+L1_0106,03/10/2026,Reading,Bradford City,,,,,,,,,,,,1
+L1_0107,03/10/2026,Sheffield Wednesday,Cambridge United,,,,,,,,,,,,1
+L1_0108,03/10/2026,Wigan Athletic,Mansfield Town,,,,,,,,,,,,1
+L1_0109,10/10/2026,Bradford City,Leyton Orient,,,,,,,,,,,,1
+L1_0110,10/10/2026,Cambridge United,Blackpool,,,,,,,,,,,,1
+L1_0111,10/10/2026,Doncaster Rovers,Burton Albion,,,,,,,,,,,,1
+L1_0112,10/10/2026,Huddersfield Town,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0113,10/10/2026,Leicester City,Peterborough United,,,,,,,,,,,,1
+L1_0114,10/10/2026,Mansfield Town,Bromley,,,,,,,,,,,,1
+L1_0115,10/10/2026,Milton Keynes Dons,Reading,,,,,,,,,,,,1
+L1_0116,10/10/2026,Notts County,Oxford United,,,,,,,,,,,,1
+L1_0117,10/10/2026,Plymouth Argyle,AFC Wimbledon,,,,,,,,,,,,1
+L1_0118,10/10/2026,Stevenage,Wigan Athletic,,,,,,,,,,,,1
+L1_0119,10/10/2026,Stockport County,Barnsley,,,,,,,,,,,,1
+L1_0120,10/10/2026,Wycombe Wanderers,Luton Town,,,,,,,,,,,,1
+L1_0121,15/10/2026,Mansfield Town,Oxford United,,,,,,,,,,,,1
+L1_0122,17/10/2026,Barnsley,Cambridge United,,,,,,,,,,,,1
+L1_0123,17/10/2026,Bradford City,Stevenage,,,,,,,,,,,,1
+L1_0124,17/10/2026,Leicester City,Doncaster Rovers,,,,,,,,,,,,1
+L1_0125,17/10/2026,Leyton Orient,Blackpool,,,,,,,,,,,,1
+L1_0126,17/10/2026,Milton Keynes Dons,Luton Town,,,,,,,,,,,,1
+L1_0127,17/10/2026,Peterborough United,Burton Albion,,,,,,,,,,,,1
+L1_0128,17/10/2026,Plymouth Argyle,Huddersfield Town,,,,,,,,,,,,1
+L1_0129,17/10/2026,Sheffield Wednesday,AFC Wimbledon,,,,,,,,,,,,1
+L1_0130,17/10/2026,Stockport County,Bromley,,,,,,,,,,,,1
+L1_0131,17/10/2026,Wigan Athletic,Reading,,,,,,,,,,,,1
+L1_0132,17/10/2026,Wycombe Wanderers,Notts County,,,,,,,,,,,,1
+L1_0133,20/10/2026,AFC Wimbledon,Mansfield Town,,,,,,,,,,,,1
+L1_0134,20/10/2026,Blackpool,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0135,20/10/2026,Bromley,Leicester City,,,,,,,,,,,,1
+L1_0136,20/10/2026,Burton Albion,Bradford City,,,,,,,,,,,,1
+L1_0137,20/10/2026,Cambridge United,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0138,20/10/2026,Doncaster Rovers,Stockport County,,,,,,,,,,,,1
+L1_0139,20/10/2026,Huddersfield Town,Peterborough United,,,,,,,,,,,,1
+L1_0140,20/10/2026,Luton Town,Barnsley,,,,,,,,,,,,1
+L1_0141,20/10/2026,Notts County,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0142,20/10/2026,Oxford United,Wigan Athletic,,,,,,,,,,,,1
+L1_0143,20/10/2026,Stevenage,Plymouth Argyle,,,,,,,,,,,,1
+L1_0144,21/10/2026,Reading,Leyton Orient,,,,,,,,,,,,1
+L1_0145,24/10/2026,AFC Wimbledon,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0146,24/10/2026,Blackpool,Mansfield Town,,,,,,,,,,,,1
+L1_0147,24/10/2026,Bromley,Peterborough United,,,,,,,,,,,,1
+L1_0148,24/10/2026,Burton Albion,Leyton Orient,,,,,,,,,,,,1
+L1_0149,24/10/2026,Cambridge United,Plymouth Argyle,,,,,,,,,,,,1
+L1_0150,24/10/2026,Doncaster Rovers,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0151,24/10/2026,Huddersfield Town,Wigan Athletic,,,,,,,,,,,,1
+L1_0152,24/10/2026,Luton Town,Leicester City,,,,,,,,,,,,1
+L1_0153,24/10/2026,Notts County,Stockport County,,,,,,,,,,,,1
+L1_0154,24/10/2026,Oxford United,Bradford City,,,,,,,,,,,,1
+L1_0155,24/10/2026,Reading,Barnsley,,,,,,,,,,,,1
+L1_0156,24/10/2026,Stevenage,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0157,31/10/2026,Barnsley,Oxford United,,,,,,,,,,,,1
+L1_0158,31/10/2026,Bradford City,Huddersfield Town,,,,,,,,,,,,1
+L1_0159,31/10/2026,Leicester City,Stevenage,,,,,,,,,,,,1
+L1_0160,31/10/2026,Leyton Orient,Cambridge United,,,,,,,,,,,,1
+L1_0161,31/10/2026,Mansfield Town,Notts County,,,,,,,,,,,,1
+L1_0162,31/10/2026,Milton Keynes Dons,Doncaster Rovers,,,,,,,,,,,,1
+L1_0163,31/10/2026,Peterborough United,Luton Town,,,,,,,,,,,,1
+L1_0164,31/10/2026,Plymouth Argyle,Reading,,,,,,,,,,,,1
+L1_0165,31/10/2026,Stockport County,AFC Wimbledon,,,,,,,,,,,,1
+L1_0166,31/10/2026,Wigan Athletic,Bromley,,,,,,,,,,,,1
+L1_0167,31/10/2026,Wycombe Wanderers,Burton Albion,,,,,,,,,,,,1
+L1_0168,01/11/2026,Sheffield Wednesday,Blackpool,,,,,,,,,,,,1
+L1_0169,14/11/2026,AFC Wimbledon,Blackpool,,,,,,,,,,,,1
+L1_0170,14/11/2026,Bromley,Notts County,,,,,,,,,,,,1
+L1_0171,14/11/2026,Doncaster Rovers,Leyton Orient,,,,,,,,,,,,1
+L1_0172,14/11/2026,Leicester City,Bradford City,,,,,,,,,,,,1
+L1_0173,14/11/2026,Luton Town,Cambridge United,,,,,,,,,,,,1
+L1_0174,14/11/2026,Milton Keynes Dons,Burton Albion,,,,,,,,,,,,1
+L1_0175,14/11/2026,Peterborough United,Oxford United,,,,,,,,,,,,1
+L1_0176,14/11/2026,Sheffield Wednesday,Plymouth Argyle,,,,,,,,,,,,1
+L1_0177,14/11/2026,Stevenage,Mansfield Town,,,,,,,,,,,,1
+L1_0178,14/11/2026,Stockport County,Reading,,,,,,,,,,,,1
+L1_0179,14/11/2026,Wigan Athletic,Barnsley,,,,,,,,,,,,1
+L1_0180,14/11/2026,Wycombe Wanderers,Huddersfield Town,,,,,,,,,,,,1
+L1_0181,20/11/2026,Barnsley,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0182,21/11/2026,Blackpool,Wigan Athletic,,,,,,,,,,,,1
+L1_0183,21/11/2026,Bradford City,Doncaster Rovers,,,,,,,,,,,,1
+L1_0184,21/11/2026,Burton Albion,Luton Town,,,,,,,,,,,,1
+L1_0185,21/11/2026,Cambridge United,Stockport County,,,,,,,,,,,,1
+L1_0186,21/11/2026,Huddersfield Town,Leicester City,,,,,,,,,,,,1
+L1_0187,21/11/2026,Leyton Orient,AFC Wimbledon,,,,,,,,,,,,1
+L1_0188,21/11/2026,Mansfield Town,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0189,21/11/2026,Notts County,Stevenage,,,,,,,,,,,,1
+L1_0190,21/11/2026,Oxford United,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0191,21/11/2026,Plymouth Argyle,Peterborough United,,,,,,,,,,,,1
+L1_0192,21/11/2026,Reading,Bromley,,,,,,,,,,,,1
+L1_0193,26/11/2026,Doncaster Rovers,Huddersfield Town,,,,,,,,,,,,1
+L1_0194,28/11/2026,AFC Wimbledon,Barnsley,,,,,,,,,,,,1
+L1_0195,28/11/2026,Bromley,Burton Albion,,,,,,,,,,,,1
+L1_0196,28/11/2026,Leicester City,Mansfield Town,,,,,,,,,,,,1
+L1_0197,28/11/2026,Luton Town,Oxford United,,,,,,,,,,,,1
+L1_0198,28/11/2026,Milton Keynes Dons,Notts County,,,,,,,,,,,,1
+L1_0199,28/11/2026,Peterborough United,Cambridge United,,,,,,,,,,,,1
+L1_0200,28/11/2026,Sheffield Wednesday,Reading,,,,,,,,,,,,1
+L1_0201,28/11/2026,Stevenage,Blackpool,,,,,,,,,,,,1
+L1_0202,28/11/2026,Stockport County,Leyton Orient,,,,,,,,,,,,1
+L1_0203,28/11/2026,Wigan Athletic,Plymouth Argyle,,,,,,,,,,,,1
+L1_0204,28/11/2026,Wycombe Wanderers,Bradford City,,,,,,,,,,,,1
+L1_0205,01/12/2026,Barnsley,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0206,01/12/2026,Blackpool,Luton Town,,,,,,,,,,,,1
+L1_0207,01/12/2026,Bradford City,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0208,01/12/2026,Burton Albion,Wigan Athletic,,,,,,,,,,,,1
+L1_0209,01/12/2026,Cambridge United,Leicester City,,,,,,,,,,,,1
+L1_0210,01/12/2026,Huddersfield Town,Stevenage,,,,,,,,,,,,1
+L1_0211,01/12/2026,Leyton Orient,Peterborough United,,,,,,,,,,,,1
+L1_0212,01/12/2026,Mansfield Town,Stockport County,,,,,,,,,,,,1
+L1_0213,01/12/2026,Notts County,AFC Wimbledon,,,,,,,,,,,,1
+L1_0214,01/12/2026,Oxford United,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0215,01/12/2026,Plymouth Argyle,Bromley,,,,,,,,,,,,1
+L1_0216,01/12/2026,Reading,Doncaster Rovers,,,,,,,,,,,,1
+L1_0217,10/12/2026,Leicester City,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0218,12/12/2026,Bradford City,AFC Wimbledon,,,,,,,,,,,,1
+L1_0219,12/12/2026,Burton Albion,Reading,,,,,,,,,,,,1
+L1_0220,12/12/2026,Doncaster Rovers,Bromley,,,,,,,,,,,,1
+L1_0221,12/12/2026,Huddersfield Town,Leyton Orient,,,,,,,,,,,,1
+L1_0222,12/12/2026,Luton Town,Wigan Athletic,,,,,,,,,,,,1
+L1_0223,12/12/2026,Mansfield Town,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0224,12/12/2026,Milton Keynes Dons,Cambridge United,,,,,,,,,,,,1
+L1_0225,12/12/2026,Notts County,Plymouth Argyle,,,,,,,,,,,,1
+L1_0226,12/12/2026,Oxford United,Blackpool,,,,,,,,,,,,1
+L1_0227,12/12/2026,Peterborough United,Barnsley,,,,,,,,,,,,1
+L1_0228,12/12/2026,Stevenage,Stockport County,,,,,,,,,,,,1
+L1_0229,18/12/2026,Cambridge United,Stevenage,,,,,,,,,,,,1
+L1_0230,19/12/2026,AFC Wimbledon,Oxford United,,,,,,,,,,,,1
+L1_0231,19/12/2026,Barnsley,Huddersfield Town,,,,,,,,,,,,1
+L1_0232,19/12/2026,Blackpool,Burton Albion,,,,,,,,,,,,1
+L1_0233,19/12/2026,Bromley,Bradford City,,,,,,,,,,,,1
+L1_0234,19/12/2026,Leyton Orient,Notts County,,,,,,,,,,,,1
+L1_0235,19/12/2026,Plymouth Argyle,Mansfield Town,,,,,,,,,,,,1
+L1_0236,19/12/2026,Reading,Leicester City,,,,,,,,,,,,1
+L1_0237,19/12/2026,Sheffield Wednesday,Luton Town,,,,,,,,,,,,1
+L1_0238,19/12/2026,Stockport County,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0239,19/12/2026,Wigan Athletic,Peterborough United,,,,,,,,,,,,1
+L1_0240,19/12/2026,Wycombe Wanderers,Doncaster Rovers,,,,,,,,,,,,1
+L1_0241,26/12/2026,Bradford City,Stockport County,,,,,,,,,,,,1
+L1_0242,26/12/2026,Burton Albion,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0243,26/12/2026,Doncaster Rovers,Wigan Athletic,,,,,,,,,,,,1
+L1_0244,26/12/2026,Huddersfield Town,Blackpool,,,,,,,,,,,,1
+L1_0245,26/12/2026,Leicester City,AFC Wimbledon,,,,,,,,,,,,1
+L1_0246,26/12/2026,Luton Town,Bromley,,,,,,,,,,,,1
+L1_0247,26/12/2026,Mansfield Town,Barnsley,,,,,,,,,,,,1
+L1_0248,26/12/2026,Milton Keynes Dons,Leyton Orient,,,,,,,,,,,,1
+L1_0249,26/12/2026,Notts County,Cambridge United,,,,,,,,,,,,1
+L1_0250,26/12/2026,Oxford United,Plymouth Argyle,,,,,,,,,,,,1
+L1_0251,26/12/2026,Peterborough United,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0252,26/12/2026,Stevenage,Reading,,,,,,,,,,,,1
+L1_0253,29/12/2026,AFC Wimbledon,Luton Town,,,,,,,,,,,,1
+L1_0254,29/12/2026,Barnsley,Burton Albion,,,,,,,,,,,,1
+L1_0255,29/12/2026,Blackpool,Bradford City,,,,,,,,,,,,1
+L1_0256,29/12/2026,Bromley,Oxford United,,,,,,,,,,,,1
+L1_0257,29/12/2026,Cambridge United,Doncaster Rovers,,,,,,,,,,,,1
+L1_0258,29/12/2026,Leyton Orient,Leicester City,,,,,,,,,,,,1
+L1_0259,29/12/2026,Plymouth Argyle,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0260,29/12/2026,Reading,Peterborough United,,,,,,,,,,,,1
+L1_0261,29/12/2026,Sheffield Wednesday,Mansfield Town,,,,,,,,,,,,1
+L1_0262,29/12/2026,Stockport County,Huddersfield Town,,,,,,,,,,,,1
+L1_0263,29/12/2026,Wigan Athletic,Notts County,,,,,,,,,,,,1
+L1_0264,29/12/2026,Wycombe Wanderers,Stevenage,,,,,,,,,,,,1
+L1_0265,01/01/2027,AFC Wimbledon,Peterborough United,,,,,,,,,,,,1
+L1_0266,01/01/2027,Barnsley,Notts County,,,,,,,,,,,,1
+L1_0267,01/01/2027,Blackpool,Doncaster Rovers,,,,,,,,,,,,1
+L1_0268,01/01/2027,Bromley,Stevenage,,,,,,,,,,,,1
+L1_0269,01/01/2027,Leyton Orient,Oxford United,,,,,,,,,,,,1
+L1_0270,01/01/2027,Reading,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0271,01/01/2027,Sheffield Wednesday,Huddersfield Town,,,,,,,,,,,,1
+L1_0272,01/01/2027,Wigan Athletic,Bradford City,,,,,,,,,,,,1
+L1_0273,01/01/2027,Wycombe Wanderers,Leicester City,,,,,,,,,,,,1
+L1_0274,02/01/2027,Cambridge United,Mansfield Town,,,,,,,,,,,,1
+L1_0275,02/01/2027,Plymouth Argyle,Luton Town,,,,,,,,,,,,1
+L1_0276,02/01/2027,Stockport County,Burton Albion,,,,,,,,,,,,1
+L1_0277,08/01/2027,Burton Albion,Blackpool,,,,,,,,,,,,1
+L1_0278,09/01/2027,Bradford City,Bromley,,,,,,,,,,,,1
+L1_0279,09/01/2027,Doncaster Rovers,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0280,09/01/2027,Huddersfield Town,Barnsley,,,,,,,,,,,,1
+L1_0281,09/01/2027,Leicester City,Reading,,,,,,,,,,,,1
+L1_0282,09/01/2027,Luton Town,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0283,09/01/2027,Mansfield Town,Plymouth Argyle,,,,,,,,,,,,1
+L1_0284,09/01/2027,Milton Keynes Dons,Stockport County,,,,,,,,,,,,1
+L1_0285,09/01/2027,Notts County,Leyton Orient,,,,,,,,,,,,1
+L1_0286,09/01/2027,Oxford United,AFC Wimbledon,,,,,,,,,,,,1
+L1_0287,09/01/2027,Peterborough United,Wigan Athletic,,,,,,,,,,,,1
+L1_0288,09/01/2027,Stevenage,Cambridge United,,,,,,,,,,,,1
+L1_0289,16/01/2027,AFC Wimbledon,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0290,16/01/2027,Blackpool,Leyton Orient,,,,,,,,,,,,1
+L1_0291,16/01/2027,Bromley,Stockport County,,,,,,,,,,,,1
+L1_0292,16/01/2027,Burton Albion,Peterborough United,,,,,,,,,,,,1
+L1_0293,16/01/2027,Cambridge United,Barnsley,,,,,,,,,,,,1
+L1_0294,16/01/2027,Doncaster Rovers,Leicester City,,,,,,,,,,,,1
+L1_0295,16/01/2027,Huddersfield Town,Plymouth Argyle,,,,,,,,,,,,1
+L1_0296,16/01/2027,Luton Town,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0297,16/01/2027,Notts County,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0298,16/01/2027,Oxford United,Mansfield Town,,,,,,,,,,,,1
+L1_0299,16/01/2027,Reading,Wigan Athletic,,,,,,,,,,,,1
+L1_0300,16/01/2027,Stevenage,Bradford City,,,,,,,,,,,,1
+L1_0301,19/01/2027,Barnsley,Luton Town,,,,,,,,,,,,1
+L1_0302,19/01/2027,Bradford City,Burton Albion,,,,,,,,,,,,1
+L1_0303,19/01/2027,Leicester City,Bromley,,,,,,,,,,,,1
+L1_0304,19/01/2027,Leyton Orient,Reading,,,,,,,,,,,,1
+L1_0305,19/01/2027,Mansfield Town,AFC Wimbledon,,,,,,,,,,,,1
+L1_0306,19/01/2027,Milton Keynes Dons,Blackpool,,,,,,,,,,,,1
+L1_0307,19/01/2027,Peterborough United,Huddersfield Town,,,,,,,,,,,,1
+L1_0308,19/01/2027,Plymouth Argyle,Stevenage,,,,,,,,,,,,1
+L1_0309,19/01/2027,Sheffield Wednesday,Notts County,,,,,,,,,,,,1
+L1_0310,19/01/2027,Stockport County,Doncaster Rovers,,,,,,,,,,,,1
+L1_0311,19/01/2027,Wigan Athletic,Oxford United,,,,,,,,,,,,1
+L1_0312,19/01/2027,Wycombe Wanderers,Cambridge United,,,,,,,,,,,,1
+L1_0313,23/01/2027,Barnsley,Reading,,,,,,,,,,,,1
+L1_0314,23/01/2027,Bradford City,Oxford United,,,,,,,,,,,,1
+L1_0315,23/01/2027,Leicester City,Luton Town,,,,,,,,,,,,1
+L1_0316,23/01/2027,Leyton Orient,Burton Albion,,,,,,,,,,,,1
+L1_0317,23/01/2027,Mansfield Town,Blackpool,,,,,,,,,,,,1
+L1_0318,23/01/2027,Milton Keynes Dons,Stevenage,,,,,,,,,,,,1
+L1_0319,23/01/2027,Peterborough United,Bromley,,,,,,,,,,,,1
+L1_0320,23/01/2027,Plymouth Argyle,Cambridge United,,,,,,,,,,,,1
+L1_0321,23/01/2027,Sheffield Wednesday,Doncaster Rovers,,,,,,,,,,,,1
+L1_0322,23/01/2027,Stockport County,Notts County,,,,,,,,,,,,1
+L1_0323,23/01/2027,Wigan Athletic,Huddersfield Town,,,,,,,,,,,,1
+L1_0324,23/01/2027,Wycombe Wanderers,AFC Wimbledon,,,,,,,,,,,,1
+L1_0325,30/01/2027,AFC Wimbledon,Stockport County,,,,,,,,,,,,1
+L1_0326,30/01/2027,Blackpool,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0327,30/01/2027,Bromley,Wigan Athletic,,,,,,,,,,,,1
+L1_0328,30/01/2027,Burton Albion,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0329,30/01/2027,Cambridge United,Leyton Orient,,,,,,,,,,,,1
+L1_0330,30/01/2027,Doncaster Rovers,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0331,30/01/2027,Huddersfield Town,Bradford City,,,,,,,,,,,,1
+L1_0332,30/01/2027,Luton Town,Peterborough United,,,,,,,,,,,,1
+L1_0333,30/01/2027,Notts County,Mansfield Town,,,,,,,,,,,,1
+L1_0334,30/01/2027,Oxford United,Barnsley,,,,,,,,,,,,1
+L1_0335,30/01/2027,Reading,Plymouth Argyle,,,,,,,,,,,,1
+L1_0336,30/01/2027,Stevenage,Leicester City,,,,,,,,,,,,1
+L1_0337,06/02/2027,Barnsley,Leyton Orient,,,,,,,,,,,,1
+L1_0338,06/02/2027,Bradford City,Plymouth Argyle,,,,,,,,,,,,1
+L1_0339,06/02/2027,Bromley,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0340,06/02/2027,Burton Albion,Notts County,,,,,,,,,,,,1
+L1_0341,06/02/2027,Doncaster Rovers,Stevenage,,,,,,,,,,,,1
+L1_0342,06/02/2027,Huddersfield Town,Cambridge United,,,,,,,,,,,,1
+L1_0343,06/02/2027,Leicester City,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0344,06/02/2027,Luton Town,Mansfield Town,,,,,,,,,,,,1
+L1_0345,06/02/2027,Peterborough United,Blackpool,,,,,,,,,,,,1
+L1_0346,06/02/2027,Reading,Oxford United,,,,,,,,,,,,1
+L1_0347,06/02/2027,Wigan Athletic,AFC Wimbledon,,,,,,,,,,,,1
+L1_0348,06/02/2027,Wycombe Wanderers,Stockport County,,,,,,,,,,,,1
+L1_0349,09/02/2027,AFC Wimbledon,Burton Albion,,,,,,,,,,,,1
+L1_0350,09/02/2027,Blackpool,Barnsley,,,,,,,,,,,,1
+L1_0351,09/02/2027,Cambridge United,Bradford City,,,,,,,,,,,,1
+L1_0352,09/02/2027,Leyton Orient,Bromley,,,,,,,,,,,,1
+L1_0353,09/02/2027,Mansfield Town,Reading,,,,,,,,,,,,1
+L1_0354,09/02/2027,Milton Keynes Dons,Wigan Athletic,,,,,,,,,,,,1
+L1_0355,09/02/2027,Notts County,Doncaster Rovers,,,,,,,,,,,,1
+L1_0356,09/02/2027,Oxford United,Huddersfield Town,,,,,,,,,,,,1
+L1_0357,09/02/2027,Plymouth Argyle,Leicester City,,,,,,,,,,,,1
+L1_0358,09/02/2027,Sheffield Wednesday,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0359,09/02/2027,Stevenage,Peterborough United,,,,,,,,,,,,1
+L1_0360,09/02/2027,Stockport County,Luton Town,,,,,,,,,,,,1
+L1_0361,13/02/2027,AFC Wimbledon,Bromley,,,,,,,,,,,,1
+L1_0362,13/02/2027,Blackpool,Reading,,,,,,,,,,,,1
+L1_0363,13/02/2027,Cambridge United,Burton Albion,,,,,,,,,,,,1
+L1_0364,13/02/2027,Leyton Orient,Luton Town,,,,,,,,,,,,1
+L1_0365,13/02/2027,Mansfield Town,Bradford City,,,,,,,,,,,,1
+L1_0366,13/02/2027,Milton Keynes Dons,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0367,13/02/2027,Notts County,Huddersfield Town,,,,,,,,,,,,1
+L1_0368,13/02/2027,Oxford United,Leicester City,,,,,,,,,,,,1
+L1_0369,13/02/2027,Plymouth Argyle,Doncaster Rovers,,,,,,,,,,,,1
+L1_0370,13/02/2027,Sheffield Wednesday,Peterborough United,,,,,,,,,,,,1
+L1_0371,13/02/2027,Stevenage,Barnsley,,,,,,,,,,,,1
+L1_0372,13/02/2027,Stockport County,Wigan Athletic,,,,,,,,,,,,1
+L1_0373,20/02/2027,Barnsley,Plymouth Argyle,,,,,,,,,,,,1
+L1_0374,20/02/2027,Bradford City,Notts County,,,,,,,,,,,,1
+L1_0375,20/02/2027,Bromley,Blackpool,,,,,,,,,,,,1
+L1_0376,20/02/2027,Burton Albion,Oxford United,,,,,,,,,,,,1
+L1_0377,20/02/2027,Doncaster Rovers,AFC Wimbledon,,,,,,,,,,,,1
+L1_0378,20/02/2027,Huddersfield Town,Mansfield Town,,,,,,,,,,,,1
+L1_0379,20/02/2027,Leicester City,Stockport County,,,,,,,,,,,,1
+L1_0380,20/02/2027,Luton Town,Stevenage,,,,,,,,,,,,1
+L1_0381,20/02/2027,Peterborough United,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0382,20/02/2027,Reading,Cambridge United,,,,,,,,,,,,1
+L1_0383,20/02/2027,Wigan Athletic,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0384,20/02/2027,Wycombe Wanderers,Leyton Orient,,,,,,,,,,,,1
+L1_0385,27/02/2027,Barnsley,Wigan Athletic,,,,,,,,,,,,1
+L1_0386,27/02/2027,Blackpool,AFC Wimbledon,,,,,,,,,,,,1
+L1_0387,27/02/2027,Bradford City,Leicester City,,,,,,,,,,,,1
+L1_0388,27/02/2027,Burton Albion,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0389,27/02/2027,Cambridge United,Peterborough United,,,,,,,,,,,,1
+L1_0390,27/02/2027,Huddersfield Town,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0391,27/02/2027,Leyton Orient,Doncaster Rovers,,,,,,,,,,,,1
+L1_0392,27/02/2027,Mansfield Town,Stevenage,,,,,,,,,,,,1
+L1_0393,27/02/2027,Notts County,Bromley,,,,,,,,,,,,1
+L1_0394,27/02/2027,Oxford United,Luton Town,,,,,,,,,,,,1
+L1_0395,27/02/2027,Plymouth Argyle,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0396,27/02/2027,Reading,Stockport County,,,,,,,,,,,,1
+L1_0397,06/03/2027,AFC Wimbledon,Huddersfield Town,,,,,,,,,,,,1
+L1_0398,06/03/2027,Bromley,Barnsley,,,,,,,,,,,,1
+L1_0399,06/03/2027,Doncaster Rovers,Mansfield Town,,,,,,,,,,,,1
+L1_0400,06/03/2027,Leicester City,Notts County,,,,,,,,,,,,1
+L1_0401,06/03/2027,Luton Town,Reading,,,,,,,,,,,,1
+L1_0402,06/03/2027,Milton Keynes Dons,Oxford United,,,,,,,,,,,,1
+L1_0403,06/03/2027,Peterborough United,Bradford City,,,,,,,,,,,,1
+L1_0404,06/03/2027,Sheffield Wednesday,Leyton Orient,,,,,,,,,,,,1
+L1_0405,06/03/2027,Stevenage,Burton Albion,,,,,,,,,,,,1
+L1_0406,06/03/2027,Stockport County,Plymouth Argyle,,,,,,,,,,,,1
+L1_0407,06/03/2027,Wigan Athletic,Cambridge United,,,,,,,,,,,,1
+L1_0408,06/03/2027,Wycombe Wanderers,Blackpool,,,,,,,,,,,,1
+L1_0409,13/03/2027,Barnsley,Doncaster Rovers,,,,,,,,,,,,1
+L1_0410,13/03/2027,Blackpool,Stockport County,,,,,,,,,,,,1
+L1_0411,13/03/2027,Bradford City,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0412,13/03/2027,Burton Albion,Leicester City,,,,,,,,,,,,1
+L1_0413,13/03/2027,Cambridge United,Bromley,,,,,,,,,,,,1
+L1_0414,13/03/2027,Huddersfield Town,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0415,13/03/2027,Leyton Orient,Wigan Athletic,,,,,,,,,,,,1
+L1_0416,13/03/2027,Mansfield Town,Peterborough United,,,,,,,,,,,,1
+L1_0417,13/03/2027,Notts County,Luton Town,,,,,,,,,,,,1
+L1_0418,13/03/2027,Oxford United,Stevenage,,,,,,,,,,,,1
+L1_0419,13/03/2027,Plymouth Argyle,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0420,13/03/2027,Reading,AFC Wimbledon,,,,,,,,,,,,1
+L1_0421,20/03/2027,AFC Wimbledon,Leyton Orient,,,,,,,,,,,,1
+L1_0422,20/03/2027,Bromley,Reading,,,,,,,,,,,,1
+L1_0423,20/03/2027,Doncaster Rovers,Bradford City,,,,,,,,,,,,1
+L1_0424,20/03/2027,Leicester City,Huddersfield Town,,,,,,,,,,,,1
+L1_0425,20/03/2027,Luton Town,Burton Albion,,,,,,,,,,,,1
+L1_0426,20/03/2027,Milton Keynes Dons,Mansfield Town,,,,,,,,,,,,1
+L1_0427,20/03/2027,Peterborough United,Plymouth Argyle,,,,,,,,,,,,1
+L1_0428,20/03/2027,Sheffield Wednesday,Barnsley,,,,,,,,,,,,1
+L1_0429,20/03/2027,Stevenage,Notts County,,,,,,,,,,,,1
+L1_0430,20/03/2027,Stockport County,Cambridge United,,,,,,,,,,,,1
+L1_0431,20/03/2027,Wigan Athletic,Blackpool,,,,,,,,,,,,1
+L1_0432,20/03/2027,Wycombe Wanderers,Oxford United,,,,,,,,,,,,1
+L1_0433,26/03/2027,Bradford City,Wigan Athletic,,,,,,,,,,,,1
+L1_0434,26/03/2027,Burton Albion,Stockport County,,,,,,,,,,,,1
+L1_0435,26/03/2027,Doncaster Rovers,Blackpool,,,,,,,,,,,,1
+L1_0436,26/03/2027,Huddersfield Town,Reading,,,,,,,,,,,,1
+L1_0437,26/03/2027,Leicester City,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0438,26/03/2027,Luton Town,Plymouth Argyle,,,,,,,,,,,,1
+L1_0439,26/03/2027,Mansfield Town,Cambridge United,,,,,,,,,,,,1
+L1_0440,26/03/2027,Milton Keynes Dons,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0441,26/03/2027,Notts County,Barnsley,,,,,,,,,,,,1
+L1_0442,26/03/2027,Oxford United,Leyton Orient,,,,,,,,,,,,1
+L1_0443,26/03/2027,Peterborough United,AFC Wimbledon,,,,,,,,,,,,1
+L1_0444,26/03/2027,Stevenage,Bromley,,,,,,,,,,,,1
+L1_0445,29/03/2027,AFC Wimbledon,Leicester City,,,,,,,,,,,,1
+L1_0446,29/03/2027,Barnsley,Mansfield Town,,,,,,,,,,,,1
+L1_0447,29/03/2027,Blackpool,Oxford United,,,,,,,,,,,,1
+L1_0448,29/03/2027,Bromley,Doncaster Rovers,,,,,,,,,,,,1
+L1_0449,29/03/2027,Cambridge United,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0450,29/03/2027,Leyton Orient,Huddersfield Town,,,,,,,,,,,,1
+L1_0451,29/03/2027,Plymouth Argyle,Notts County,,,,,,,,,,,,1
+L1_0452,29/03/2027,Reading,Stevenage,,,,,,,,,,,,1
+L1_0453,29/03/2027,Sheffield Wednesday,Burton Albion,,,,,,,,,,,,1
+L1_0454,29/03/2027,Stockport County,Bradford City,,,,,,,,,,,,1
+L1_0455,29/03/2027,Wigan Athletic,Luton Town,,,,,,,,,,,,1
+L1_0456,29/03/2027,Wycombe Wanderers,Peterborough United,,,,,,,,,,,,1
+L1_0457,03/04/2027,Bradford City,Blackpool,,,,,,,,,,,,1
+L1_0458,03/04/2027,Burton Albion,Barnsley,,,,,,,,,,,,1
+L1_0459,03/04/2027,Doncaster Rovers,Cambridge United,,,,,,,,,,,,1
+L1_0460,03/04/2027,Huddersfield Town,Stockport County,,,,,,,,,,,,1
+L1_0461,03/04/2027,Leicester City,Leyton Orient,,,,,,,,,,,,1
+L1_0462,03/04/2027,Luton Town,AFC Wimbledon,,,,,,,,,,,,1
+L1_0463,03/04/2027,Mansfield Town,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0464,03/04/2027,Milton Keynes Dons,Plymouth Argyle,,,,,,,,,,,,1
+L1_0465,03/04/2027,Notts County,Wigan Athletic,,,,,,,,,,,,1
+L1_0466,03/04/2027,Oxford United,Bromley,,,,,,,,,,,,1
+L1_0467,03/04/2027,Peterborough United,Reading,,,,,,,,,,,,1
+L1_0468,03/04/2027,Stevenage,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0469,10/04/2027,AFC Wimbledon,Bradford City,,,,,,,,,,,,1
+L1_0470,10/04/2027,Barnsley,Peterborough United,,,,,,,,,,,,1
+L1_0471,10/04/2027,Blackpool,Huddersfield Town,,,,,,,,,,,,1
+L1_0472,10/04/2027,Bromley,Luton Town,,,,,,,,,,,,1
+L1_0473,10/04/2027,Cambridge United,Notts County,,,,,,,,,,,,1
+L1_0474,10/04/2027,Leyton Orient,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0475,10/04/2027,Plymouth Argyle,Oxford United,,,,,,,,,,,,1
+L1_0476,10/04/2027,Reading,Burton Albion,,,,,,,,,,,,1
+L1_0477,10/04/2027,Sheffield Wednesday,Leicester City,,,,,,,,,,,,1
+L1_0478,10/04/2027,Stockport County,Stevenage,,,,,,,,,,,,1
+L1_0479,10/04/2027,Wigan Athletic,Doncaster Rovers,,,,,,,,,,,,1
+L1_0480,10/04/2027,Wycombe Wanderers,Mansfield Town,,,,,,,,,,,,1
+L1_0481,13/04/2027,AFC Wimbledon,Cambridge United,,,,,,,,,,,,1
+L1_0482,13/04/2027,Barnsley,Bradford City,,,,,,,,,,,,1
+L1_0483,13/04/2027,Blackpool,Notts County,,,,,,,,,,,,1
+L1_0484,13/04/2027,Bromley,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0485,13/04/2027,Burton Albion,Plymouth Argyle,,,,,,,,,,,,1
+L1_0486,13/04/2027,Leyton Orient,Mansfield Town,,,,,,,,,,,,1
+L1_0487,13/04/2027,Luton Town,Huddersfield Town,,,,,,,,,,,,1
+L1_0488,13/04/2027,Oxford United,Doncaster Rovers,,,,,,,,,,,,1
+L1_0489,13/04/2027,Peterborough United,Stockport County,,,,,,,,,,,,1
+L1_0490,13/04/2027,Reading,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0491,13/04/2027,Sheffield Wednesday,Stevenage,,,,,,,,,,,,1
+L1_0492,13/04/2027,Wigan Athletic,Leicester City,,,,,,,,,,,,1
+L1_0493,17/04/2027,Bradford City,Luton Town,,,,,,,,,,,,1
+L1_0494,17/04/2027,Cambridge United,Oxford United,,,,,,,,,,,,1
+L1_0495,17/04/2027,Doncaster Rovers,Peterborough United,,,,,,,,,,,,1
+L1_0496,17/04/2027,Huddersfield Town,Bromley,,,,,,,,,,,,1
+L1_0497,17/04/2027,Leicester City,Barnsley,,,,,,,,,,,,1
+L1_0498,17/04/2027,Mansfield Town,Burton Albion,,,,,,,,,,,,1
+L1_0499,17/04/2027,Milton Keynes Dons,AFC Wimbledon,,,,,,,,,,,,1
+L1_0500,17/04/2027,Notts County,Reading,,,,,,,,,,,,1
+L1_0501,17/04/2027,Plymouth Argyle,Blackpool,,,,,,,,,,,,1
+L1_0502,17/04/2027,Stevenage,Leyton Orient,,,,,,,,,,,,1
+L1_0503,17/04/2027,Stockport County,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0504,17/04/2027,Wycombe Wanderers,Wigan Athletic,,,,,,,,,,,,1
+L1_0505,24/04/2027,AFC Wimbledon,Plymouth Argyle,,,,,,,,,,,,1
+L1_0506,24/04/2027,Barnsley,Stockport County,,,,,,,,,,,,1
+L1_0507,24/04/2027,Blackpool,Cambridge United,,,,,,,,,,,,1
+L1_0508,24/04/2027,Bromley,Mansfield Town,,,,,,,,,,,,1
+L1_0509,24/04/2027,Burton Albion,Doncaster Rovers,,,,,,,,,,,,1
+L1_0510,24/04/2027,Leyton Orient,Bradford City,,,,,,,,,,,,1
+L1_0511,24/04/2027,Luton Town,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0512,24/04/2027,Oxford United,Notts County,,,,,,,,,,,,1
+L1_0513,24/04/2027,Peterborough United,Leicester City,,,,,,,,,,,,1
+L1_0514,24/04/2027,Reading,Huddersfield Town,,,,,,,,,,,,1
+L1_0515,24/04/2027,Sheffield Wednesday,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0516,24/04/2027,Wigan Athletic,Stevenage,,,,,,,,,,,,1
+L1_0517,27/04/2027,Bradford City,Reading,,,,,,,,,,,,1
+L1_0518,27/04/2027,Cambridge United,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0519,27/04/2027,Doncaster Rovers,Luton Town,,,,,,,,,,,,1
+L1_0520,27/04/2027,Huddersfield Town,Burton Albion,,,,,,,,,,,,1
+L1_0521,27/04/2027,Leicester City,Blackpool,,,,,,,,,,,,1
+L1_0522,27/04/2027,Mansfield Town,Wigan Athletic,,,,,,,,,,,,1
+L1_0523,27/04/2027,Milton Keynes Dons,Barnsley,,,,,,,,,,,,1
+L1_0524,27/04/2027,Notts County,Peterborough United,,,,,,,,,,,,1
+L1_0525,27/04/2027,Plymouth Argyle,Leyton Orient,,,,,,,,,,,,1
+L1_0526,27/04/2027,Stevenage,AFC Wimbledon,,,,,,,,,,,,1
+L1_0527,27/04/2027,Stockport County,Oxford United,,,,,,,,,,,,1
+L1_0528,27/04/2027,Wycombe Wanderers,Bromley,,,,,,,,,,,,1
+L1_0529,01/05/2027,Barnsley,AFC Wimbledon,,,,,,,,,,,,1
+L1_0530,01/05/2027,Blackpool,Stevenage,,,,,,,,,,,,1
+L1_0531,01/05/2027,Bradford City,Wycombe Wanderers,,,,,,,,,,,,1
+L1_0532,01/05/2027,Burton Albion,Bromley,,,,,,,,,,,,1
+L1_0533,01/05/2027,Cambridge United,Luton Town,,,,,,,,,,,,1
+L1_0534,01/05/2027,Huddersfield Town,Doncaster Rovers,,,,,,,,,,,,1
+L1_0535,01/05/2027,Leyton Orient,Stockport County,,,,,,,,,,,,1
+L1_0536,01/05/2027,Mansfield Town,Leicester City,,,,,,,,,,,,1
+L1_0537,01/05/2027,Notts County,Milton Keynes Dons,,,,,,,,,,,,1
+L1_0538,01/05/2027,Oxford United,Peterborough United,,,,,,,,,,,,1
+L1_0539,01/05/2027,Plymouth Argyle,Wigan Athletic,,,,,,,,,,,,1
+L1_0540,01/05/2027,Reading,Sheffield Wednesday,,,,,,,,,,,,1
+L1_0541,08/05/2027,AFC Wimbledon,Notts County,,,,,,,,,,,,1
+L1_0542,08/05/2027,Bromley,Plymouth Argyle,,,,,,,,,,,,1
+L1_0543,08/05/2027,Doncaster Rovers,Reading,,,,,,,,,,,,1
+L1_0544,08/05/2027,Leicester City,Cambridge United,,,,,,,,,,,,1
+L1_0545,08/05/2027,Luton Town,Blackpool,,,,,,,,,,,,1
+L1_0546,08/05/2027,Milton Keynes Dons,Bradford City,,,,,,,,,,,,1
+L1_0547,08/05/2027,Peterborough United,Leyton Orient,,,,,,,,,,,,1
+L1_0548,08/05/2027,Sheffield Wednesday,Oxford United,,,,,,,,,,,,1
+L1_0549,08/05/2027,Stevenage,Huddersfield Town,,,,,,,,,,,,1
+L1_0550,08/05/2027,Stockport County,Mansfield Town,,,,,,,,,,,,1
+L1_0551,08/05/2027,Wigan Athletic,Burton Albion,,,,,,,,,,,,1
+L1_0552,08/05/2027,Wycombe Wanderers,Barnsley,,,,,,,,,,,,1
