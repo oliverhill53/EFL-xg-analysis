@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EFL xG Analytics — Multi-League Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --ink:#0B1613;
+  --panel:#122420;
+  --panel2:#17322A;
+  --chalk:#F2EFE4;
+  --muted:#95AA9F;
+  --gold:#E8B94B;
+  --gold-dim:#B99138;
+  --win:#57A373;
+  --loss:#C1544A;
+  --draw:#8C9A92;
+  --line:rgba(242,239,228,0.10);
+  --line-strong:rgba(242,239,228,0.18);
+  --radius:14px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--ink);
+  color:var(--chalk);
+  font-family:'Inter',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+  overflow-x:hidden;
+}
+.pitchglow{
+  position:fixed; inset:0; z-index:-1;
+  background:
+    radial-gradient(ellipse 900px 500px at 15% -10%, rgba(87,163,115,0.14), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 100% 10%, rgba(232,185,75,0.07), transparent 60%);
+}
+h1,h2,h3,h4{font-family:'Oswald',sans-serif; margin:0; text-transform:uppercase; letter-spacing:0.02em;}
+.mono{font-family:'IBM Plex Mono',monospace;}
+
+/* HOME SCREEN */
+#homeScreen{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:40px 20px;
+  text-align:center;
+  position:relative;
+  z-index:10;
+}
+.home-box{
+  background:var(--panel);
+  border:1px solid var(--line-strong);
+  border-radius:20px;
+  padding:40px 32px;
+  max-width:760px;
+  width:100%;
+  box-shadow:0 20px 40px rgba(0,0,0,0.5);
+}
+.home-title{
+  font-size:clamp(32px,5vw,48px);
+  color:var(--chalk);
+  line-height:1;
+  margin-bottom:12px;
+}
+.home-title span{color:var(--gold);}
+.home-sub{
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:28px;
+  line-height:1.5;
+}
+
+/* LEAGUE STATUS CARDS ON HOME */
+.league-cards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  margin-bottom:24px;
+}
+@media(max-width:600px){ .league-cards{grid-template-columns:1fr;} }
+.league-card{
+  background:var(--panel2);
+  border:2px solid var(--line);
+  border-radius:14px;
+  padding:20px;
+  text-align:left;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.league-card.loaded{ border-color:rgba(87,163,115,0.5); }
+.league-card-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.league-card h3{ font-size:20px; color:var(--gold); }
+.status-pill{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  padding:3px 8px;
+  border-radius:4px;
+  font-weight:600;
+}
+.status-pill.loaded{ background:rgba(87,163,115,0.2); color:var(--win); border:1px solid var(--win); }
+.status-pill.unloaded{ background:rgba(193,84,74,0.15); color:var(--loss); border:1px solid var(--loss); }
+
+.league-card-details{ font-size:12px; color:var(--muted); font-family:'IBM Plex Mono',monospace; line-height:1.6; margin-bottom:16px; }
+.league-card-actions{ display:flex; gap:10px; }
+.btn-card{
+  flex:1;
+  padding:10px;
+  border-radius:8px;
+  font-family:'Oswald',sans-serif;
+  font-size:13px;
+  text-transform:uppercase;
+  cursor:pointer;
+  border:none;
+  text-align:center;
+  transition:all .15s;
+}
+.btn-primary{ background:var(--gold); color:var(--ink); font-weight:600; }
+.btn-primary:hover{ background:#f0c665; }
+.btn-upload{
+  background:var(--panel); color:var(--chalk); border:1px solid var(--line-strong); position:relative; overflow:hidden;
+}
+.btn-upload:hover{ border-color:var(--gold); color:var(--gold); }
+.btn-upload input{ position:absolute; inset:0; opacity:0; cursor:pointer; }
+
+/* HERO */
+.hero{
+  position:relative;
+  padding:32px 6vw 24px;
+  border-bottom:1px dashed var(--line-strong);
+  overflow:hidden;
+}
+.hero-inner{position:relative; z-index:2; max-width:900px;}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  color:var(--gold);
+  font-size:12px;
+  letter-spacing:0.18em;
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.league-tag{
+  background:var(--gold);
+  color:var(--ink);
+  padding:2px 8px;
+  border-radius:4px;
+  font-weight:700;
+}
+.hero h1{
+  font-size:clamp(28px,4vw,44px);
+  line-height:1.05;
+  font-weight:700;
+  color:var(--chalk);
+}
+.hero h1 span{color:var(--gold);}
+.hero-sub{
+  font-size:14px;
+  color:var(--muted);
+  max-width:600px;
+  margin-top:8px;
+  line-height:1.5;
+}
+.hero-stats{
+  display:flex;
+  gap:28px;
+  margin-top:20px;
+  flex-wrap:wrap;
+}
+.hero-stat .num{font-family:'IBM Plex Mono',monospace; font-size:24px; font-weight:600; color:var(--gold);}
+.hero-stat .label{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-top:2px;}
+
+/* TOP DATA BAR */
+.data-bar{
+  background:var(--panel2);
+  border-bottom:1px solid var(--line);
+}
+.data-bar-inner{
+  max-width:1400px; margin:0 auto;
+  padding:10px 6vw;
+  display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+}
+.league-selector-pills{ display:flex; gap:8px; align-items:center; }
+.pill-btn{
+  background:var(--panel); border:1px solid var(--line); color:var(--muted);
+  padding:6px 14px; border-radius:20px; font-size:12px; font-weight:600;
+  cursor:pointer; font-family:'IBM Plex Mono',monospace; transition:all .15s;
+}
+.pill-btn.active{ background:var(--gold); color:var(--ink); border-color:var(--gold); }
+.pill-btn:hover:not(.active){ border-color:var(--gold); color:var(--chalk); }
+
+.bar-controls{display:flex; gap:10px; align-items:center;}
+.btn-switch{
+  background:var(--panel); color:var(--chalk); border:1px solid var(--line-strong);
+  font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:0.04em;
+  font-size:12px; font-weight:500; padding:6px 12px; border-radius:6px; cursor:pointer;
+  transition:all .15s;
+}
+.btn-switch:hover{border-color:var(--gold); color:var(--gold);}
+
+/* TABS */
+.tabs{
+  display:flex;
+  gap:2px;
+  padding:0 6vw;
+  background:var(--panel);
+  border-bottom:1px solid var(--line);
+  position:sticky; top:0; z-index:50;
+  overflow-x:auto;
+}
+.tab{
+  background:none; border:none; color:var(--muted);
+  font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:0.05em;
+  font-size:14px; font-weight:500;
+  padding:14px 18px;
+  cursor:pointer;
+  border-bottom:2px solid transparent;
+  white-space:nowrap;
+  transition:color .15s, border-color .15s;
+}
+.tab:hover{color:var(--chalk);}
+.tab.active{color:var(--gold); border-bottom-color:var(--gold);}
+
+main{padding:28px 6vw 20px; max-width:1400px; margin:0 auto;}
+.panel{display:none;}
+.panel.active{display:block; animation:fadein .3s ease;}
+@keyframes fadein{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
+
+.grid{display:grid; gap:20px;}
+.grid.cards{grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); margin-bottom:24px;}
+.grid.two{grid-template-columns:1fr 1fr; margin-bottom:24px;}
+.grid.insights{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+@media(max-width:860px){ .grid.two{grid-template-columns:1fr;} }
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:22px;
+}
+.card-head{margin-bottom:16px;}
+.card-head h3{font-size:18px; color:var(--chalk);}
+.card-head .unit{color:var(--gold); font-size:12px; text-transform:none; font-family:'Inter',sans-serif; font-weight:400; letter-spacing:0;}
+.card-note{color:var(--muted); font-size:13px; margin-top:4px; line-height:1.4;}
+
+/* STAT CARDS */
+.stat-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:18px;
+  position:relative;
+  overflow:hidden;
+}
+.stat-card::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--gold);
+}
+.stat-card .label{font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted);}
+.stat-card .value{font-family:'IBM Plex Mono',monospace; font-size:22px; font-weight:600; margin-top:6px; color:var(--chalk); overflow-wrap:break-word;}
+.stat-card .sub{font-size:12px; color:var(--muted); margin-top:4px;}
+.stat-card.pos::before{background:var(--win);}
+.stat-card.neg::before{background:var(--loss);}
+
+/* RANK LIST */
+.rank-list{list-style:none; margin:0; padding:0;}
+.rank-list li{
+  display:grid; grid-template-columns:28px 1fr auto; align-items:center;
+  gap:12px; padding:10px 4px; border-bottom:1px dashed var(--line); font-size:14px;
+}
+.rank-list li:last-child{border-bottom:none;}
+.rank-list .rnum{font-family:'IBM Plex Mono',monospace; color:var(--gold); font-weight:600;}
+.rank-list .rteam{font-weight:500;}
+.rank-list .rpts{font-family:'IBM Plex Mono',monospace; color:var(--muted); font-size:13px;}
+
+/* INSIGHT CARDS */
+.insight{
+  background:var(--panel2);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:16px;
+}
+.insight .itag{font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--gold); font-family:'IBM Plex Mono',monospace;}
+.insight p{font-size:14px; line-height:1.5; margin:8px 0 0; color:var(--chalk);}
+.insight p strong{color:var(--gold);}
+
+/* SELECTORS */
+.selector-card{margin-bottom:24px;}
+.selector-row{display:flex; align-items:center; gap:20px; justify-content:center; flex-wrap:wrap;}
+.selector-row.single{justify-content:flex-start;}
+.selector{display:flex; flex-direction:column; gap:6px; min-width:220px;}
+.selector label{font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted);}
+.selector select{
+  background:var(--panel2); color:var(--chalk); border:1px solid var(--line-strong);
+  border-radius:8px; padding:10px 12px; font-family:'Inter',sans-serif; font-size:14px;
+}
+.vs{font-family:'Oswald',sans-serif; color:var(--gold); font-weight:600; font-size:20px;}
+
+/* TABLE & COLOR CODING */
+.table-controls{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;}
+#tableSearch{
+  background:var(--panel2); border:1px solid var(--line-strong); color:var(--chalk);
+  padding:9px 12px; border-radius:8px; font-family:'Inter',sans-serif; font-size:13px; min-width:220px;
+}
+.table-hint{font-size:12px; color:var(--muted);}
+.table-scroll{overflow-x:auto;}
+table{width:100%; border-collapse:collapse; font-size:13px; min-width:800px;}
+thead th{
+  text-align:left; padding:10px 12px; color:var(--gold);
+  text-transform:uppercase; font-size:11px; letter-spacing:0.06em;
+  border-bottom:1px solid var(--line-strong); cursor:pointer; user-select:none;
+  font-family:'IBM Plex Mono',monospace; white-space:nowrap;
+}
+thead th:hover{color:var(--chalk);}
+tbody td{padding:9px 12px; border-bottom:1px solid var(--line); font-family:'IBM Plex Mono',monospace; white-space:nowrap;}
+tbody td:nth-child(2){font-family:'Inter',sans-serif; font-weight:500;}
+tbody tr:hover{background:var(--panel2);}
+
+.val-green{ color: var(--win) !important; font-weight:600; }
+.val-red{ color: var(--loss) !important; font-weight:600; }
+
+/* ACCA ANALYSIS FIXTURES CONTAINER & GRID */
+.acca-input-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap:16px;
+  margin-bottom:24px;
+}
+.fixture-input-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:var(--panel2);
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid var(--line-strong);
+}
+.fixture-input-row select{
+  flex:1;
+  width:100%;
+  min-width:0;
+  background:var(--panel);
+  color:var(--chalk);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:8px 6px;
+  font-size:13px;
+  text-overflow:ellipsis;
+  overflow:hidden;
+}
+.fixture-num{
+  font-family:'IBM Plex Mono',monospace;
+  color:var(--gold);
+  font-weight:600;
+  width:24px;
+  flex-shrink:0;
+}
+.fixture-remove-btn{
+  background:none;
+  border:none;
+  color:var(--muted);
+  cursor:pointer;
+  font-size:16px;
+  padding:4px;
+}
+.fixture-remove-btn:hover{ color:var(--loss); }
+
+.acca-btn-group{
+  display:flex;
+  gap:12px;
+  margin-bottom:24px;
+  flex-wrap:wrap;
+}
+.btn-action{
+  background:var(--gold);
+  color:var(--ink);
+  border:none;
+  font-family:'Oswald',sans-serif;
+  text-transform:uppercase;
+  font-size:14px;
+  font-weight:600;
+  padding:12px 24px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:all .15s;
+}
+.btn-action:hover{background:#f0c665; transform:translateY(-1px);}
+.btn-secondary{
+  background:var(--panel2);
+  color:var(--chalk);
+  border:1px solid var(--line-strong);
+  font-family:'Oswald',sans-serif;
+  text-transform:uppercase;
+  font-size:14px;
+  padding:12px 20px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.btn-secondary:hover{border-color:var(--gold);}
+
+/* FIXTURE CARDS GRID */
+.selection-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:20px;
+  margin-bottom:28px;
+}
+@media(max-width:1100px){ .selection-grid{ grid-template-columns: repeat(2, 1fr); } }
+@media(max-width:700px){ .selection-grid{ grid-template-columns: 1fr; } }
+
+.acca-card{
+  background:var(--panel2);
+  border:1px solid var(--line-strong);
+  border-radius:14px;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  height:auto;
+  min-height:240px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+  overflow-wrap:break-word;
+  word-break:break-word;
+}
+.acca-card.top-rank{
+  border-color:var(--gold);
+  background:linear-gradient(180deg, var(--panel2) 0%, rgba(232,185,75,0.06) 100%);
+}
+
+.acca-card-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:12px;
+}
+.acca-team-title{
+  font-size:20px;
+  color:var(--chalk);
+  font-weight:700;
+  line-height:1.2;
+  font-family:'Oswald',sans-serif;
+}
+.acca-opp-subtitle{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:4px;
+  font-family:'Inter',sans-serif;
+}
+
+.acca-badge{
+  font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700;
+  padding:4px 8px; border-radius:4px; white-space:nowrap; flex-shrink:0;
+}
+.badge-high{background:rgba(87,163,115,0.2); color:var(--win); border:1px solid var(--win);}
+.badge-mod{background:rgba(232,185,75,0.2); color:var(--gold); border:1px solid var(--gold);}
+.badge-lim{background:rgba(193,84,74,0.2); color:var(--loss); border:1px solid var(--loss);}
+
+.acca-metrics-box{
+  background:rgba(11,22,19,0.5);
+  border-radius:8px;
+  padding:12px;
+  margin-bottom:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.acca-score-val{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:22px;
+  font-weight:700;
+  color:var(--gold);
+}
+.acca-score-lbl{
+  font-size:10px;
+  text-transform:uppercase;
+  color:var(--muted);
+  letter-spacing:0.05em;
+}
+
+.acca-reasons{
+  list-style:none; padding:0; margin:0; font-size:12px; color:var(--chalk); line-height:1.5;
+}
+.acca-reasons li{
+  position:relative; padding-left:14px; margin-bottom:6px;
+}
+.acca-reasons li::before{content:"•"; position:absolute; left:0; color:var(--gold);}
+
+/* DISCLAIMER NOTE */
+.disclaimer-note{
+  background:rgba(232,185,75,0.08); border-left:3px solid var(--gold); padding:12px 16px;
+  border-radius:0 8px 8px 0; font-size:12px; color:var(--muted); line-height:1.5; margin-top:20px;
+}
+
+footer{text-align:center; padding:30px 20px 50px; color:var(--muted); font-size:12px; border-top:1px dashed var(--line); margin-top:20px;}
+</style>
+</head>
+<body>
+
+<div class="pitchglow"></div>
+
+<!-- LEAGUE SELECTION / HOME SCREEN -->
+<div id="homeScreen">
+  <div class="home-box">
+    <div class="eyebrow" style="justify-content:center;">EFL FOOTBALL DATA ANALYTICS</div>
+    <h1 class="home-title">xG MATCH ADVANTAGE <span>HUB</span></h1>
+    <p class="home-sub">Select a competition to evaluate matchday fixture profiles, expected goals dominance, team trends, and analytical accumulator candidates.</p>
+
+    <div class="league-cards">
+      <!-- CHAMPIONSHIP CARD -->
+      <div class="league-card" id="cardChampionship">
+        <div>
+          <div class="league-card-header">
+            <h3>CHAMPIONSHIP</h3>
+            <span class="status-pill unloaded" id="badgeChampionship">○ Not Loaded</span>
+          </div>
+          <div class="league-card-details" id="detailsChampionship">
+            No match data available in storage.
+          </div>
+        </div>
+        <div class="league-card-actions">
+          <button class="btn-card btn-primary" onclick="launchDashboard('championship')">Open Hub</button>
+          <label class="btn-card btn-upload">
+            Upload CSV
+            <input type="file" accept=".csv" onchange="uploadLeagueCSV('championship', this)">
+          </label>
+        </div>
+      </div>
+
+      <!-- LEAGUE ONE CARD -->
+      <div class="league-card" id="cardLeagueOne">
+        <div>
+          <div class="league-card-header">
+            <h3>LEAGUE ONE</h3>
+            <span class="status-pill unloaded" id="badgeLeagueOne">○ Not Loaded</span>
+          </div>
+          <div class="league-card-details" id="detailsLeagueOne">
+            No match data available in storage.
+          </div>
+        </div>
+        <div class="league-card-actions">
+          <button class="btn-card btn-primary" onclick="launchDashboard('leagueOne')">Open Hub</button>
+          <label class="btn-card btn-upload">
+            Upload CSV
+            <input type="file" accept=".csv" onchange="uploadLeagueCSV('leagueOne', this)">
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size:12px; color:var(--muted);">
+      Each league maintains its own persistent stored dataset. You do not need to re-upload files when switching.
+    </div>
+  </div>
+</div>
+
+<!-- MAIN DASHBOARD CONTAINER -->
+<div id="dashboardApp" style="display:none;">
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">
+      <span class="league-tag" id="currentLeagueBadge">LEAGUE ONE</span>
+      <span>SEASON 2026/27 &middot; PORTFOLIO ANALYTICS</span>
+    </div>
+    <h1>xG PERFORMANCE & <br><span>MATCH ADVANTAGE DASHBOARD</span></h1>
+    <p class="hero-sub">Opponent-adjusted match modelling, expected goals metrics, and team-level trend analysis.</p>
+    <div class="hero-stats" id="heroStats"></div>
+  </div>
+</header>
+
+<!-- DATA STATUS BAR & LEAGUE SWITCHING -->
+<div class="data-bar">
+  <div class="data-bar-inner">
+    <div class="league-selector-pills">
+      <span style="font-size:12px; color:var(--muted); font-weight:600; font-family:'IBM Plex Mono'; margin-right:6px;">ACTIVE LEAGUE:</span>
+      <button class="pill-btn" id="pillChampionship" onclick="switchActiveLeague('championship')">Championship</button>
+      <button class="pill-btn" id="pillLeagueOne" onclick="switchActiveLeague('leagueOne')">League One</button>
+    </div>
+    <div class="bar-controls">
+      <button class="btn-switch" onclick="returnToHome()">Change / Manage Data</button>
+      <label class="upload-btn btn-switch" style="border-color:var(--gold); color:var(--gold);">
+        Update Active CSV
+        <input type="file" accept=".csv" onchange="uploadActiveLeagueCSV(this)">
+      </label>
+    </div>
+  </div>
+</div>
+
+<nav class="tabs" id="tabs">
+  <button class="tab active" data-tab="overview">Overview</button>
+  <button class="tab" data-tab="compare">Team Comparison</button>
+  <button class="tab" data-tab="trends">Trends Over Time</button>
+  <button class="tab" data-tab="leaderboard">Leaderboard</button>
+  <button class="tab" data-tab="acca">Acca Analysis</button>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW PANEL -->
+  <section class="panel active" id="overview">
+    <div class="grid cards" id="overviewCards"></div>
+
+    <div class="grid two">
+      <div class="card chart-card">
+        <div class="card-head">
+          <h3>xG For vs xG Against <span class="unit">per game</span></h3>
+          <p class="card-note">Ranked by expected-goal difference per match.</p>
+        </div>
+        <canvas id="chartOverviewBars" height="320"></canvas>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <h3>Best Teams <span class="unit">ranked</span></h3>
+          <p class="card-note">Ranked by official Points, tie-broken by goal difference and goals scored.</p>
+        </div>
+        <ol class="rank-list" id="bestTeamsList"></ol>
+      </div>
+    </div>
+
+    <!-- ATTACKING VS DEFENDING QUADRANT MATRIX -->
+    <div class="card chart-card" style="margin-bottom:24px;">
+      <div class="card-head">
+        <h3>Attacking & Defending Matrix <span class="unit">xGF vs xGA per match</span></h3>
+        <p class="card-note">Top Right = Best (High xGF, Low xGA) &middot; Bottom Left = Weakest (Low xGF, High xGA).</p>
+      </div>
+      <div style="height:420px; position:relative;">
+        <canvas id="chartAttDefScatter"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3>Notable Patterns</h3>
+        <p class="card-note">Automatically surfaced from active league data.</p>
+      </div>
+      <div class="grid insights" id="insightsGrid"></div>
+    </div>
+  </section>
+
+  <!-- COMPARISON PANEL -->
+  <section class="panel" id="compare">
+    <div class="card selector-card">
+      <div class="selector-row">
+        <div class="selector">
+          <label>Team A</label>
+          <select id="teamA" onchange="renderComparison()"></select>
+        </div>
+        <div class="vs">VS</div>
+        <div class="selector">
+          <label>Team B</label>
+          <select id="teamB" onchange="renderComparison()"></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid two">
+      <div class="card chart-card">
+        <div class="card-head"><h3>Season Profile</h3><p class="card-note">Normalized 0&ndash;100 across key performance metrics.</p></div>
+        <canvas id="chartRadar" height="320"></canvas>
+      </div>
+      <div class="card chart-card">
+        <div class="card-head"><h3>Head-to-Head Stats</h3><p class="card-note">Season totals side by side.</p></div>
+        <canvas id="chartCompareBar" height="320"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRENDS PANEL -->
+  <section class="panel" id="trends">
+    <div class="card selector-card">
+      <div class="selector-row single">
+        <div class="selector">
+          <label>Team</label>
+          <select id="trendTeam" onchange="renderTrends()"></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card chart-card">
+      <div class="card-head"><h3>xG Difference by Match <span class="unit" id="trendTeamLabel"></span></h3><p class="card-note">Green bars: created better chance quality than opponent.</p></div>
+      <canvas id="chartTrendBar" height="280"></canvas>
+    </div>
+  </section>
+
+  <!-- LEADERBOARD PANEL -->
+  <section class="panel" id="leaderboard">
+    <div class="card">
+      <div class="table-controls">
+        <input type="text" id="tableSearch" placeholder="Search team..." onkeyup="filterLeaderboard()">
+        <div class="table-hint">Click a column heading to sort</div>
+      </div>
+      <div class="table-scroll">
+        <table id="leaderboardTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Team</th>
+              <th>P</th>
+              <th>W</th>
+              <th>D</th>
+              <th>L</th>
+              <th>GF</th>
+              <th>GA</th>
+              <th>GD</th>
+              <th>Pts</th>
+              <th>xGF</th>
+              <th>xGA</th>
+              <th>xGD</th>
+              <th>xG&plusmn;</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCA ANALYSIS PANEL -->
+  <section class="panel" id="acca">
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-head">
+        <h3>Matchday Fixture Analyzer</h3>
+        <p class="card-note">Select upcoming fixtures for the active league. Calculates an opponent-adjusted <strong>xG Match Advantage Score</strong> (uses fixed home advantage boost for first 5 games, and switches to venue-split metrics thereafter).</p>
+      </div>
+
+      <div class="acca-input-grid" id="fixtureInputs">
+        <!-- Dynamically rendered fixture selectors -->
+      </div>
+
+      <div class="acca-btn-group">
+        <button class="btn-action" onclick="runAccaAnalysis()">Run Matchday Analysis</button>
+        <button class="btn-secondary" onclick="addFixtureRow()">+ Add Fixture</button>
+        <button class="btn-secondary" onclick="loadSampleMatchday()">Load Sample Matchday</button>
+      </div>
+    </div>
+
+    <!-- SELECTION RESULTS -->
+    <div id="accaResults" style="display:none;">
+      
+      <!-- 4-TEAM SELECTION -->
+      <div class="card" style="margin-bottom:24px;">
+        <div class="card-head">
+          <h3>4-Team xG Selection <span class="unit">strongest match-specific statistical edges</span></h3>
+        </div>
+        <div class="selection-grid" id="acca4Grid"></div>
+      </div>
+
+      <!-- 5-TEAM SELECTION -->
+      <div class="card" style="margin-bottom:24px;">
+        <div class="card-head">
+          <h3>5-Team xG Selection <span class="unit">expanded statistical shortlist</span></h3>
+        </div>
+        <div class="selection-grid" id="acca5Grid"></div>
+      </div>
+
+      <div class="disclaimer-note">
+        <strong>Analytical Disclaimer:</strong> These selections represent historical expected-goals (xG) advantage metrics relative to specific opponents. They are calculated statistical indicators designed for performance analysis and do not constitute guaranteed outcomes or predictions.
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>EFL xG Analytics Portfolio &middot; Built with native HTML5, JavaScript, PapaParse & Chart.js</p>
+</footer>
+
+</div>
+
+<script>
+/* =========================================================
+   EMBEDDED DEFAULT DATASETS
+   ========================================================= */
+const DEFAULT_DATA_LEAGUE1 = [{"MatchID":1,"Date":"2026-08-15","HomeTeam":"Barnsley","AwayTeam":"Bromley","HomeXG":1.32,"AwayXG":1.42,"HomeGoals":0,"AwayGoals":1},{"MatchID":2,"Date":"2026-08-15","HomeTeam":"Blackpool","AwayTeam":"Wycombe Wanderers","HomeXG":2.37,"AwayXG":1.29,"HomeGoals":1,"AwayGoals":1},{"MatchID":3,"Date":"2026-08-15","HomeTeam":"Bradford City","AwayTeam":"Peterborough United","HomeXG":1.97,"AwayXG":1.11,"HomeGoals":2,"AwayGoals":0},{"MatchID":4,"Date":"2026-08-15","HomeTeam":"Burton Albion","AwayTeam":"Stevenage","HomeXG":0.94,"AwayXG":0.53,"HomeGoals":1,"AwayGoals":1},{"MatchID":5,"Date":"2026-08-15","HomeTeam":"Cambridge United","AwayTeam":"Wigan Athletic","HomeXG":1.74,"AwayXG":2.2,"HomeGoals":3,"AwayGoals":2},{"MatchID":6,"Date":"2026-08-15","HomeTeam":"Huddersfield Town","AwayTeam":"AFC Wimbledon","HomeXG":1.24,"AwayXG":0.38,"HomeGoals":3,"AwayGoals":0},{"MatchID":7,"Date":"2026-08-15","HomeTeam":"Leyton Orient","AwayTeam":"Sheffield Wednesday","HomeXG":1.38,"AwayXG":2.84,"HomeGoals":1,"AwayGoals":2},{"MatchID":8,"Date":"2026-08-15","HomeTeam":"Mansfield Town","AwayTeam":"Doncaster Rovers","HomeXG":1.44,"AwayXG":1.06,"HomeGoals":2,"AwayGoals":1},{"MatchID":9,"Date":"2026-08-15","HomeTeam":"Notts County","AwayTeam":"Leicester City","HomeXG":2.18,"AwayXG":0.74,"HomeGoals":1,"AwayGoals":1},{"MatchID":10,"Date":"2026-08-15","HomeTeam":"Oxford United","AwayTeam":"Milton Keynes Dons","HomeXG":1.83,"AwayXG":2.2,"HomeGoals":2,"AwayGoals":2},{"MatchID":11,"Date":"2026-08-15","HomeTeam":"Plymouth Argyle","AwayTeam":"Stockport County","HomeXG":0.92,"AwayXG":1.81,"HomeGoals":1,"AwayGoals":3},{"MatchID":12,"Date":"2026-08-15","HomeTeam":"Reading","AwayTeam":"Luton Town","HomeXG":1.61,"AwayXG":1.65,"HomeGoals":3,"AwayGoals":4}];
+
+const DEFAULT_DATA_CHAMPIONSHIP = [{"MatchID":1,"Date":"2026-08-08","HomeTeam":"Coventry City","AwayTeam":"Hull City","HomeXG":1.85,"AwayXG":0.92,"HomeGoals":2,"AwayGoals":0},{"MatchID":2,"Date":"2026-08-08","HomeTeam":"Middlesbrough","AwayTeam":"Swansea City","HomeXG":2.10,"AwayXG":1.15,"HomeGoals":1,"AwayGoals":1},{"MatchID":3,"Date":"2026-08-08","HomeTeam":"Sunderland","AwayTeam":"Cardiff City","HomeXG":1.45,"AwayXG":0.88,"HomeGoals":2,"AwayGoals":1},{"MatchID":4,"Date":"2026-08-08","HomeTeam":"Norwich City","AwayTeam":"Watford","HomeXG":1.20,"AwayXG":1.65,"HomeGoals":1,"AwayGoals":2},{"MatchID":5,"Date":"2026-08-08","HomeTeam":"West Bromwich Albion","AwayTeam":"Stoke City","HomeXG":1.95,"AwayXG":0.70,"HomeGoals":3,"AwayGoals":0}];
+
+/* =========================================================
+   MULTI-LEAGUE PERSISTENT DATA ARCHITECTURE
+   ========================================================= */
+const leagueData = {
+  championship: {
+    name: "Championship",
+    matches: [],
+    teams: [],
+    teamLevel: [],
+    lastUpdated: null,
+    accaFixtures: []
+  },
+  leagueOne: {
+    name: "League One",
+    matches: [],
+    teams: [],
+    teamLevel: [],
+    lastUpdated: null,
+    accaFixtures: []
+  }
+};
+
+let activeLeagueKey = "leagueOne";
+let overviewBarChartRef, attDefScatterChartRef, radarChart, compareBarChart, trendBarChart;
+
+const GOLD='#E8B94B', WIN='#57A373', LOSS='#C1544A', CHALK='#F2EFE4';
+
+/* Initialize application on page load */
+window.addEventListener('DOMContentLoaded', () => {
+  initStorage();
+  updateHomeScreenUI();
+});
+
+/* Browser Persistent Storage Logic */
+function initStorage() {
+  ['championship', 'leagueOne'].forEach(key => {
+    const storageKey = `efl_xg_${key}_data`;
+    const saved = localStorage.getItem(storageKey);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        processAndStoreData(key, parsed.rawMatches, parsed.lastUpdated);
+      } catch(e) { console.error('Failed to parse local storage for ' + key, e); }
+    } else {
+      // Load defaults
+      const defaultRaw = (key === 'championship') ? DEFAULT_DATA_CHAMPIONSHIP : DEFAULT_DATA_LEAGUE1;
+      processAndStoreData(key, defaultRaw, '18/09/2026 (Default)');
+    }
+  });
+}
+
+function processAndStoreData(key, rawMatches, timestampStr) {
+  const processed = buildFromRawMatches(rawMatches);
+  leagueData[key].matches = processed.matches;
+  leagueData[key].teams = processed.teams;
+  leagueData[key].teamLevel = processed.teamLevel;
+  leagueData[key].lastUpdated = timestampStr || new Date().toLocaleDateString();
+
+  // Save to browser LocalStorage
+  localStorage.setItem(`efl_xg_${key}_data`, JSON.stringify({
+    rawMatches: rawMatches,
+    lastUpdated: leagueData[key].lastUpdated
+  }));
+}
+
+/* Helper to safely parse numerical inputs or identify blank entries */
+function parseValue(val) {
+  if (val === null || val === undefined) return null;
+  const s = String(val).trim();
+  if (s === "") return null;
+  const num = Number(s);
+  return isNaN(num) ? null : num;
+}
+
+/* Parse raw match array into calculation structures */
+function buildFromRawMatches(rawRows) {
+  const allRows = rawRows.map(m => {
+    const hg = parseValue(m.HomeGoals);
+    const ag = parseValue(m.AwayGoals);
+    const hxg = parseValue(m.HomeXG);
+    const axg = parseValue(m.AwayXG);
+    
+    // A game is completed only if goals exist for both teams
+    const isPlayed = (hg !== null && ag !== null);
+    
+    return {
+      MatchID: m.MatchID,
+      Date: m.Date,
+      HomeTeam: (m.HomeTeam||'').trim(),
+      AwayTeam: (m.AwayTeam||'').trim(),
+      HomeXG: hxg ?? 0,
+      AwayXG: axg ?? 0,
+      HomeGoals: hg ?? 0,
+      AwayGoals: ag ?? 0,
+      IsPlayed: isPlayed,
+      Result: !isPlayed ? 'Upcoming' : (hg > ag ? 'Home Win' : hg < ag ? 'Away Win' : 'Draw')
+    };
+  }).filter(m => m.HomeTeam && m.AwayTeam);
+
+  // Harvest all unique team names from played AND unplayed games
+  const allTeamNames = new Set();
+  allRows.forEach(m => {
+    allTeamNames.add(m.HomeTeam);
+    allTeamNames.add(m.AwayTeam);
+  });
+
+  // Filter completed matches for standings/analytics
+  const played = allRows.filter(m => m.IsPlayed);
+
+  const tl = [];
+  played.forEach(m => {
+    tl.push({MatchID:m.MatchID, Date:m.Date, Team:m.HomeTeam, Opponent:m.AwayTeam, TeamXG:m.HomeXG, OppXG:m.AwayXG, TeamGoals:m.HomeGoals, OppGoals:m.AwayGoals, Venue:'Home'});
+    tl.push({MatchID:m.MatchID, Date:m.Date, Team:m.AwayTeam, Opponent:m.HomeTeam, TeamXG:m.AwayXG, OppXG:m.HomeXG, TeamGoals:m.AwayGoals, OppGoals:m.HomeGoals, Venue:'Away'});
+  });
+
+  const byTeam = {};
+  
+  // Seed every unique team so teams with 0 played matches still register in selectors
+  allTeamNames.forEach(teamName => {
+    byTeam[teamName] = {
+      Team: teamName, Played: 0, Wins: 0, Draws: 0, Losses: 0, GoalsFor: 0, GoalsAgainst: 0, xGFor: 0, xGAgainst: 0,
+      HomePlayed: 0, HomeXGF: 0, HomeXGA: 0, AwayPlayed: 0, AwayXGF: 0, AwayXGA: 0
+    };
+  });
+
+  tl.forEach(r => {
+    const t = byTeam[r.Team];
+    t.Played++; t.GoalsFor += r.TeamGoals; t.GoalsAgainst += r.OppGoals; t.xGFor += r.TeamXG; t.xGAgainst += r.OppXG;
+    if(r.Venue==='Home'){ t.HomePlayed++; t.HomeXGF+=r.TeamXG; t.HomeXGA+=r.OppXG; }
+    else{ t.AwayPlayed++; t.AwayXGF+=r.TeamXG; t.AwayXGA+=r.OppXG; }
+    if(r.TeamGoals > r.OppGoals) t.Wins++; else if(r.TeamGoals === r.OppGoals) t.Draws++; else t.Losses++;
+  });
+
+  const teamsArr = Object.values(byTeam).map(t => {
+    t.Points = t.Wins*3 + t.Draws;
+    t.GoalDiff = t.GoalsFor - t.GoalsAgainst;
+    t.xGFor = +t.xGFor.toFixed(2); t.xGAgainst = +t.xGAgainst.toFixed(2);
+    t.xGDiff = +(t.xGFor - t.xGAgainst).toFixed(2);
+    t.xGOver = +(t.GoalsFor - t.xGFor).toFixed(2);
+    t.xGForPerGame = t.Played > 0 ? +(t.xGFor / t.Played).toFixed(2) : 0;
+    t.xGAgainstPerGame = t.Played > 0 ? +(t.xGAgainst / t.Played).toFixed(2) : 0;
+    t.xGDiffPerGame = t.Played > 0 ? +(t.xGDiff / t.Played).toFixed(2) : 0;
+    return t;
+  });
+
+  teamsArr.sort((a,b) => (b.Points - a.Points) || (b.GoalDiff - a.GoalDiff) || (b.GoalsFor - a.GoalsFor));
+  teamsArr.forEach((t, i) => t.rank = i + 1);
+
+  return { matches: played, teamLevel: tl, teams: teamsArr };
+}
+
+/* Update Home Screen status cards */
+function updateHomeScreenUI() {
+  ['championship', 'leagueOne'].forEach(key => {
+    const data = leagueData[key];
+    const isLoaded = data.matches.length > 0;
+    const badge = document.getElementById(key === 'championship' ? 'badgeChampionship' : 'badgeLeagueOne');
+    const details = document.getElementById(key === 'championship' ? 'detailsChampionship' : 'detailsLeagueOne');
+    const card = document.getElementById(key === 'championship' ? 'cardChampionship' : 'cardLeagueOne');
+
+    if (isLoaded) {
+      badge.textContent = '● Loaded';
+      badge.className = 'status-pill loaded';
+      card.classList.add('loaded');
+      details.innerHTML = `${data.matches.length} matches &middot; ${data.teams.length} teams<br>Last updated: ${data.lastUpdated}`;
+    } else {
+      badge.textContent = '○ Not loaded';
+      badge.className = 'status-pill unloaded';
+      card.classList.remove('loaded');
+      details.textContent = 'No match data loaded yet.';
+    }
+  });
+}
+
+/* CSV Upload handlers for Home and Dashboard */
+function uploadLeagueCSV(key, inputEl) {
+  const file = inputEl.files[0];
+  if (!file) return;
+  Papa.parse(file, {
+    header: true, skipEmptyLines: true,
+    complete: function(results) {
+      try {
+        const raw = mapRawHeaders(results.data);
+        processAndStoreData(key, raw, new Date().toLocaleDateString());
+        updateHomeScreenUI();
+        alert(`${leagueData[key].name} dataset updated successfully!`);
+      } catch(e) { alert('CSV Parse Error: ' + e.message); }
+    }
+  });
+}
+
+function uploadActiveLeagueCSV(inputEl) {
+  uploadLeagueCSV(activeLeagueKey, inputEl);
+  setTimeout(() => renderActiveDashboard(), 200);
+}
+
+function mapRawHeaders(rows) {
+  if (!rows.length) return [];
+  const headers = Object.keys(rows[0]);
+  const find = (test) => headers.find(h => test(h.toLowerCase().trim()));
+  const col = {
+    MatchID: find(h=>h.includes('match')&&h.includes('id')) || find(h=>h==='id') || 'MatchID',
+    Date: find(h=>h.includes('date')) || 'Date',
+    HomeTeam: find(h=>h.includes('home')&&h.includes('team')),
+    AwayTeam: find(h=>h.includes('away')&&h.includes('team')),
+    HomeXG: find(h=>h.includes('home')&&h.includes('xg')),
+    AwayXG: find(h=>h.includes('away')&&h.includes('xg')),
+    HomeGoals: find(h=>h.includes('home')&&h.includes('goal')),
+    AwayGoals: find(h=>h.includes('away')&&h.includes('goal')),
+  };
+  return rows.map((r, i) => ({
+    MatchID: r[col.MatchID] || i+1, Date: r[col.Date] || '2026-09-01',
+    HomeTeam: (r[col.HomeTeam]||'').trim(), AwayTeam: (r[col.AwayTeam]||'').trim(),
+    HomeXG: r[col.HomeXG], AwayXG: r[col.AwayXG], HomeGoals: r[col.HomeGoals], AwayGoals: r[col.AwayGoals]
+  }));
+}
+
+/* Navigation & Switching active league */
+function launchDashboard(key) {
+  if (leagueData[key].matches.length === 0) {
+    alert(`No data loaded for ${leagueData[key].name} yet. Please upload a CSV first.`);
+    return;
+  }
+  activeLeagueKey = key;
+  document.getElementById('homeScreen').style.display = 'none';
+  document.getElementById('dashboardApp').style.display = 'block';
+  renderActiveDashboard();
+}
+
+function switchActiveLeague(key) {
+  if (leagueData[key].matches.length === 0) {
+    alert(`No dataset available for ${leagueData[key].name}. Upload CSV first.`);
+    return;
+  }
+  activeLeagueKey = key;
+  renderActiveDashboard();
+}
+
+function returnToHome() {
+  updateHomeScreenUI();
+  document.getElementById('dashboardApp').style.display = 'none';
+  document.getElementById('homeScreen').style.display = 'flex';
+}
+
+/* =========================================================
+   DASHBOARD RENDERING
+   ========================================================= */
+function renderActiveDashboard() {
+  const data = leagueData[activeLeagueKey];
+  document.getElementById('currentLeagueBadge').textContent = data.name.toUpperCase();
+
+  // Highlight pill
+  document.getElementById('pillChampionship').className = activeLeagueKey === 'championship' ? 'pill-btn active' : 'pill-btn';
+  document.getElementById('pillLeagueOne').className = activeLeagueKey === 'leagueOne' ? 'pill-btn active' : 'pill-btn';
+
+  // Render overview & analytics
+  renderHeroStats(data);
+  renderOverviewCards(data);
+  renderBestTeamsList(data);
+  renderOverviewBarChart(data);
+  renderAttDefScatterChart(data);
+  renderInsights(data);
+  populateSelectors(data);
+  renderComparison();
+  renderTrends();
+  renderLeaderboard(data);
+  
+  // Render Acca analysis dynamically for the active league
+  renderAccaFixtureInputs();
+}
+
+function renderHeroStats(data) {
+  const leader = data.teams[0];
+  const gamesPlayed = data.matches.length;
+  const totalGoals = data.matches.reduce((s,m)=>s+m.HomeGoals+m.AwayGoals,0);
+  const avgGoals = gamesPlayed ? (totalGoals/gamesPlayed).toFixed(2) : '0.00';
+  document.getElementById('heroStats').innerHTML = [
+    ['League Leader', leader ? leader.Team : '—'],
+    ['Matches Played', gamesPlayed],
+    ['Avg Goals / Match', avgGoals],
+    ['Teams Tracked', data.teams.length]
+  ].map(([label,num])=>`<div class="hero-stat"><div class="num">${num}</div><div class="label">${label}</div></div>`).join('');
+}
+
+function renderOverviewCards(data) {
+  if(!data.teams.length) return;
+  const bestAttack = [...data.teams].sort((a,b)=>b.xGForPerGame-a.xGForPerGame)[0];
+  const bestDefense = [...data.teams].sort((a,b)=>a.xGAgainstPerGame-b.xGAgainstPerGame)[0];
+  const overperf = [...data.teams].sort((a,b)=>b.xGOver-a.xGOver)[0];
+  const underperf = [...data.teams].sort((a,b)=>a.xGOver-b.xGOver)[0];
+  const cards = [
+    {label:'League Leader', value:data.teams[0].Team, sub:data.teams[0].Points+' pts from '+data.teams[0].Played+' games', cls:''},
+    {label:'Best Attack', value:bestAttack.Team, sub:bestAttack.xGForPerGame+' xG created / game', cls:'pos'},
+    {label:'Best Defense', value:bestDefense.Team, sub:bestDefense.xGAgainstPerGame+' xG conceded / game', cls:'pos'},
+    {label:'Biggest Overperformer', value:overperf.Team, sub:'+'+overperf.xGOver+' goals vs xG', cls:'pos'},
+    {label:'Biggest Underperformer', value:underperf.Team, sub:underperf.xGOver+' goals vs xG', cls:'neg'},
+  ];
+  document.getElementById('overviewCards').innerHTML = cards.map(c=>`
+    <div class="stat-card ${c.cls}">
+      <div class="label">${c.label}</div>
+      <div class="value">${c.value}</div>
+      <div class="sub">${c.sub}</div>
+    </div>`).join('');
+}
+
+function renderBestTeamsList(data) {
+  document.getElementById('bestTeamsList').innerHTML = data.teams.slice(0,8).map(t=>`
+    <li>
+      <span class="rnum">${t.rank}</span>
+      <span class="rteam">${t.Team}</span>
+      <span class="rpts">${t.Points} pts &middot; GD ${t.GoalDiff>0?'+':''}${t.GoalDiff}</span>
+    </li>`).join('');
+}
+
+function renderOverviewBarChart(data) {
+  const sorted = [...data.teams].sort((a,b)=> b.xGDiff-a.xGDiff);
+  if(overviewBarChartRef) overviewBarChartRef.destroy();
+  overviewBarChartRef = new Chart(document.getElementById('chartOverviewBars'), {
+    type:'bar',
+    data:{
+      labels: sorted.map(t=>t.Team),
+      datasets:[
+        {label:'xG For / game', data: sorted.map(t=>t.xGForPerGame), backgroundColor: WIN},
+        {label:'xG Against / game', data: sorted.map(t=>-t.xGAgainstPerGame), backgroundColor: LOSS}
+      ]
+    },
+    options:{
+      indexAxis:'y', responsive:true,
+      plugins:{ legend:{position:'top', labels:{boxWidth:12}} },
+      scales:{ x:{ stacked:false, ticks:{callback:v=>Math.abs(v)} }, y:{ ticks:{autoSkip:false, font:{size:10}} } }
+    }
+  });
+}
+
+function renderAttDefScatterChart(data) {
+  if(!data.teams.length) return;
+  
+  const points = data.teams.map(t => ({
+    x: t.xGForPerGame,
+    y: t.xGAgainstPerGame,
+    team: t.Team
+  }));
+
+  const avgXGF = data.teams.reduce((s,t)=>s+t.xGForPerGame, 0) / data.teams.length;
+  const avgXGA = data.teams.reduce((s,t)=>s+t.xGAgainstPerGame, 0) / data.teams.length;
+
+  if(attDefScatterChartRef) attDefScatterChartRef.destroy();
+
+  const quadrantPlugin = {
+    id: 'quadrantBg',
+    afterDatasetsDraw(chart) {
+      const {ctx, chartArea: {left, top, right, bottom}, scales: {x, y}} = chart;
+      const midX = x.getPixelForValue(avgXGF);
+      const midY = y.getPixelForValue(avgXGA);
+
+      ctx.save();
+      ctx.strokeStyle = 'rgba(232, 185, 75, 0.4)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+      
+      ctx.beginPath();
+      ctx.moveTo(midX, top);
+      ctx.lineTo(midX, bottom);
+      ctx.moveTo(left, midY);
+      ctx.lineTo(right, midY);
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+      ctx.font = '10px Inter, sans-serif';
+      ctx.fillStyle = CHALK;
+      
+      chart.getDatasetMeta(0).data.forEach((datum, i) => {
+        const teamName = data.teams[i].Team;
+        ctx.fillText(teamName, datum.x + 6, datum.y + 3);
+      });
+
+      ctx.restore();
+    }
+  };
+
+  attDefScatterChartRef = new Chart(document.getElementById('chartAttDefScatter'), {
+    type: 'scatter',
+    plugins: [quadrantPlugin],
+    data: {
+      datasets: [{
+        label: 'Teams',
+        data: points,
+        backgroundColor: GOLD,
+        borderColor: '#0B1613',
+        borderWidth: 1,
+        pointRadius: 4,
+        pointHoverRadius: 7
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => `${ctx.raw.team}: ${ctx.raw.x} xGF, ${ctx.raw.y} xGA`
+          }
+        }
+      },
+      scales: {
+        x: {
+          title: { display: true, text: 'Attacking Quality (xGF / Match) →', color: CHALK, font: { family: 'Oswald', size: 11 } },
+          grid: { color: 'rgba(242, 239, 228, 0.05)' },
+          ticks: { color: '#95AA9F', font: { size: 10 } }
+        },
+        y: {
+          reverse: true,
+          title: { display: true, text: '← Defensive Strength (xGA / Match - Lower is Best)', color: CHALK, font: { family: 'Oswald', size: 11 } },
+          grid: { color: 'rgba(242, 239, 228, 0.05)' },
+          ticks: { color: '#95AA9F', font: { size: 10 } }
+        }
+      }
+    }
+  });
+}
+
+function renderInsights(data) {
+  if(!data.teams.length) return;
+  const overperf = [...data.teams].sort((a,b)=>b.xGOver-a.xGOver)[0];
+  const underperf = [...data.teams].sort((a,b)=>a.xGOver-b.xGOver)[0];
+  const cards = [
+    {tag:'Clinical Finishing', html:`<strong>${overperf.Team}</strong> have scored <strong>${overperf.xGOver>0?'+':''}${overperf.xGOver}</strong> goals relative to expected chance quality.`},
+    {tag:'Underperforming Opportunities', html:`<strong>${underperf.Team}</strong> sit at <strong>${underperf.xGOver}</strong> goals below expected totals.`},
+  ];
+  document.getElementById('insightsGrid').innerHTML = cards.map(c=>`
+    <div class="insight"><div class="itag">${c.tag}</div><p>${c.html}</p></div>`).join('');
+}
+
+function populateSelectors(data) {
+  const teamNames = data.teams.map(t=>t.Team);
+  ['teamA','teamB','trendTeam'].forEach((id, idx)=>{
+    const sel = document.getElementById(id);
+    sel.innerHTML = teamNames.map(n=>`<option value="${n}">${n}</option>`).join('');
+    if(teamNames.length) sel.value = teamNames[Math.min(idx, teamNames.length-1)];
+  });
+}
+
+function renderComparison() {
+  const data = leagueData[activeLeagueKey];
+  const nameA = document.getElementById('teamA').value;
+  const nameB = document.getElementById('teamB').value;
+  const a = data.teams.find(t=>t.Team===nameA), b = data.teams.find(t=>t.Team===nameB);
+  if(!a || !b) return;
+
+  const labels = ['Attack (xGF/gm)','Defense (xGA/gm)','Points','Goal Diff'];
+  if(radarChart) radarChart.destroy();
+  radarChart = new Chart(document.getElementById('chartRadar'), {
+    type:'radar',
+    data:{ labels, datasets:[
+      {label:nameA, data:[a.xGForPerGame*20, (3-a.xGAgainstPerGame)*20, a.Points*2, a.GoalDiff+50], borderColor:GOLD, backgroundColor:'rgba(232,185,75,0.2)'},
+      {label:nameB, data:[b.xGForPerGame*20, (3-b.xGAgainstPerGame)*20, b.Points*2, b.GoalDiff+50], borderColor:WIN, backgroundColor:'rgba(87,163,115,0.2)'}
+    ]},
+    options:{ 
+      plugins: {
+        legend: { labels: { color: CHALK } }
+      },
+      scales:{ 
+        r:{ 
+          min:0, 
+          max:100, 
+          grid: { color: 'rgba(242, 239, 228, 0.2)', lineWidth: 1 },
+          angleLines: { color: 'rgba(242, 239, 228, 0.2)' },
+          pointLabels: { color: CHALK, font: { size: 11, family: 'Inter' } },
+          ticks: { display: false }
+        } 
+      } 
+    }
+  });
+
+  if(compareBarChart) compareBarChart.destroy();
+  compareBarChart = new Chart(document.getElementById('chartCompareBar'), {
+    type:'bar',
+    data:{ labels:['Points','Goal Diff','xG Diff','Goals For','Goals Against'], datasets:[
+      {label:nameA, data:[a.Points, a.GoalDiff, a.xGDiff, a.GoalsFor, a.GoalsAgainst], backgroundColor:GOLD},
+      {label:nameB, data:[b.Points, b.GoalDiff, b.xGDiff, b.GoalsFor, b.GoalsAgainst], backgroundColor:WIN}
+    ]}
+  });
+}
+
+function renderTrends() {
+  const data = leagueData[activeLeagueKey];
+  const teamName = document.getElementById('trendTeam').value;
+  const teamMatches = data.teamLevel.filter(r=>r.Team===teamName);
+  
+  if(trendBarChart) trendBarChart.destroy();
+  trendBarChart = new Chart(document.getElementById('chartTrendBar'), {
+    type:'bar',
+    data:{
+      labels: teamMatches.map((m,i)=>'M'+(i+1)),
+      datasets:[{
+        label:'xG Advantage',
+        data: teamMatches.map(m=> +(m.TeamXG - m.OppXG).toFixed(2)),
+        backgroundColor: teamMatches.map(m=> (m.TeamXG >= m.OppXG) ? WIN : LOSS)
+      }]
+    }
+  });
+}
+
+function renderLeaderboard(data) {
+  const tbody = document.getElementById('leaderboardBody');
+  tbody.innerHTML = data.teams.map(t => {
+    const xgDiffClass = t.xGDiff > 0 ? 'val-green' : (t.xGDiff < 0 ? 'val-red' : '');
+    const xgOverClass = t.xGOver > 0 ? 'val-green' : (t.xGOver < 0 ? 'val-red' : '');
+
+    return `
+      <tr>
+        <td>${t.rank}</td>
+        <td>${t.Team}</td>
+        <td>${t.Played}</td>
+        <td>${t.Wins}</td>
+        <td>${t.Draws}</td>
+        <td>${t.Losses}</td>
+        <td>${t.GoalsFor}</td>
+        <td>${t.GoalsAgainst}</td>
+        <td>${t.GoalDiff}</td>
+        <td><strong>${t.Points}</strong></td>
+        <td>${t.xGFor}</td>
+        <td>${t.xGAgainst}</td>
+        <td class="${xgDiffClass}">${t.xGDiff > 0 ? '+' : ''}${t.xGDiff}</td>
+        <td class="${xgOverClass}">${t.xGOver > 0 ? '+' : ''}${t.xGOver}</td>
+      </tr>`;
+  }).join('');
+}
+
+function filterLeaderboard() {
+  const term = document.getElementById('tableSearch').value.toLowerCase();
+  const rows = document.querySelectorAll('#leaderboardBody tr');
+  rows.forEach(r => {
+    r.style.display = r.children[1].textContent.toLowerCase().includes(term) ? '' : 'none';
+  });
+}
+
+/* =========================================================
+   ACCA ANALYSIS MODULE (DYNAMIC VENUE SPLITS & HOME BOOST)
+   ========================================================= */
+function renderAccaFixtureInputs() {
+  const data = leagueData[activeLeagueKey];
+  const container = document.getElementById('fixtureInputs');
+  
+  if (!data.accaFixtures || data.accaFixtures.length === 0) {
+    const teams = data.teams.map(t=>t.Team);
+    data.accaFixtures = [
+      { home: teams[0]||'', away: teams[1]||'' },
+      { home: teams[2]||'', away: teams[3]||'' },
+      { home: teams[4]||'', away: teams[5]||'' },
+      { home: teams[6]||'', away: teams[7]||'' }
+    ];
+  }
+
+  container.innerHTML = '';
+  data.accaFixtures.forEach((f, idx) => {
+    const row = document.createElement('div');
+    row.className = 'fixture-input-row';
+    const teamOpts = data.teams.map(t=>`<option value="${t.Team}">${t.Team}</option>`).join('');
+    row.innerHTML = `
+      <span class="fixture-num">#${idx+1}</span>
+      <select onchange="updateAccaFixture(${idx}, 'home', this.value)">${teamOpts}</select>
+      <span style="font-size:11px; color:var(--gold); font-weight:700;">VS</span>
+      <select onchange="updateAccaFixture(${idx}, 'away', this.value)">${teamOpts}</select>
+      <button class="fixture-remove-btn" onclick="removeFixtureRow(${idx})">&times;</button>
+    `;
+    container.appendChild(row);
+
+    const selects = row.querySelectorAll('select');
+    if (f.home) selects[0].value = f.home;
+    if (f.away) selects[1].value = f.away;
+  });
+}
+
+function updateAccaFixture(index, type, val) {
+  leagueData[activeLeagueKey].accaFixtures[index][type] = val;
+}
+
+function addFixtureRow() {
+  const data = leagueData[activeLeagueKey];
+  const teams = data.teams.map(t=>t.Team);
+  data.accaFixtures.push({ home: teams[0]||'', away: teams[1]||'' });
+  renderAccaFixtureInputs();
+}
+
+function removeFixtureRow(index) {
+  leagueData[activeLeagueKey].accaFixtures.splice(index, 1);
+  renderAccaFixtureInputs();
+}
+
+function loadSampleMatchday() {
+  const data = leagueData[activeLeagueKey];
+  const teams = data.teams.map(t=>t.Team);
+  if(teams.length < 8) return;
+  data.accaFixtures = [
+    { home: teams[0], away: teams[3] },
+    { home: teams[1], away: teams[2] },
+    { home: teams[4], away: teams[7] },
+    { home: teams[5], away: teams[6] }
+  ];
+  renderAccaFixtureInputs();
+  runAccaAnalysis();
+}
+
+function runAccaAnalysis() {
+  const data = leagueData[activeLeagueKey];
+  const fixtures = data.accaFixtures;
+  const HOME_BOOST_CONSTANT = 0.25; // Standard EFL xG home advantage constant
+  
+  const evaluated = fixtures.map(f => {
+    const homeTeam = data.teams.find(t=>t.Team===f.home);
+    const awayTeam = data.teams.find(t=>t.Team===f.away);
+    if (!homeTeam || !awayTeam) return null;
+
+    let homeXGF, homeXGA, awayXGF, awayXGA;
+    let calculationMode = "Venue-Split";
+
+    // Dynamic threshold: If team has < 5 Home/Away games, use overall averages + fixed home boost
+    const isHomeEarly = homeTeam.HomePlayed < 5;
+    const isAwayEarly = awayTeam.AwayPlayed < 5;
+
+    if (isHomeEarly) {
+      homeXGF = homeTeam.xGForPerGame + HOME_BOOST_CONSTANT;
+      homeXGA = homeTeam.xGAgainstPerGame;
+    } else {
+      homeXGF = homeTeam.HomeXGF / homeTeam.HomePlayed;
+      homeXGA = homeTeam.HomeXGA / homeTeam.HomePlayed;
+    }
+
+    if (isAwayEarly) {
+      awayXGF = awayTeam.xGForPerGame;
+      awayXGA = awayTeam.xGAgainstPerGame;
+    } else {
+      awayXGF = awayTeam.AwayXGF / awayTeam.AwayPlayed;
+      awayXGA = awayTeam.AwayXGA / awayTeam.AwayPlayed;
+    }
+
+    if (isHomeEarly || isAwayEarly) {
+      calculationMode = "Early Boost";
+    }
+
+    const homeXGDiff = homeXGF - homeXGA;
+    const awayXGDiff = awayXGF - awayXGA;
+
+    // xG Match Advantage Score Calculation
+    const attackEdge = (homeXGF - awayXGA);
+    const score = +((homeXGDiff - awayXGDiff) + attackEdge).toFixed(2);
+
+    return {
+      home: homeTeam.Team,
+      away: awayTeam.Team,
+      advantageTeam: score >= 0 ? homeTeam.Team : awayTeam.Team,
+      score: Math.abs(score),
+      rawScore: score,
+      calcMode: calculationMode,
+      support: (homeTeam.Played >= 5 && awayTeam.Played >= 5) ? 'High' : 'Moderate'
+    };
+  }).filter(Boolean);
+
+  evaluated.sort((a,b) => b.score - a.score);
+
+  renderAccaCards('acca4Grid', evaluated.slice(0, 4));
+  renderAccaCards('acca5Grid', evaluated.slice(0, 5));
+
+  document.getElementById('accaResults').style.display = 'block';
+}
+
+function renderAccaCards(gridId, cardsData) {
+  const container = document.getElementById(gridId);
+  container.innerHTML = cardsData.map((c, i) => `
+    <div class="acca-card ${i===0?'top-rank':''}">
+      <div>
+        <div class="acca-card-header">
+          <div>
+            <div class="acca-team-title">${c.advantageTeam}</div>
+            <div class="acca-opp-subtitle">vs ${c.advantageTeam === c.home ? c.away + ' (Home)' : c.home + ' (Away)'}</div>
+          </div>
+          <span class="acca-badge ${c.support==='High'?'badge-high':'badge-mod'}">${c.calcMode} (${c.support})</span>
+        </div>
+
+        <div class="acca-metrics-box">
+          <div>
+            <div class="acca-score-lbl">xG Advantage Score</div>
+            <div class="acca-score-val">+${c.score.toFixed(2)}</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="acca-score-lbl">Selection</div>
+            <div style="font-size:12px; font-weight:700; color:var(--chalk);">Match Winner</div>
+          </div>
+        </div>
+
+        <ul class="acca-reasons">
+          <li>Model applied: <strong>${c.calcMode === 'Early Boost' ? 'Overall averages + Home Advantage constant (+0.25 xG)' : 'Ground-specific Venue Split averages'}</strong>.</li>
+          <li>Opponent-adjusted performance index reflects dominant underlying chance quality.</li>
+        </ul>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* Tab Switching Event Listeners */
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
