@@ -1419,20 +1419,36 @@ function loadSampleMatchday() {
   runAccaAnalysis();
 }
 
+/* ---------- Poisson win-probability helpers ---------- */
+function pois(k, l){
+  let p = Math.exp(-l);
+  for (let i = 1; i <= k; i++) p *= l / i;
+  return p;
+}
+
+function winProbs(lh, la){
+  let h = 0, d = 0, a = 0;
+  for (let i = 0; i <= 8; i++) {
+    for (let j = 0; j <= 8; j++) {
+      const p = pois(i, lh) * pois(j, la);
+      if (i > j) h += p; else if (i === j) d += p; else a += p;
+    }
+  }
+  const tot = h + d + a; // normalise the tiny mass cut off above 8 goals
+  return { h: h / tot, d: d / tot, a: a / tot };
+}
+
 function runAccaAnalysis() {
   const data = leagueData[activeLeagueKey];
-  const fixtures = data.accaFixtures;
-  const HOME_BOOST_CONSTANT = 0.25; // Standard EFL xG home advantage constant
-  
-  const evaluated = fixtures.map(f => {
-    const homeTeam = data.teams.find(t=>t.Team===f.home);
-    const awayTeam = data.teams.find(t=>t.Team===f.away);
+  const HOME_BOOST_CONSTANT = 0.25;
+
+  const evaluated = data.accaFixtures.map(f => {
+    if (f.home === f.away) return null;
+    const homeTeam = data.teams.find(t => t.Team === f.home);
+    const awayTeam = data.teams.find(t => t.Team === f.away);
     if (!homeTeam || !awayTeam) return null;
 
     let homeXGF, homeXGA, awayXGF, awayXGA;
-    let calculationMode = "Venue-Split";
-
-    // Dynamic threshold: If team has < 5 Home/Away games, use overall averages + fixed home boost
     const isHomeEarly = homeTeam.HomePlayed < 5;
     const isAwayEarly = awayTeam.AwayPlayed < 5;
 
@@ -1452,68 +1468,73 @@ function runAccaAnalysis() {
       awayXGA = awayTeam.AwayXGA / awayTeam.AwayPlayed;
     }
 
-    if (isHomeEarly || isAwayEarly) {
-      calculationMode = "Early Boost";
-    }
+    const calcMode = (isHomeEarly || isAwayEarly) ? 'Early Boost' : 'Venue-Split';
 
-    const homeXGDiff = homeXGF - homeXGA;
-    const awayXGDiff = awayXGF - awayXGA;
-
-    // xG Match Advantage Score Calculation
-    const attackEdge = (homeXGF - awayXGA);
-    const score = +((homeXGDiff - awayXGDiff) + attackEdge).toFixed(2);
+    // Opponent-adjusted expected goals for each side
+    const lh = (homeXGF + awayXGA) / 2;
+    const la = (awayXGF + homeXGA) / 2;
+    const p = winProbs(lh, la);
+    const homeFav = p.h >= p.a;
 
     return {
       home: homeTeam.Team,
       away: awayTeam.Team,
-      advantageTeam: score >= 0 ? homeTeam.Team : awayTeam.Team,
-      score: Math.abs(score),
-      rawScore: score,
-      calcMode: calculationMode,
+      advantageTeam: homeFav ? homeTeam.Team : awayTeam.Team,
+      winProb: homeFav ? p.h : p.a,
+      oppProb: homeFav ? p.a : p.h,
+      drawProb: p.d,
+      margin: Math.abs(lh - la),
+      lh, la,
+      calcMode,
       support: (homeTeam.Played >= 5 && awayTeam.Played >= 5) ? 'High' : 'Moderate'
     };
   }).filter(Boolean);
 
-  evaluated.sort((a,b) => b.score - a.score);
+  evaluated.sort((a, b) => b.winProb - a.winProb);
 
   renderAccaCards('acca4Grid', evaluated.slice(0, 4));
   renderAccaCards('acca5Grid', evaluated.slice(0, 5));
-
   document.getElementById('accaResults').style.display = 'block';
 }
 
 function renderAccaCards(gridId, cardsData) {
   const container = document.getElementById(gridId);
-  container.innerHTML = cardsData.map((c, i) => `
-    <div class="acca-card ${i===0?'top-rank':''}">
+  container.innerHTML = cardsData.map((c, i) => {
+    const isHome = c.advantageTeam === c.home;
+    const opp = isHome ? c.away : c.home;
+    const pct = v => (v * 100).toFixed(0) + '%';
+    return `
+    <div class="acca-card ${i === 0 ? 'top-rank' : ''}">
       <div>
         <div class="acca-card-header">
           <div>
             <div class="acca-team-title">${c.advantageTeam}</div>
-            <div class="acca-opp-subtitle">vs ${c.advantageTeam === c.home ? c.away + ' (Home)' : c.home + ' (Away)'}</div>
+            <div class="acca-opp-subtitle">vs ${opp} (${isHome ? 'Home' : 'Away'})</div>
           </div>
-          <span class="acca-badge ${c.support==='High'?'badge-high':'badge-mod'}">${c.calcMode} (${c.support})</span>
+          <span class="acca-badge ${c.support === 'High' ? 'badge-high' : 'badge-mod'}">${c.calcMode} (${c.support})</span>
         </div>
 
         <div class="acca-metrics-box">
           <div>
-            <div class="acca-score-lbl">xG Advantage Score</div>
-            <div class="acca-score-val">+${c.score.toFixed(2)}</div>
+            <div class="acca-score-lbl">Model Win Chance</div>
+            <div class="acca-score-val">${pct(c.winProb)}</div>
           </div>
           <div style="text-align:right;">
-            <div class="acca-score-lbl">Selection</div>
-            <div style="font-size:12px; font-weight:700; color:var(--chalk);">Match Winner</div>
+            <div class="acca-score-lbl">xG Margin</div>
+            <div style="font-size:14px; font-weight:700; color:var(--chalk);">+${c.margin.toFixed(2)}</div>
           </div>
         </div>
 
         <ul class="acca-reasons">
-          <li>Model applied: <strong>${c.calcMode === 'Early Boost' ? 'Overall averages + Home Advantage constant (+0.25 xG)' : 'Ground-specific Venue Split averages'}</strong>.</li>
-          <li>Opponent-adjusted performance index reflects dominant underlying chance quality.</li>
+          <li>Expected goals: <strong>${c.home} ${c.lh.toFixed(2)} &ndash; ${c.la.toFixed(2)} ${c.away}</strong>.</li>
+          <li>Draw ${pct(c.drawProb)} &middot; ${opp} win ${pct(c.oppProb)}.</li>
+          <li>Model: <strong>${c.calcMode === 'Early Boost' ? 'Overall averages + home advantage (+0.25 xG)' : 'Venue-split averages'}</strong>.</li>
         </ul>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
+
 
 /* Tab Switching Event Listeners */
 document.querySelectorAll('.tab').forEach(btn => {
