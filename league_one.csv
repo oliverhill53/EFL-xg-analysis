@@ -1,4 +1,4 @@
-﻿Match ID,Date,Home Team,Away Team,Home xG,Away xG,Home Goals,Away Goals,xG Difference (Home - Away ,Goal difference ,Total xG,Total Goals,xG Overperformance (Home) ,xG Overperformance (Away),Result,Match ID count
+Match ID,Date,Home Team,Away Team,Home xG,Away xG,Home Goals,Away Goals,xG Difference (Home - Away ,Goal difference ,Total xG,Total Goals,xG Overperformance (Home) ,xG Overperformance (Away),Result,Match ID count
 L1_0001,15/08/2026,Barnsley,Bromley,1.32,1.42,0,1,-0.1,-1,2.74,1,-1.32,-0.42,Away Win,1
 L1_0002,15/08/2026,Blackpool,Wycombe Wanderers,2.37,1.29,1,1,1.08,0,3.66,2,-1.37,-0.29,Draw,1
 L1_0003,15/08/2026,Bradford City,Peterborough United,1.97,1.11,2,0,0.86,2,3.08,2,0.03,-1.11,Home Win,1
@@ -120,29 +120,29 @@ L1_0118,10/10/2026,Stevenage,Wigan Athletic,2.36,0.25,1,0,2.11,1,2.61,1,-1.36,-0
 L1_0119,10/10/2026,Stockport County,Barnsley,1.91,1.58,3,1,0.33,2,3.49,4,1.09,-0.58,Home Win,1
 L1_0120,10/10/2026,Wycombe Wanderers,Luton Town,1.96,2.93,1,4,-0.97,-3,4.89,5,-0.96,1.07,Away Win,1
 L1_0121,15/10/2026,Mansfield Town,Oxford United,3.65,0.8,1,1,2.85,0,4.45,2,-2.65,0.2,Draw,1
-L1_0122,17/10/2026,Barnsley,Cambridge United,,,,,,,,,,,,1
-L1_0123,17/10/2026,Bradford City,Stevenage,,,,,,,,,,,,1
-L1_0124,17/10/2026,Leicester City,Doncaster Rovers,,,,,,,,,,,,1
-L1_0125,17/10/2026,Leyton Orient,Blackpool,,,,,,,,,,,,1
-L1_0126,17/10/2026,Milton Keynes Dons,Luton Town,,,,,,,,,,,,1
-L1_0127,17/10/2026,Peterborough United,Burton Albion,,,,,,,,,,,,1
-L1_0128,17/10/2026,Plymouth Argyle,Huddersfield Town,,,,,,,,,,,,1
-L1_0129,17/10/2026,Sheffield Wednesday,AFC Wimbledon,,,,,,,,,,,,1
-L1_0130,17/10/2026,Stockport County,Bromley,,,,,,,,,,,,1
-L1_0131,17/10/2026,Wigan Athletic,Reading,,,,,,,,,,,,1
-L1_0132,17/10/2026,Wycombe Wanderers,Notts County,,,,,,,,,,,,1
-L1_0133,20/10/2026,AFC Wimbledon,Mansfield Town,,,,,,,,,,,,1
-L1_0134,20/10/2026,Blackpool,Milton Keynes Dons,,,,,,,,,,,,1
-L1_0135,20/10/2026,Bromley,Leicester City,,,,,,,,,,,,1
-L1_0136,20/10/2026,Burton Albion,Bradford City,,,,,,,,,,,,1
-L1_0137,20/10/2026,Cambridge United,Wycombe Wanderers,,,,,,,,,,,,1
-L1_0138,20/10/2026,Doncaster Rovers,Stockport County,,,,,,,,,,,,1
-L1_0139,20/10/2026,Huddersfield Town,Peterborough United,,,,,,,,,,,,1
-L1_0140,20/10/2026,Luton Town,Barnsley,,,,,,,,,,,,1
-L1_0141,20/10/2026,Notts County,Sheffield Wednesday,,,,,,,,,,,,1
-L1_0142,20/10/2026,Oxford United,Wigan Athletic,,,,,,,,,,,,1
-L1_0143,20/10/2026,Stevenage,Plymouth Argyle,,,,,,,,,,,,1
-L1_0144,21/10/2026,Reading,Leyton Orient,,,,,,,,,,,,1
+L1_0122,17/10/2026,Barnsley,Cambridge United,2.1,1.55,1,2,0.55,-1,3.65,3,-1.1,0.45,Away Win,1
+L1_0123,17/10/2026,Bradford City,Stevenage,2.26,1.07,2,0,1.19,2,3.33,2,-0.26,-1.07,Home Win,1
+L1_0124,17/10/2026,Leicester City,Doncaster Rovers,2.6,1.08,2,1,1.52,1,3.68,3,-0.6,-0.08,Home Win,1
+L1_0125,17/10/2026,Leyton Orient,Blackpool,2.06,0.8,2,0,1.26,2,2.86,2,-0.06,-0.8,Home Win,1
+L1_0126,17/10/2026,Milton Keynes Dons,Luton Town,1.36,1.54,2,1,-0.18,1,2.9,3,0.64,-0.54,Home Win,1
+L1_0127,17/10/2026,Peterborough United,Burton Albion,3.15,1.07,2,2,2.08,0,4.22,4,-1.15,0.93,Draw,1
+L1_0128,17/10/2026,Plymouth Argyle,Huddersfield Town,0.76,2.7,0,2,-1.94,-2,3.46,2,-0.76,-0.7,Away Win,1
+L1_0129,17/10/2026,Sheffield Wednesday,AFC Wimbledon,2.7,0.38,5,0,2.32,5,3.08,5,2.3,-0.38,Home Win,1
+L1_0130,17/10/2026,Stockport County,Bromley,1.75,0.41,1,0,1.34,1,2.16,1,-0.75,-0.41,Home Win,1
+L1_0131,17/10/2026,Wigan Athletic,Reading,1.52,1.8,1,0,-0.28,1,3.32,1,-0.52,-1.8,Home Win,1
+L1_0132,17/10/2026,Wycombe Wanderers,Notts County,0.9,0.42,2,0,0.48,2,1.32,2,1.1,-0.42,Home Win,1
+L1_0133,20/10/2026,AFC Wimbledon,Mansfield Town,0.57,1.84,0,3,-1.27,-3,2.41,3,-0.57,1.16,Away Win,1
+L1_0134,20/10/2026,Blackpool,Milton Keynes Dons,0.68,0.81,2,0,-0.13,2,1.49,2,1.32,-0.81,Home Win,1
+L1_0135,20/10/2026,Bromley,Leicester City,0.21,2.96,0,4,-2.75,-4,3.17,4,-0.21,1.04,Away Win,1
+L1_0136,20/10/2026,Burton Albion,Bradford City,1.76,1.49,0,0,0.27,0,3.25,0,-1.76,-1.49,Draw,1
+L1_0137,20/10/2026,Cambridge United,Wycombe Wanderers,0.85,1.23,2,2,-0.38,0,2.08,4,1.15,0.77,Draw,1
+L1_0138,20/10/2026,Doncaster Rovers,Stockport County,0.2,3.87,0,2,-3.67,-2,4.07,2,-0.2,-1.87,Away Win,1
+L1_0139,20/10/2026,Huddersfield Town,Peterborough United,2.72,0.92,4,1,1.8,3,3.64,5,1.28,0.08,Home Win,1
+L1_0140,20/10/2026,Luton Town,Barnsley,2.71,1.14,2,1,1.57,1,3.85,3,-0.71,-0.14,Home Win,1
+L1_0141,20/10/2026,Notts County,Sheffield Wednesday,2.45,0.25,2,0,2.2,2,2.7,2,-0.45,-0.25,Home Win,1
+L1_0142,20/10/2026,Oxford United,Wigan Athletic,1.85,0.25,2,1,1.6,1,2.1,3,0.15,0.75,Home Win,1
+L1_0143,20/10/2026,Stevenage,Plymouth Argyle,1.9,1.38,3,0,0.52,3,3.28,3,1.1,-1.38,Home Win,1
+L1_0144,21/10/2026,Reading,Leyton Orient,1.42,2.93,1,0,-1.51,1,4.35,1,-0.42,-2.93,Home Win,1
 L1_0145,24/10/2026,AFC Wimbledon,Wycombe Wanderers,,,,,,,,,,,,1
 L1_0146,24/10/2026,Blackpool,Mansfield Town,,,,,,,,,,,,1
 L1_0147,24/10/2026,Bromley,Peterborough United,,,,,,,,,,,,1
