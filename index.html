@@ -10,30 +10,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root{
-  --ink:#0B1613;
-  --panel:#122420;
-  --panel2:#17322A;
-  --chalk:#F2EFE4;
-  --muted:#95AA9F;
-  --gold:#E8B94B;
-  --gold-dim:#B99138;
-  --win:#57A373;
-  --loss:#C1544A;
-  --draw:#8C9A92;
-  --line:rgba(242,239,228,0.10);
-  --line-strong:rgba(242,239,228,0.18);
-  --radius:14px;
+  --ink:#0B1613; --panel:#122420; --panel2:#17322A; --chalk:#F2EFE4; --muted:#95AA9F;
+  --gold:#E8B94B; --gold-dim:#B99138; --win:#57A373; --loss:#C1544A; --draw:#8C9A92;
+  --line:rgba(242,239,228,0.10); --line-strong:rgba(242,239,228,0.18); --radius:14px;
 }
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
-body{
-  background:var(--ink);
-  color:var(--chalk);
-  font-family:'Inter',sans-serif;
-  -webkit-font-smoothing:antialiased;
-  position:relative;
-  overflow-x:hidden;
-}
+body{background:var(--ink); color:var(--chalk); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; position:relative; overflow-x:hidden;}
 .pitchglow{
   position:fixed; inset:0; z-index:-1;
   background:
@@ -44,189 +27,57 @@ h1,h2,h3,h4{font-family:'Oswald',sans-serif; margin:0; text-transform:uppercase;
 .mono{font-family:'IBM Plex Mono',monospace;}
 
 /* HOME SCREEN */
-#homeScreen{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  padding:40px 20px;
-  text-align:center;
-  position:relative;
-  z-index:10;
-}
-.home-box{
-  background:var(--panel);
-  border:1px solid var(--line-strong);
-  border-radius:20px;
-  padding:40px 32px;
-  max-width:760px;
-  width:100%;
-  box-shadow:0 20px 40px rgba(0,0,0,0.5);
-}
-.home-title{
-  font-size:clamp(32px,5vw,48px);
-  color:var(--chalk);
-  line-height:1;
-  margin-bottom:12px;
-}
+#homeScreen{min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:40px 20px; text-align:center; position:relative; z-index:10;}
+.home-box{background:var(--panel); border:1px solid var(--line-strong); border-radius:20px; padding:40px 32px; max-width:760px; width:100%; box-shadow:0 20px 40px rgba(0,0,0,0.5);}
+.home-title{font-size:clamp(32px,5vw,48px); color:var(--chalk); line-height:1; margin-bottom:12px;}
 .home-title span{color:var(--gold);}
-.home-sub{
-  font-size:14px;
-  color:var(--muted);
-  margin-bottom:28px;
-  line-height:1.5;
-}
+.home-sub{font-size:14px; color:var(--muted); margin-bottom:28px; line-height:1.5;}
 
 /* LEAGUE STATUS CARDS ON HOME */
-.league-cards{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-  margin-bottom:24px;
-}
+.league-cards{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px;}
 @media(max-width:600px){ .league-cards{grid-template-columns:1fr;} }
-.league-card{
-  background:var(--panel2);
-  border:2px solid var(--line);
-  border-radius:14px;
-  padding:20px;
-  text-align:left;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
+.league-card{background:var(--panel2); border:2px solid var(--line); border-radius:14px; padding:20px; text-align:left; display:flex; flex-direction:column; justify-content:space-between;}
 .league-card.loaded{ border-color:rgba(87,163,115,0.5); }
 .league-card-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
 .league-card h3{ font-size:20px; color:var(--gold); }
-.status-pill{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:11px;
-  padding:3px 8px;
-  border-radius:4px;
-  font-weight:600;
-}
+.status-pill{font-family:'IBM Plex Mono',monospace; font-size:11px; padding:3px 8px; border-radius:4px; font-weight:600;}
 .status-pill.loaded{ background:rgba(87,163,115,0.2); color:var(--win); border:1px solid var(--win); }
 .status-pill.unloaded{ background:rgba(193,84,74,0.15); color:var(--loss); border:1px solid var(--loss); }
-
 .league-card-details{ font-size:12px; color:var(--muted); font-family:'IBM Plex Mono',monospace; line-height:1.6; margin-bottom:16px; }
 .league-card-actions{ display:flex; gap:10px; }
-.btn-card{
-  flex:1;
-  padding:10px;
-  border-radius:8px;
-  font-family:'Oswald',sans-serif;
-  font-size:13px;
-  text-transform:uppercase;
-  cursor:pointer;
-  border:none;
-  text-align:center;
-  transition:all .15s;
-}
+.btn-card{flex:1; padding:10px; border-radius:8px; font-family:'Oswald',sans-serif; font-size:13px; text-transform:uppercase; cursor:pointer; border:none; text-align:center; transition:all .15s;}
 .btn-primary{ background:var(--gold); color:var(--ink); font-weight:600; }
 .btn-primary:hover{ background:#f0c665; }
-.btn-upload{
-  background:var(--panel); color:var(--chalk); border:1px solid var(--line-strong); position:relative; overflow:hidden;
-}
+.btn-upload{background:var(--panel); color:var(--chalk); border:1px solid var(--line-strong); position:relative; overflow:hidden;}
 .btn-upload:hover{ border-color:var(--gold); color:var(--gold); }
 .btn-upload input{ position:absolute; inset:0; opacity:0; cursor:pointer; }
 
 /* HERO */
-.hero{
-  position:relative;
-  padding:32px 6vw 24px;
-  border-bottom:1px dashed var(--line-strong);
-  overflow:hidden;
-}
+.hero{position:relative; padding:32px 6vw 24px; border-bottom:1px dashed var(--line-strong); overflow:hidden;}
 .hero-inner{position:relative; z-index:2; max-width:900px;}
-.eyebrow{
-  font-family:'IBM Plex Mono',monospace;
-  color:var(--gold);
-  font-size:12px;
-  letter-spacing:0.18em;
-  margin-bottom:12px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.league-tag{
-  background:var(--gold);
-  color:var(--ink);
-  padding:2px 8px;
-  border-radius:4px;
-  font-weight:700;
-}
-.hero h1{
-  font-size:clamp(28px,4vw,44px);
-  line-height:1.05;
-  font-weight:700;
-  color:var(--chalk);
-}
+.eyebrow{font-family:'IBM Plex Mono',monospace; color:var(--gold); font-size:12px; letter-spacing:0.18em; margin-bottom:12px; display:flex; align-items:center; gap:12px;}
+.league-tag{background:var(--gold); color:var(--ink); padding:2px 8px; border-radius:4px; font-weight:700;}
+.hero h1{font-size:clamp(28px,4vw,44px); line-height:1.05; font-weight:700; color:var(--chalk);}
 .hero h1 span{color:var(--gold);}
-.hero-sub{
-  font-size:14px;
-  color:var(--muted);
-  max-width:600px;
-  margin-top:8px;
-  line-height:1.5;
-}
-.hero-stats{
-  display:flex;
-  gap:28px;
-  margin-top:20px;
-  flex-wrap:wrap;
-}
+.hero-sub{font-size:14px; color:var(--muted); max-width:600px; margin-top:8px; line-height:1.5;}
+.hero-stats{display:flex; gap:28px; margin-top:20px; flex-wrap:wrap;}
 .hero-stat .num{font-family:'IBM Plex Mono',monospace; font-size:24px; font-weight:600; color:var(--gold);}
 .hero-stat .label{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-top:2px;}
 
 /* TOP DATA BAR */
-.data-bar{
-  background:var(--panel2);
-  border-bottom:1px solid var(--line);
-}
-.data-bar-inner{
-  max-width:1400px; margin:0 auto;
-  padding:10px 6vw;
-  display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
-}
+.data-bar{background:var(--panel2); border-bottom:1px solid var(--line);}
+.data-bar-inner{max-width:1400px; margin:0 auto; padding:10px 6vw; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;}
 .league-selector-pills{ display:flex; gap:8px; align-items:center; }
-.pill-btn{
-  background:var(--panel); border:1px solid var(--line); color:var(--muted);
-  padding:6px 14px; border-radius:20px; font-size:12px; font-weight:600;
-  cursor:pointer; font-family:'IBM Plex Mono',monospace; transition:all .15s;
-}
+.pill-btn{background:var(--panel); border:1px solid var(--line); color:var(--muted); padding:6px 14px; border-radius:20px; font-size:12px; font-weight:600; cursor:pointer; font-family:'IBM Plex Mono',monospace; transition:all .15s;}
 .pill-btn.active{ background:var(--gold); color:var(--ink); border-color:var(--gold); }
 .pill-btn:hover:not(.active){ border-color:var(--gold); color:var(--chalk); }
-
 .bar-controls{display:flex; gap:10px; align-items:center;}
-.btn-switch{
-  background:var(--panel); color:var(--chalk); border:1px solid var(--line-strong);
-  font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:0.04em;
-  font-size:12px; font-weight:500; padding:6px 12px; border-radius:6px; cursor:pointer;
-  transition:all .15s;
-}
+.btn-switch{background:var(--panel); color:var(--chalk); border:1px solid var(--line-strong); font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:0.04em; font-size:12px; font-weight:500; padding:6px 12px; border-radius:6px; cursor:pointer; transition:all .15s;}
 .btn-switch:hover{border-color:var(--gold); color:var(--gold);}
 
 /* TABS */
-.tabs{
-  display:flex;
-  gap:2px;
-  padding:0 6vw;
-  background:var(--panel);
-  border-bottom:1px solid var(--line);
-  position:sticky; top:0; z-index:50;
-  overflow-x:auto;
-}
-.tab{
-  background:none; border:none; color:var(--muted);
-  font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:0.05em;
-  font-size:14px; font-weight:500;
-  padding:14px 18px;
-  cursor:pointer;
-  border-bottom:2px solid transparent;
-  white-space:nowrap;
-  transition:color .15s, border-color .15s;
-}
+.tabs{display:flex; gap:2px; padding:0 6vw; background:var(--panel); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:50; overflow-x:auto;}
+.tab{background:none; border:none; color:var(--muted); font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:0.05em; font-size:14px; font-weight:500; padding:14px 18px; cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap; transition:color .15s, border-color .15s;}
 .tab:hover{color:var(--chalk);}
 .tab.active{color:var(--gold); border-bottom-color:var(--gold);}
 
@@ -241,29 +92,15 @@ main{padding:28px 6vw 20px; max-width:1400px; margin:0 auto;}
 .grid.insights{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
 @media(max-width:860px){ .grid.two{grid-template-columns:1fr;} }
 
-.card{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:22px;
-}
+.card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:22px;}
 .card-head{margin-bottom:16px;}
 .card-head h3{font-size:18px; color:var(--chalk);}
 .card-head .unit{color:var(--gold); font-size:12px; text-transform:none; font-family:'Inter',sans-serif; font-weight:400; letter-spacing:0;}
 .card-note{color:var(--muted); font-size:13px; margin-top:4px; line-height:1.4;}
 
 /* STAT CARDS */
-.stat-card{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:18px;
-  position:relative;
-  overflow:hidden;
-}
-.stat-card::before{
-  content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--gold);
-}
+.stat-card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; position:relative; overflow:hidden;}
+.stat-card::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--gold);}
 .stat-card .label{font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted);}
 .stat-card .value{font-family:'IBM Plex Mono',monospace; font-size:22px; font-weight:600; margin-top:6px; color:var(--chalk); overflow-wrap:break-word;}
 .stat-card .sub{font-size:12px; color:var(--muted); margin-top:4px;}
@@ -272,22 +109,14 @@ main{padding:28px 6vw 20px; max-width:1400px; margin:0 auto;}
 
 /* RANK LIST */
 .rank-list{list-style:none; margin:0; padding:0;}
-.rank-list li{
-  display:grid; grid-template-columns:28px 1fr auto; align-items:center;
-  gap:12px; padding:10px 4px; border-bottom:1px dashed var(--line); font-size:14px;
-}
+.rank-list li{display:grid; grid-template-columns:28px 1fr auto; align-items:center; gap:12px; padding:10px 4px; border-bottom:1px dashed var(--line); font-size:14px;}
 .rank-list li:last-child{border-bottom:none;}
 .rank-list .rnum{font-family:'IBM Plex Mono',monospace; color:var(--gold); font-weight:600;}
 .rank-list .rteam{font-weight:500;}
 .rank-list .rpts{font-family:'IBM Plex Mono',monospace; color:var(--muted); font-size:13px;}
 
 /* INSIGHT CARDS */
-.insight{
-  background:var(--panel2);
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:16px;
-}
+.insight{background:var(--panel2); border:1px solid var(--line); border-radius:10px; padding:16px;}
 .insight .itag{font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--gold); font-family:'IBM Plex Mono',monospace;}
 .insight p{font-size:14px; line-height:1.5; margin:8px 0 0; color:var(--chalk);}
 .insight p strong{color:var(--gold);}
@@ -298,208 +127,63 @@ main{padding:28px 6vw 20px; max-width:1400px; margin:0 auto;}
 .selector-row.single{justify-content:flex-start;}
 .selector{display:flex; flex-direction:column; gap:6px; min-width:220px;}
 .selector label{font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted);}
-.selector select{
-  background:var(--panel2); color:var(--chalk); border:1px solid var(--line-strong);
-  border-radius:8px; padding:10px 12px; font-family:'Inter',sans-serif; font-size:14px;
-}
+.selector select{background:var(--panel2); color:var(--chalk); border:1px solid var(--line-strong); border-radius:8px; padding:10px 12px; font-family:'Inter',sans-serif; font-size:14px;}
 .vs{font-family:'Oswald',sans-serif; color:var(--gold); font-weight:600; font-size:20px;}
 
 /* TABLE & COLOR CODING */
 .table-controls{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;}
-#tableSearch{
-  background:var(--panel2); border:1px solid var(--line-strong); color:var(--chalk);
-  padding:9px 12px; border-radius:8px; font-family:'Inter',sans-serif; font-size:13px; min-width:220px;
-}
+#tableSearch{background:var(--panel2); border:1px solid var(--line-strong); color:var(--chalk); padding:9px 12px; border-radius:8px; font-family:'Inter',sans-serif; font-size:13px; min-width:220px;}
 .table-hint{font-size:12px; color:var(--muted);}
 .table-scroll{overflow-x:auto;}
 table{width:100%; border-collapse:collapse; font-size:13px; min-width:800px;}
-thead th{
-  text-align:left; padding:10px 12px; color:var(--gold);
-  text-transform:uppercase; font-size:11px; letter-spacing:0.06em;
-  border-bottom:1px solid var(--line-strong); cursor:pointer; user-select:none;
-  font-family:'IBM Plex Mono',monospace; white-space:nowrap;
-}
+thead th{text-align:left; padding:10px 12px; color:var(--gold); text-transform:uppercase; font-size:11px; letter-spacing:0.06em; border-bottom:1px solid var(--line-strong); cursor:pointer; user-select:none; font-family:'IBM Plex Mono',monospace; white-space:nowrap;}
 thead th:hover{color:var(--chalk);}
 tbody td{padding:9px 12px; border-bottom:1px solid var(--line); font-family:'IBM Plex Mono',monospace; white-space:nowrap;}
 tbody td:nth-child(2){font-family:'Inter',sans-serif; font-weight:500;}
 tbody tr:hover{background:var(--panel2);}
-
 .val-green{ color: var(--win) !important; font-weight:600; }
 .val-red{ color: var(--loss) !important; font-weight:600; }
 
-/* ACCA ANALYSIS FIXTURES CONTAINER & GRID */
-.acca-input-grid{
-  display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap:16px;
-  margin-bottom:24px;
-}
-.fixture-input-row{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  background:var(--panel2);
-  padding:12px 14px;
-  border-radius:10px;
-  border:1px solid var(--line-strong);
-}
-.fixture-input-row select{
-  flex:1;
-  width:100%;
-  min-width:0;
-  background:var(--panel);
-  color:var(--chalk);
-  border:1px solid var(--line);
-  border-radius:6px;
-  padding:8px 6px;
-  font-size:13px;
-  text-overflow:ellipsis;
-  overflow:hidden;
-}
-.fixture-num{
-  font-family:'IBM Plex Mono',monospace;
-  color:var(--gold);
-  font-weight:600;
-  width:24px;
-  flex-shrink:0;
-}
-.fixture-remove-btn{
-  background:none;
-  border:none;
-  color:var(--muted);
-  cursor:pointer;
-  font-size:16px;
-  padding:4px;
-}
+/* ACCA ANALYSIS */
+.acca-input-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:16px; margin-bottom:24px;}
+.fixture-input-row{display:flex; flex-wrap:wrap; align-items:center; gap:8px; background:var(--panel2); padding:12px 14px; border-radius:10px; border:1px solid var(--line-strong);}
+.fixture-input-row select{flex:1; width:100%; min-width:0; background:var(--panel); color:var(--chalk); border:1px solid var(--line); border-radius:6px; padding:8px 6px; font-size:13px; text-overflow:ellipsis; overflow:hidden;}
+.fixture-num{font-family:'IBM Plex Mono',monospace; color:var(--gold); font-weight:600; width:24px; flex-shrink:0;}
+.fixture-remove-btn{background:none; border:none; color:var(--muted); cursor:pointer; font-size:16px; padding:4px;}
 .fixture-remove-btn:hover{ color:var(--loss); }
+.odds-row{display:flex; gap:6px; width:100%; align-items:center; padding-left:32px;}
+.odds-row span{font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; font-family:'IBM Plex Mono',monospace;}
+.odds-in{flex:1; min-width:0; background:var(--panel); color:var(--chalk); border:1px solid var(--line); border-radius:6px; padding:6px; font-size:12px; font-family:'IBM Plex Mono',monospace;}
+.odds-in::placeholder{color:var(--muted); opacity:.6;}
+.row-value td{background:rgba(87,163,115,0.08);}
 
-.acca-btn-group{
-  display:flex;
-  gap:12px;
-  margin-bottom:24px;
-  flex-wrap:wrap;
-}
-.btn-action{
-  background:var(--gold);
-  color:var(--ink);
-  border:none;
-  font-family:'Oswald',sans-serif;
-  text-transform:uppercase;
-  font-size:14px;
-  font-weight:600;
-  padding:12px 24px;
-  border-radius:8px;
-  cursor:pointer;
-  transition:all .15s;
-}
+.acca-btn-group{display:flex; gap:12px; margin-bottom:24px; flex-wrap:wrap; align-items:center;}
+.btn-action{background:var(--gold); color:var(--ink); border:none; font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:14px; font-weight:600; padding:12px 24px; border-radius:8px; cursor:pointer; transition:all .15s;}
 .btn-action:hover{background:#f0c665; transform:translateY(-1px);}
-.btn-secondary{
-  background:var(--panel2);
-  color:var(--chalk);
-  border:1px solid var(--line-strong);
-  font-family:'Oswald',sans-serif;
-  text-transform:uppercase;
-  font-size:14px;
-  padding:12px 20px;
-  border-radius:8px;
-  cursor:pointer;
-}
+.btn-secondary{background:var(--panel2); color:var(--chalk); border:1px solid var(--line-strong); font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:14px; padding:12px 20px; border-radius:8px; cursor:pointer;}
 .btn-secondary:hover{border-color:var(--gold);}
 
-/* FIXTURE CARDS GRID */
-.selection-grid{
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap:20px;
-  margin-bottom:28px;
-}
-@media(max-width:1100px){ .selection-grid{ grid-template-columns: repeat(2, 1fr); } }
-@media(max-width:700px){ .selection-grid{ grid-template-columns: 1fr; } }
+.selection-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; margin-bottom:28px;}
+@media(max-width:1100px){ .selection-grid{ grid-template-columns:repeat(2, 1fr); } }
+@media(max-width:700px){ .selection-grid{ grid-template-columns:1fr; } }
 
-.acca-card{
-  background:var(--panel2);
-  border:1px solid var(--line-strong);
-  border-radius:14px;
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  height:auto;
-  min-height:240px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.2);
-  overflow-wrap:break-word;
-  word-break:break-word;
-}
-.acca-card.top-rank{
-  border-color:var(--gold);
-  background:linear-gradient(180deg, var(--panel2) 0%, rgba(232,185,75,0.06) 100%);
-}
-
-.acca-card-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:12px;
-  margin-bottom:12px;
-}
-.acca-team-title{
-  font-size:20px;
-  color:var(--chalk);
-  font-weight:700;
-  line-height:1.2;
-  font-family:'Oswald',sans-serif;
-}
-.acca-opp-subtitle{
-  font-size:13px;
-  color:var(--muted);
-  margin-top:4px;
-  font-family:'Inter',sans-serif;
-}
-
-.acca-badge{
-  font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700;
-  padding:4px 8px; border-radius:4px; white-space:nowrap; flex-shrink:0;
-}
+.acca-card{background:var(--panel2); border:1px solid var(--line-strong); border-radius:14px; padding:20px; display:flex; flex-direction:column; justify-content:space-between; height:auto; min-height:240px; box-shadow:0 4px 12px rgba(0,0,0,0.2); overflow-wrap:break-word; word-break:break-word;}
+.acca-card.top-rank{border-color:var(--gold); background:linear-gradient(180deg, var(--panel2) 0%, rgba(232,185,75,0.06) 100%);}
+.acca-card-header{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:12px;}
+.acca-team-title{font-size:20px; color:var(--chalk); font-weight:700; line-height:1.2; font-family:'Oswald',sans-serif;}
+.acca-opp-subtitle{font-size:13px; color:var(--muted); margin-top:4px; font-family:'Inter',sans-serif;}
+.acca-badge{font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700; padding:4px 8px; border-radius:4px; white-space:nowrap; flex-shrink:0;}
 .badge-high{background:rgba(87,163,115,0.2); color:var(--win); border:1px solid var(--win);}
 .badge-mod{background:rgba(232,185,75,0.2); color:var(--gold); border:1px solid var(--gold);}
 .badge-lim{background:rgba(193,84,74,0.2); color:var(--loss); border:1px solid var(--loss);}
-
-.acca-metrics-box{
-  background:rgba(11,22,19,0.5);
-  border-radius:8px;
-  padding:12px;
-  margin-bottom:14px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.acca-score-val{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:22px;
-  font-weight:700;
-  color:var(--gold);
-}
-.acca-score-lbl{
-  font-size:10px;
-  text-transform:uppercase;
-  color:var(--muted);
-  letter-spacing:0.05em;
-}
-
-.acca-reasons{
-  list-style:none; padding:0; margin:0; font-size:12px; color:var(--chalk); line-height:1.5;
-}
-.acca-reasons li{
-  position:relative; padding-left:14px; margin-bottom:6px;
-}
+.acca-metrics-box{background:rgba(11,22,19,0.5); border-radius:8px; padding:12px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;}
+.acca-score-val{font-family:'IBM Plex Mono',monospace; font-size:22px; font-weight:700; color:var(--gold);}
+.acca-score-lbl{font-size:10px; text-transform:uppercase; color:var(--muted); letter-spacing:0.05em;}
+.acca-reasons{list-style:none; padding:0; margin:0; font-size:12px; color:var(--chalk); line-height:1.5;}
+.acca-reasons li{position:relative; padding-left:14px; margin-bottom:6px;}
 .acca-reasons li::before{content:"•"; position:absolute; left:0; color:var(--gold);}
 
-/* DISCLAIMER NOTE */
-.disclaimer-note{
-  background:rgba(232,185,75,0.08); border-left:3px solid var(--gold); padding:12px 16px;
-  border-radius:0 8px 8px 0; font-size:12px; color:var(--muted); line-height:1.5; margin-top:20px;
-}
-
+.disclaimer-note{background:rgba(232,185,75,0.08); border-left:3px solid var(--gold); padding:12px 16px; border-radius:0 8px 8px 0; font-size:12px; color:var(--muted); line-height:1.5; margin-top:20px;}
 footer{text-align:center; padding:30px 20px 50px; color:var(--muted); font-size:12px; border-top:1px dashed var(--line); margin-top:20px;}
 </style>
 </head>
@@ -515,41 +199,33 @@ footer{text-align:center; padding:30px 20px 50px; color:var(--muted); font-size:
     <p class="home-sub">Select a competition to evaluate matchday fixture profiles, expected goals dominance, team trends, and analytical accumulator candidates.</p>
 
     <div class="league-cards">
-      <!-- CHAMPIONSHIP CARD -->
       <div class="league-card" id="cardChampionship">
         <div>
           <div class="league-card-header">
             <h3>CHAMPIONSHIP</h3>
             <span class="status-pill unloaded" id="badgeChampionship">○ Loading...</span>
           </div>
-          <div class="league-card-details" id="detailsChampionship">
-            Fetching data...
-          </div>
+          <div class="league-card-details" id="detailsChampionship">Fetching data...</div>
         </div>
         <div class="league-card-actions">
           <button class="btn-card btn-primary" onclick="launchDashboard('championship')">Open Hub</button>
-          <label class="btn-card btn-upload">
-            Upload CSV
+          <label class="btn-card btn-upload">Upload CSV
             <input type="file" accept=".csv" onchange="uploadLeagueCSV('championship', this)">
           </label>
         </div>
       </div>
 
-      <!-- LEAGUE ONE CARD -->
       <div class="league-card" id="cardLeagueOne">
         <div>
           <div class="league-card-header">
             <h3>LEAGUE ONE</h3>
             <span class="status-pill unloaded" id="badgeLeagueOne">○ Loading...</span>
           </div>
-          <div class="league-card-details" id="detailsLeagueOne">
-            Fetching data...
-          </div>
+          <div class="league-card-details" id="detailsLeagueOne">Fetching data...</div>
         </div>
         <div class="league-card-actions">
           <button class="btn-card btn-primary" onclick="launchDashboard('leagueOne')">Open Hub</button>
-          <label class="btn-card btn-upload">
-            Upload CSV
+          <label class="btn-card btn-upload">Upload CSV
             <input type="file" accept=".csv" onchange="uploadLeagueCSV('leagueOne', this)">
           </label>
         </div>
@@ -577,7 +253,6 @@ footer{text-align:center; padding:30px 20px 50px; color:var(--muted); font-size:
   </div>
 </header>
 
-<!-- DATA STATUS BAR & LEAGUE SWITCHING -->
 <div class="data-bar">
   <div class="data-bar-inner">
     <div class="league-selector-pills">
@@ -626,7 +301,6 @@ footer{text-align:center; padding:30px 20px 50px; color:var(--muted); font-size:
       </div>
     </div>
 
-    <!-- ATTACKING VS DEFENDING QUADRANT MATRIX -->
     <div class="card chart-card" style="margin-bottom:24px;">
       <div class="card-head">
         <h3>Attacking & Defending Matrix <span class="unit">xGF vs xGA per match</span></h3>
@@ -664,7 +338,7 @@ footer{text-align:center; padding:30px 20px 50px; color:var(--muted); font-size:
 
     <div class="grid two">
       <div class="card chart-card">
-        <div class="card-head"><h3>Season Profile</h3><p class="card-note">Normalized 0&ndash;100 across key performance metrics.</p></div>
+        <div class="card-head"><h3>Season Profile</h3><p class="card-note">Normalized 0&ndash;100 across the league on key performance metrics.</p></div>
         <canvas id="chartRadar" height="320"></canvas>
       </div>
       <div class="card chart-card">
@@ -702,20 +376,8 @@ footer{text-align:center; padding:30px 20px 50px; color:var(--muted); font-size:
         <table id="leaderboardTable">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Team</th>
-              <th>P</th>
-              <th>W</th>
-              <th>D</th>
-              <th>L</th>
-              <th>GF</th>
-              <th>GA</th>
-              <th>GD</th>
-              <th>Pts</th>
-              <th>xGF</th>
-              <th>xGA</th>
-              <th>xGD</th>
-              <th>xG&plusmn;</th>
+              <th>#</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+              <th>xGF</th><th>xGA</th><th>xGD</th><th>xG&plusmn;</th>
             </tr>
           </thead>
           <tbody id="leaderboardBody"></tbody>
@@ -729,24 +391,24 @@ footer{text-align:center; padding:30px 20px 50px; color:var(--muted); font-size:
     <div class="card" style="margin-bottom:20px;">
       <div class="card-head">
         <h3>Matchday Fixture Analyzer</h3>
-        <p class="card-note">Select upcoming fixtures for the active league. Calculates an opponent-adjusted <strong>xG Match Advantage Score</strong> (uses fixed home advantage boost for first 5 games, and switches to venue-split metrics thereafter).</p>
+        <p class="card-note">Select fixtures for the active league and optionally add bookmaker odds (decimal like 2.50 or fractional like 3/2). The model uses league-normalised, recency-weighted attack and defence ratings with shrinkage, a measured home advantage and a Dixon&ndash;Coles Poisson win-probability calculation.</p>
       </div>
 
-      <div class="acca-input-grid" id="fixtureInputs">
-        <!-- Dynamically rendered fixture selectors -->
-      </div>
+      <div class="acca-input-grid" id="fixtureInputs"></div>
 
       <div class="acca-btn-group">
         <button class="btn-action" onclick="runAccaAnalysis()">Run Matchday Analysis</button>
         <button class="btn-secondary" onclick="addFixtureRow()">+ Add Fixture</button>
         <button class="btn-secondary" onclick="loadSampleMatchday()">Load Sample Matchday</button>
+        <label class="btn-secondary" style="display:flex;align-items:center;gap:8px;">Min EV
+          <input id="minEV" type="number" value="5" step="1" min="0"
+            style="width:56px;background:var(--panel);color:var(--chalk);border:1px solid var(--line);border-radius:4px;padding:4px;"> %
+        </label>
       </div>
     </div>
 
-    <!-- SELECTION RESULTS -->
     <div id="accaResults" style="display:none;">
-      
-      <!-- 4-TEAM SELECTION -->
+
       <div class="card" style="margin-bottom:24px;">
         <div class="card-head">
           <h3>4-Team xG Selection <span class="unit">strongest match-specific statistical edges</span></h3>
@@ -754,12 +416,19 @@ footer{text-align:center; padding:30px 20px 50px; color:var(--muted); font-size:
         <div class="selection-grid" id="acca4Grid"></div>
       </div>
 
-      <!-- 5-TEAM SELECTION -->
       <div class="card" style="margin-bottom:24px;">
         <div class="card-head">
           <h3>5-Team xG Selection <span class="unit">expanded statistical shortlist</span></h3>
         </div>
         <div class="selection-grid" id="acca5Grid"></div>
+      </div>
+
+      <div class="card" style="margin-bottom:24px;">
+        <div class="card-head">
+          <h3>Value Check <span class="unit">model vs bookmaker odds</span></h3>
+          <p class="card-note">Bookmaker margin is removed to get the book's "fair" probability. EV = model probability x odds - 1.</p>
+        </div>
+        <div class="table-scroll" id="valueBets"></div>
       </div>
 
       <div class="disclaimer-note">
@@ -793,25 +462,22 @@ const DEFAULT_DATA_LEAGUE1 = [{"MatchID":1,"Date":"2026-08-15","HomeTeam":"Barns
 const DEFAULT_DATA_CHAMPIONSHIP = [{"MatchID":1,"Date":"2026-08-08","HomeTeam":"Coventry City","AwayTeam":"Hull City","HomeXG":1.85,"AwayXG":0.92,"HomeGoals":2,"AwayGoals":0},{"MatchID":2,"Date":"2026-08-08","HomeTeam":"Middlesbrough","AwayTeam":"Swansea City","HomeXG":2.10,"AwayXG":1.15,"HomeGoals":1,"AwayGoals":1},{"MatchID":3,"Date":"2026-08-08","HomeTeam":"Sunderland","AwayTeam":"Cardiff City","HomeXG":1.45,"AwayXG":0.88,"HomeGoals":2,"AwayGoals":1},{"MatchID":4,"Date":"2026-08-08","HomeTeam":"Norwich City","AwayTeam":"Watford","HomeXG":1.20,"AwayXG":1.65,"HomeGoals":1,"AwayGoals":2},{"MatchID":5,"Date":"2026-08-08","HomeTeam":"West Bromwich Albion","AwayTeam":"Stoke City","HomeXG":1.95,"AwayXG":0.70,"HomeGoals":3,"AwayGoals":0}];
 
 /* =========================================================
+   MODEL CONSTANTS (tune these)
+   ========================================================= */
+const PRIOR_GAMES = 6;   // shrinkage: games' worth of league-average added to each team
+const PRIOR_VENUE = 8;   // shrinkage of home/away splits toward the team's overall rating
+const DECAY = 0.92;      // recency weight per game back (half-life ~8 games)
+const DC_RHO = -0.08;    // Dixon-Coles low-score correction
+
+/* Strips characters that could inject HTML via CSV team names */
+const clean = s => String(s ?? '').replace(/[<>&"'`]/g, '').trim();
+
+/* =========================================================
    MULTI-LEAGUE PERSISTENT DATA ARCHITECTURE
    ========================================================= */
 const leagueData = {
-  championship: {
-    name: "Championship",
-    matches: [],
-    teams: [],
-    teamLevel: [],
-    lastUpdated: null,
-    accaFixtures: []
-  },
-  leagueOne: {
-    name: "League One",
-    matches: [],
-    teams: [],
-    teamLevel: [],
-    lastUpdated: null,
-    accaFixtures: []
-  }
+  championship: { name: "Championship", matches: [], teams: [], teamLevel: [], league: null, warnings: [], lastUpdated: null, accaFixtures: [] },
+  leagueOne:    { name: "League One",   matches: [], teams: [], teamLevel: [], league: null, warnings: [], lastUpdated: null, accaFixtures: [] }
 };
 
 let activeLeagueKey = "leagueOne";
@@ -819,19 +485,17 @@ let overviewBarChartRef, attDefScatterChartRef, radarChart, compareBarChart, tre
 
 const GOLD='#E8B94B', WIN='#57A373', LOSS='#C1544A', CHALK='#F2EFE4';
 
-/* Initialize application on page load */
 window.addEventListener('DOMContentLoaded', async () => {
   await initDataFetching();
 });
 
-/* Automatic Fetch from GitHub with Fallback to Storage/Defaults */
+/* Automatic fetch from GitHub with fallback to storage/defaults */
 async function initDataFetching() {
   for (const key of ['championship', 'leagueOne']) {
     const remoteUrl = GITHUB_BASE_URL + GITHUB_LEAGUE_FILES[key];
     let fetched = false;
 
     try {
-      // Add cache buster parameter to avoid browser caching outdated CSV content
       const res = await fetch(remoteUrl + '?t=' + new Date().getTime());
       if (res.ok) {
         const text = await res.text();
@@ -847,44 +511,80 @@ async function initDataFetching() {
     }
 
     if (!fetched) {
-      // Fallback to LocalStorage or embedded defaults
       const storageKey = `efl_xg_${key}_data`;
-      const saved = localStorage.getItem(storageKey);
+      let saved = null;
+      try { saved = localStorage.getItem(storageKey); } catch(e) {}
       if (saved) {
         try {
           const parsed = JSON.parse(saved);
-          processAndStoreData(key, parsed.rawMatches, parsed.lastUpdated || 'Local Cache');
+          processAndStoreData(key, parsed.rawMatches, parsed.lastUpdated || 'Local Cache', false);
         } catch(e) { console.error('Failed to parse local storage for ' + key, e); }
       } else {
         const defaultRaw = (key === 'championship') ? DEFAULT_DATA_CHAMPIONSHIP : DEFAULT_DATA_LEAGUE1;
-        processAndStoreData(key, defaultRaw, 'Default Sample Data');
+        processAndStoreData(key, defaultRaw, 'Default Sample Data', false);
       }
     }
   }
   updateHomeScreenUI();
 }
 
-function processAndStoreData(key, rawMatches, timestampStr) {
+function processAndStoreData(key, rawMatches, timestampStr, persist = true) {
   const processed = buildFromRawMatches(rawMatches);
-  leagueData[key].matches = processed.matches;
-  leagueData[key].teams = processed.teams;
-  leagueData[key].teamLevel = processed.teamLevel;
-  leagueData[key].lastUpdated = timestampStr || new Date().toLocaleDateString();
+  const L = leagueData[key];
+  L.matches = processed.matches;
+  L.teams = processed.teams;
+  L.teamLevel = processed.teamLevel;
+  L.league = processed.league;
+  L.warnings = processed.warnings;
+  L.lastUpdated = timestampStr || new Date().toLocaleDateString();
 
-  // Save to browser LocalStorage
-  localStorage.setItem(`efl_xg_${key}_data`, JSON.stringify({
-    rawMatches: rawMatches,
-    lastUpdated: leagueData[key].lastUpdated
-  }));
+  // Only cache real data (fetched/uploaded), never the demo fallback
+  if (persist) {
+    try {
+      localStorage.setItem(`efl_xg_${key}_data`, JSON.stringify({ rawMatches, lastUpdated: L.lastUpdated }));
+    } catch (e) {}
+  }
 }
 
-/* Helper to safely parse numerical inputs or identify blank entries */
 function parseValue(val) {
   if (val === null || val === undefined) return null;
   const s = String(val).trim();
   if (s === "") return null;
   const num = Number(s);
   return isNaN(num) ? null : num;
+}
+
+/* League baselines + shrunk, recency-weighted attack/defence ratings (ratios to league average) */
+function computeLeague(played, teams, tl) {
+  const n = played.length || 1;
+  const avgHome = played.reduce((s, m) => s + m.HomeXG, 0) / n || 1.45;
+  const avgAway = played.reduce((s, m) => s + m.AwayXG, 0) / n || 1.15;
+  const avg = (avgHome + avgAway) / 2;
+
+  const sums = {};
+  teams.forEach(t => sums[t.Team] = { all: { f: 0, a: 0, w: 0 }, H: { f: 0, a: 0, w: 0 }, A: { f: 0, a: 0, w: 0 } });
+  const games = {};
+  tl.forEach(r => (games[r.Team] = games[r.Team] || []).push(r));
+
+  Object.entries(games).forEach(([team, list]) => {
+    list.sort((x, y) => String(x.Date).localeCompare(String(y.Date)) || (x.MatchID - y.MatchID) || 0);
+    list.forEach((r, i) => {
+      const w = Math.pow(DECAY, list.length - 1 - i);
+      const b = sums[team];
+      [b.all, r.Venue === 'Home' ? b.H : b.A].forEach(s => { s.f += w * r.TeamXG; s.a += w * r.OppXG; s.w += w; });
+    });
+  });
+
+  teams.forEach(t => {
+    const b = sums[t.Team], K = PRIOR_GAMES, KV = PRIOR_VENUE;
+    t.att  = (b.all.f + K * avg) / (b.all.w + K) / avg;
+    t.def  = (b.all.a + K * avg) / (b.all.w + K) / avg;
+    t.attH = (b.H.f + KV * t.att * avgHome) / (b.H.w + KV) / avgHome;
+    t.defH = (b.H.a + KV * t.def * avgAway) / (b.H.w + KV) / avgAway;
+    t.attA = (b.A.f + KV * t.att * avgAway) / (b.A.w + KV) / avgAway;
+    t.defA = (b.A.a + KV * t.def * avgHome) / (b.A.w + KV) / avgHome;
+  });
+  return { avgHome, avgAway, avg, homeAdv: avgHome / avgAway };
 }
 
 /* Parse raw match array into calculation structures */
@@ -894,15 +594,13 @@ function buildFromRawMatches(rawRows) {
     const ag = parseValue(m.AwayGoals);
     const hxg = parseValue(m.HomeXG);
     const axg = parseValue(m.AwayXG);
-    
-    // A game is completed only if goals exist for both teams
     const isPlayed = (hg !== null && ag !== null);
-    
+
     return {
       MatchID: m.MatchID,
       Date: m.Date,
-      HomeTeam: (m.HomeTeam||'').trim(),
-      AwayTeam: (m.AwayTeam||'').trim(),
+      HomeTeam: clean(m.HomeTeam),
+      AwayTeam: clean(m.AwayTeam),
       HomeXG: hxg ?? 0,
       AwayXG: axg ?? 0,
       HomeGoals: hg ?? 0,
@@ -912,14 +610,9 @@ function buildFromRawMatches(rawRows) {
     };
   }).filter(m => m.HomeTeam && m.AwayTeam);
 
-  // Harvest all unique team names from played AND unplayed games
   const allTeamNames = new Set();
-  allRows.forEach(m => {
-    allTeamNames.add(m.HomeTeam);
-    allTeamNames.add(m.AwayTeam);
-  });
+  allRows.forEach(m => { allTeamNames.add(m.HomeTeam); allTeamNames.add(m.AwayTeam); });
 
-  // Filter completed matches for standings/analytics
   const played = allRows.filter(m => m.IsPlayed);
 
   const tl = [];
@@ -929,8 +622,6 @@ function buildFromRawMatches(rawRows) {
   });
 
   const byTeam = {};
-  
-  // Seed every unique team so teams with 0 played matches still register in selectors
   allTeamNames.forEach(teamName => {
     byTeam[teamName] = {
       Team: teamName, Played: 0, Wins: 0, Draws: 0, Losses: 0, GoalsFor: 0, GoalsAgainst: 0, xGFor: 0, xGAgainst: 0,
@@ -961,7 +652,17 @@ function buildFromRawMatches(rawRows) {
   teamsArr.sort((a,b) => (b.Points - a.Points) || (b.GoalDiff - a.GoalDiff) || (b.GoalsFor - a.GoalsFor));
   teamsArr.forEach((t, i) => t.rank = i + 1);
 
-  return { matches: played, teamLevel: tl, teams: teamsArr };
+  // Flag teams with suspiciously few games (usually a team-name typo in the CSV)
+  const maxP = Math.max(0, ...teamsArr.map(t => t.Played));
+  const warnings = maxP >= 4 ? teamsArr.filter(t => t.Played < 0.5 * maxP).map(t => t.Team) : [];
+
+  return {
+    matches: played,
+    teamLevel: tl,
+    teams: teamsArr,
+    warnings,
+    league: computeLeague(played, teamsArr, tl)
+  };
 }
 
 /* Update Home Screen status cards */
@@ -977,7 +678,8 @@ function updateHomeScreenUI() {
       badge.textContent = '● Loaded';
       badge.className = 'status-pill loaded';
       card.classList.add('loaded');
-      details.innerHTML = `${data.matches.length} matches &middot; ${data.teams.length} teams<br>Source: ${data.lastUpdated}`;
+      details.innerHTML = `${data.matches.length} matches &middot; ${data.teams.length} teams<br>Source: ${data.lastUpdated}`
+        + (data.warnings && data.warnings.length ? `<br>&#9888; Check team names: ${data.warnings.join(', ')}` : '');
     } else {
       badge.textContent = '○ Not loaded';
       badge.className = 'status-pill unloaded';
@@ -987,7 +689,7 @@ function updateHomeScreenUI() {
   });
 }
 
-/* CSV Upload handlers for Home and Dashboard */
+/* CSV Upload handlers */
 function uploadLeagueCSV(key, inputEl) {
   const file = inputEl.files[0];
   if (!file) return;
@@ -1030,7 +732,7 @@ function mapRawHeaders(rows) {
   }));
 }
 
-/* Navigation & Switching active league */
+/* Navigation & switching active league */
 function launchDashboard(key) {
   if (leagueData[key].matches.length === 0) {
     alert(`No data loaded for ${leagueData[key].name} yet. Please upload a CSV first.`);
@@ -1064,11 +766,9 @@ function renderActiveDashboard() {
   const data = leagueData[activeLeagueKey];
   document.getElementById('currentLeagueBadge').textContent = data.name.toUpperCase();
 
-  // Highlight pill
   document.getElementById('pillChampionship').className = activeLeagueKey === 'championship' ? 'pill-btn active' : 'pill-btn';
   document.getElementById('pillLeagueOne').className = activeLeagueKey === 'leagueOne' ? 'pill-btn active' : 'pill-btn';
 
-  // Render overview & analytics
   renderHeroStats(data);
   renderOverviewCards(data);
   renderBestTeamsList(data);
@@ -1079,8 +779,6 @@ function renderActiveDashboard() {
   renderComparison();
   renderTrends();
   renderLeaderboard(data);
-  
-  // Render Acca analysis dynamically for the active league
   renderAccaFixtureInputs();
 }
 
@@ -1128,7 +826,7 @@ function renderBestTeamsList(data) {
 }
 
 function renderOverviewBarChart(data) {
-  const sorted = [...data.teams].sort((a,b)=> b.xGDiff-a.xGDiff);
+  const sorted = [...data.teams].sort((a,b)=> b.xGDiffPerGame - a.xGDiffPerGame);
   if(overviewBarChartRef) overviewBarChartRef.destroy();
   overviewBarChartRef = new Chart(document.getElementById('chartOverviewBars'), {
     type:'bar',
@@ -1149,13 +847,8 @@ function renderOverviewBarChart(data) {
 
 function renderAttDefScatterChart(data) {
   if(!data.teams.length) return;
-  
-  const points = data.teams.map(t => ({
-    x: t.xGForPerGame,
-    y: t.xGAgainstPerGame,
-    team: t.Team
-  }));
 
+  const points = data.teams.map(t => ({ x: t.xGForPerGame, y: t.xGAgainstPerGame, team: t.Team }));
   const avgXGF = data.teams.reduce((s,t)=>s+t.xGForPerGame, 0) / data.teams.length;
   const avgXGA = data.teams.reduce((s,t)=>s+t.xGAgainstPerGame, 0) / data.teams.length;
 
@@ -1172,23 +865,17 @@ function renderAttDefScatterChart(data) {
       ctx.strokeStyle = 'rgba(232, 185, 75, 0.4)';
       ctx.lineWidth = 1;
       ctx.setLineDash([4, 4]);
-      
       ctx.beginPath();
-      ctx.moveTo(midX, top);
-      ctx.lineTo(midX, bottom);
-      ctx.moveTo(left, midY);
-      ctx.lineTo(right, midY);
+      ctx.moveTo(midX, top); ctx.lineTo(midX, bottom);
+      ctx.moveTo(left, midY); ctx.lineTo(right, midY);
       ctx.stroke();
 
       ctx.setLineDash([]);
       ctx.font = '10px Inter, sans-serif';
       ctx.fillStyle = CHALK;
-      
       chart.getDatasetMeta(0).data.forEach((datum, i) => {
-        const teamName = data.teams[i].Team;
-        ctx.fillText(teamName, datum.x + 6, datum.y + 3);
+        ctx.fillText(data.teams[i].Team, datum.x + 6, datum.y + 3);
       });
-
       ctx.restore();
     }
   };
@@ -1196,40 +883,22 @@ function renderAttDefScatterChart(data) {
   attDefScatterChartRef = new Chart(document.getElementById('chartAttDefScatter'), {
     type: 'scatter',
     plugins: [quadrantPlugin],
-    data: {
-      datasets: [{
-        label: 'Teams',
-        data: points,
-        backgroundColor: GOLD,
-        borderColor: '#0B1613',
-        borderWidth: 1,
-        pointRadius: 4,
-        pointHoverRadius: 7
-      }]
-    },
+    data: { datasets: [{ label: 'Teams', data: points, backgroundColor: GOLD, borderColor: '#0B1613', borderWidth: 1, pointRadius: 4, pointHoverRadius: 7 }] },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      animation: false,
+      responsive: true, maintainAspectRatio: false, animation: false,
       plugins: {
         legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: (ctx) => `${ctx.raw.team}: ${ctx.raw.x} xGF, ${ctx.raw.y} xGA`
-          }
-        }
+        tooltip: { callbacks: { label: (ctx) => `${ctx.raw.team}: ${ctx.raw.x} xGF, ${ctx.raw.y} xGA` } }
       },
       scales: {
         x: {
           title: { display: true, text: 'Attacking Quality (xGF / Match) →', color: CHALK, font: { family: 'Oswald', size: 11 } },
-          grid: { color: 'rgba(242, 239, 228, 0.05)' },
-          ticks: { color: '#95AA9F', font: { size: 10 } }
+          grid: { color: 'rgba(242, 239, 228, 0.05)' }, ticks: { color: '#95AA9F', font: { size: 10 } }
         },
         y: {
           reverse: true,
           title: { display: true, text: '← Defensive Strength (xGA / Match - Lower is Best)', color: CHALK, font: { family: 'Oswald', size: 11 } },
-          grid: { color: 'rgba(242, 239, 228, 0.05)' },
-          ticks: { color: '#95AA9F', font: { size: 10 } }
+          grid: { color: 'rgba(242, 239, 228, 0.05)' }, ticks: { color: '#95AA9F', font: { size: 10 } }
         }
       }
     }
@@ -1264,28 +933,36 @@ function renderComparison() {
   const a = data.teams.find(t=>t.Team===nameA), b = data.teams.find(t=>t.Team===nameB);
   if(!a || !b) return;
 
-  const labels = ['Attack (xGF/gm)','Defense (xGA/gm)','Points','Goal Diff'];
+  // Radar: each metric scaled 0-100 across the league (defence inverted so higher = better)
+  const ppg = t => t.Played ? t.Points / t.Played : 0;
+  const gdpg = t => t.Played ? t.GoalDiff / t.Played : 0;
+  const metrics = [[t => t.xGForPerGame, false], [t => t.xGAgainstPerGame, true], [ppg, false], [gdpg, false]];
+  const norm = (t, f, inv) => {
+    const v = data.teams.map(f), lo = Math.min(...v), hi = Math.max(...v);
+    const x = hi === lo ? 50 : (f(t) - lo) / (hi - lo) * 100;
+    return +(inv ? 100 - x : x).toFixed(0);
+  };
+  const vals = t => metrics.map(([f, inv]) => norm(t, f, inv));
+  const labels = ['Attack (xGF/gm)', 'Defense (xGA/gm)', 'Points/gm', 'Goal Diff/gm'];
+
   if(radarChart) radarChart.destroy();
   radarChart = new Chart(document.getElementById('chartRadar'), {
     type:'radar',
     data:{ labels, datasets:[
-      {label:nameA, data:[a.xGForPerGame*20, (3-a.xGAgainstPerGame)*20, a.Points*2, a.GoalDiff+50], borderColor:GOLD, backgroundColor:'rgba(232,185,75,0.2)'},
-      {label:nameB, data:[b.xGForPerGame*20, (3-b.xGAgainstPerGame)*20, b.Points*2, b.GoalDiff+50], borderColor:WIN, backgroundColor:'rgba(87,163,115,0.2)'}
+      {label:nameA, data:vals(a), borderColor:GOLD, backgroundColor:'rgba(232,185,75,0.2)'},
+      {label:nameB, data:vals(b), borderColor:WIN, backgroundColor:'rgba(87,163,115,0.2)'}
     ]},
-    options:{ 
-      plugins: {
-        legend: { labels: { color: CHALK } }
-      },
-      scales:{ 
-        r:{ 
-          min:0, 
-          max:100, 
+    options:{
+      plugins: { legend: { labels: { color: CHALK } } },
+      scales:{
+        r:{
+          min:0, max:100,
           grid: { color: 'rgba(242, 239, 228, 0.2)', lineWidth: 1 },
           angleLines: { color: 'rgba(242, 239, 228, 0.2)' },
           pointLabels: { color: CHALK, font: { size: 11, family: 'Inter' } },
           ticks: { display: false }
-        } 
-      } 
+        }
+      }
     }
   });
 
@@ -1303,7 +980,7 @@ function renderTrends() {
   const data = leagueData[activeLeagueKey];
   const teamName = document.getElementById('trendTeam').value;
   const teamMatches = data.teamLevel.filter(r=>r.Team===teamName);
-  
+
   if(trendBarChart) trendBarChart.destroy();
   trendBarChart = new Chart(document.getElementById('chartTrendBar'), {
     type:'bar',
@@ -1323,21 +1000,11 @@ function renderLeaderboard(data) {
   tbody.innerHTML = data.teams.map(t => {
     const xgDiffClass = t.xGDiff > 0 ? 'val-green' : (t.xGDiff < 0 ? 'val-red' : '');
     const xgOverClass = t.xGOver > 0 ? 'val-green' : (t.xGOver < 0 ? 'val-red' : '');
-
     return `
       <tr>
-        <td>${t.rank}</td>
-        <td>${t.Team}</td>
-        <td>${t.Played}</td>
-        <td>${t.Wins}</td>
-        <td>${t.Draws}</td>
-        <td>${t.Losses}</td>
-        <td>${t.GoalsFor}</td>
-        <td>${t.GoalsAgainst}</td>
-        <td>${t.GoalDiff}</td>
-        <td><strong>${t.Points}</strong></td>
-        <td>${t.xGFor}</td>
-        <td>${t.xGAgainst}</td>
+        <td>${t.rank}</td><td>${t.Team}</td><td>${t.Played}</td><td>${t.Wins}</td><td>${t.Draws}</td><td>${t.Losses}</td>
+        <td>${t.GoalsFor}</td><td>${t.GoalsAgainst}</td><td>${t.GoalDiff}</td><td><strong>${t.Points}</strong></td>
+        <td>${t.xGFor}</td><td>${t.xGAgainst}</td>
         <td class="${xgDiffClass}">${t.xGDiff > 0 ? '+' : ''}${t.xGDiff}</td>
         <td class="${xgOverClass}">${t.xGOver > 0 ? '+' : ''}${t.xGOver}</td>
       </tr>`;
@@ -1346,41 +1013,40 @@ function renderLeaderboard(data) {
 
 function filterLeaderboard() {
   const term = document.getElementById('tableSearch').value.toLowerCase();
-  const rows = document.querySelectorAll('#leaderboardBody tr');
-  rows.forEach(r => {
+  document.querySelectorAll('#leaderboardBody tr').forEach(r => {
     r.style.display = r.children[1].textContent.toLowerCase().includes(term) ? '' : 'none';
   });
 }
 
 /* =========================================================
-   ACCA ANALYSIS MODULE (DYNAMIC VENUE SPLITS & HOME BOOST)
+   ACCA ANALYSIS MODULE
    ========================================================= */
 function renderAccaFixtureInputs() {
   const data = leagueData[activeLeagueKey];
   const container = document.getElementById('fixtureInputs');
-  
+  const teams = data.teams.map(t=>t.Team);
+
   if (!data.accaFixtures || data.accaFixtures.length === 0) {
-    const teams = data.teams.map(t=>t.Team);
-    data.accaFixtures = [
-      { home: teams[0]||'', away: teams[1]||'' },
-      { home: teams[2]||'', away: teams[3]||'' },
-      { home: teams[4]||'', away: teams[5]||'' },
-      { home: teams[6]||'', away: teams[7]||'' }
-    ];
+    data.accaFixtures = [0, 2, 4, 6].filter(i => teams[i + 1]).map(i => ({ home: teams[i], away: teams[i + 1], oh: '', od: '', oa: '' }));
   }
 
   container.innerHTML = '';
+  const teamOpts = data.teams.map(t=>`<option value="${t.Team}">${t.Team}</option>`).join('');
   data.accaFixtures.forEach((f, idx) => {
     const row = document.createElement('div');
     row.className = 'fixture-input-row';
-    const teamOpts = data.teams.map(t=>`<option value="${t.Team}">${t.Team}</option>`).join('');
     row.innerHTML = `
       <span class="fixture-num">#${idx+1}</span>
       <select onchange="updateAccaFixture(${idx}, 'home', this.value)">${teamOpts}</select>
       <span style="font-size:11px; color:var(--gold); font-weight:700;">VS</span>
       <select onchange="updateAccaFixture(${idx}, 'away', this.value)">${teamOpts}</select>
       <button class="fixture-remove-btn" onclick="removeFixtureRow(${idx})">&times;</button>
-    `;
+      <div class="odds-row">
+        <span>Odds</span>
+        <input class="odds-in" placeholder="Home" value="${f.oh ?? ''}" oninput="updateAccaFixture(${idx}, 'oh', this.value)">
+        <input class="odds-in" placeholder="Draw" value="${f.od ?? ''}" oninput="updateAccaFixture(${idx}, 'od', this.value)">
+        <input class="odds-in" placeholder="Away" value="${f.oa ?? ''}" oninput="updateAccaFixture(${idx}, 'oa', this.value)">
+      </div>`;
     container.appendChild(row);
 
     const selects = row.querySelectorAll('select');
@@ -1396,7 +1062,7 @@ function updateAccaFixture(index, type, val) {
 function addFixtureRow() {
   const data = leagueData[activeLeagueKey];
   const teams = data.teams.map(t=>t.Team);
-  data.accaFixtures.push({ home: teams[0]||'', away: teams[1]||'' });
+  data.accaFixtures.push({ home: teams[0]||'', away: teams[1]||'', oh: '', od: '', oa: '' });
   renderAccaFixtureInputs();
 }
 
@@ -1408,101 +1074,124 @@ function removeFixtureRow(index) {
 function loadSampleMatchday() {
   const data = leagueData[activeLeagueKey];
   const teams = data.teams.map(t=>t.Team);
-  if(teams.length < 8) return;
+  if(teams.length < 8) { alert('Need at least 8 teams in the dataset to load a sample matchday.'); return; }
   data.accaFixtures = [
-    { home: teams[0], away: teams[3] },
-    { home: teams[1], away: teams[2] },
-    { home: teams[4], away: teams[7] },
-    { home: teams[5], away: teams[6] }
+    { home: teams[0], away: teams[3], oh: '', od: '', oa: '' },
+    { home: teams[1], away: teams[2], oh: '', od: '', oa: '' },
+    { home: teams[4], away: teams[7], oh: '', od: '', oa: '' },
+    { home: teams[5], away: teams[6], oh: '', od: '', oa: '' }
   ];
   renderAccaFixtureInputs();
   runAccaAnalysis();
 }
 
-/* ---------- Poisson win-probability helpers ---------- */
-function pois(k, l){
+/* ---------- Poisson with Dixon-Coles low-score correction ---------- */
+function pois(k, l) {
   let p = Math.exp(-l);
   for (let i = 1; i <= k; i++) p *= l / i;
   return p;
 }
 
-function winProbs(lh, la){
+function winProbs(lh, la, rho = DC_RHO) {
   let h = 0, d = 0, a = 0;
   for (let i = 0; i <= 8; i++) {
     for (let j = 0; j <= 8; j++) {
-      const p = pois(i, lh) * pois(j, la);
+      let p = pois(i, lh) * pois(j, la);
+      if (i < 2 && j < 2) {
+        p *= (i === 0 && j === 0) ? 1 - lh * la * rho
+           : (i === 0 && j === 1) ? 1 + lh * rho
+           : (i === 1 && j === 0) ? 1 + la * rho
+           : 1 - rho;
+      }
       if (i > j) h += p; else if (i === j) d += p; else a += p;
     }
   }
-  const tot = h + d + a; // normalise the tiny mass cut off above 8 goals
+  const tot = h + d + a;
   return { h: h / tot, d: d / tot, a: a / tot };
+}
+
+/* Accepts decimal ("2.5") or fractional ("3/2") odds; returns decimal or null */
+function parseOdds(v) {
+  const s = String(v ?? '').trim();
+  if (!s) return null;
+  let o;
+  if (s.includes('/')) { const [n, d] = s.split('/').map(Number); o = n / d + 1; }
+  else o = Number(s);
+  return isFinite(o) && o > 1 ? o : null;
 }
 
 function runAccaAnalysis() {
   const data = leagueData[activeLeagueKey];
-  const HOME_BOOST_CONSTANT = 0.25;
+  const lg = data.league;
+  const skipped = [];
 
-  const evaluated = data.accaFixtures.map(f => {
-    if (f.home === f.away) return null;
-    const homeTeam = data.teams.find(t => t.Team === f.home);
-    const awayTeam = data.teams.find(t => t.Team === f.away);
-    if (!homeTeam || !awayTeam) return null;
+  const evaluated = data.accaFixtures.map((f, idx) => {
+    if (!f.home || !f.away || f.home === f.away) { skipped.push(`#${idx + 1} (pick two different teams)`); return null; }
+    const H = data.teams.find(t => t.Team === f.home);
+    const A = data.teams.find(t => t.Team === f.away);
+    if (!H || !A) { skipped.push(`#${idx + 1} (team not found)`); return null; }
 
-    let homeXGF, homeXGA, awayXGF, awayXGA;
-    const isHomeEarly = homeTeam.HomePlayed < 5;
-    const isAwayEarly = awayTeam.AwayPlayed < 5;
-
-    if (isHomeEarly) {
-      homeXGF = homeTeam.xGForPerGame + HOME_BOOST_CONSTANT;
-      homeXGA = homeTeam.xGAgainstPerGame;
-    } else {
-      homeXGF = homeTeam.HomeXGF / homeTeam.HomePlayed;
-      homeXGA = homeTeam.HomeXGA / homeTeam.HomePlayed;
-    }
-
-    if (isAwayEarly) {
-      awayXGF = awayTeam.xGForPerGame;
-      awayXGA = awayTeam.xGAgainstPerGame;
-    } else {
-      awayXGF = awayTeam.AwayXGF / awayTeam.AwayPlayed;
-      awayXGA = awayTeam.AwayXGA / awayTeam.AwayPlayed;
-    }
-
-    const calcMode = (isHomeEarly || isAwayEarly) ? 'Early Boost' : 'Venue-Split';
-
-    // Opponent-adjusted expected goals for each side
-    const lh = (homeXGF + awayXGA) / 2;
-    const la = (awayXGF + homeXGA) / 2;
+    // League baseline x attack x opposing defence; home advantage measured from the league itself
+    const lh = lg.avgHome * H.attH * A.defA;
+    const la = lg.avgAway * A.attA * H.defH;
     const p = winProbs(lh, la);
     const homeFav = p.h >= p.a;
+    const minGames = Math.min(H.HomePlayed, A.AwayPlayed);
+
+    // Bookmaker odds -> fair probabilities (margin removed) -> EV
+    const odds = [parseOdds(f.oh), parseOdds(f.od), parseOdds(f.oa)];
+    const probs = [p.h, p.d, p.a];
+    const names = [H.Team + ' win', 'Draw', A.Team + ' win'];
+    let fair = [null, null, null], overround = null;
+    if (odds.every(Boolean)) {
+      const raw = odds.map(o => 1 / o);
+      overround = raw.reduce((s, v) => s + v, 0);
+      fair = raw.map(r => r / overround);
+    }
+    const bets = odds.map((o, k) => o ? {
+      fixture: `${H.Team} v ${A.Team}`, label: names[k], odds: o,
+      model: probs[k], fair: fair[k],
+      ev: probs[k] * o - 1,
+      kelly: Math.max(0, (probs[k] * o - 1) / (o - 1))
+    } : null).filter(Boolean);
 
     return {
-      home: homeTeam.Team,
-      away: awayTeam.Team,
-      advantageTeam: homeFav ? homeTeam.Team : awayTeam.Team,
+      home: H.Team, away: A.Team,
+      advantageTeam: homeFav ? H.Team : A.Team,
       winProb: homeFav ? p.h : p.a,
       oppProb: homeFav ? p.a : p.h,
       drawProb: p.d,
       margin: Math.abs(lh - la),
-      lh, la,
-      calcMode,
-      support: (homeTeam.Played >= 5 && awayTeam.Played >= 5) ? 'High' : 'Moderate'
+      lh, la, overround, bets,
+      calcMode: 'Shrunk Venue Model',
+      support: minGames >= 8 ? 'High' : minGames >= 4 ? 'Moderate' : 'Limited'
     };
   }).filter(Boolean);
 
   evaluated.sort((a, b) => b.winProb - a.winProb);
 
+  let n = document.getElementById('accaNotice');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'accaNotice';
+    n.className = 'disclaimer-note';
+    document.getElementById('accaResults').prepend(n);
+  }
+  n.style.display = skipped.length ? 'block' : 'none';
+  n.textContent = skipped.length ? 'Skipped fixtures: ' + skipped.join(', ') : '';
+
   renderAccaCards('acca4Grid', evaluated.slice(0, 4));
   renderAccaCards('acca5Grid', evaluated.slice(0, 5));
+  renderValueBets(evaluated.flatMap(e => e.bets));
   document.getElementById('accaResults').style.display = 'block';
 }
 
 function renderAccaCards(gridId, cardsData) {
-  const container = document.getElementById(gridId);
-  container.innerHTML = cardsData.map((c, i) => {
+  const badge = { High: 'badge-high', Moderate: 'badge-mod', Limited: 'badge-lim' };
+  const pct = v => (v * 100).toFixed(0) + '%';
+  document.getElementById(gridId).innerHTML = cardsData.map((c, i) => {
     const isHome = c.advantageTeam === c.home;
     const opp = isHome ? c.away : c.home;
-    const pct = v => (v * 100).toFixed(0) + '%';
     return `
     <div class="acca-card ${i === 0 ? 'top-rank' : ''}">
       <div>
@@ -1511,9 +1200,8 @@ function renderAccaCards(gridId, cardsData) {
             <div class="acca-team-title">${c.advantageTeam}</div>
             <div class="acca-opp-subtitle">vs ${opp} (${isHome ? 'Home' : 'Away'})</div>
           </div>
-          <span class="acca-badge ${c.support === 'High' ? 'badge-high' : 'badge-mod'}">${c.calcMode} (${c.support})</span>
+          <span class="acca-badge ${badge[c.support]}">${c.support} sample</span>
         </div>
-
         <div class="acca-metrics-box">
           <div>
             <div class="acca-score-lbl">Model Win Chance</div>
@@ -1524,19 +1212,51 @@ function renderAccaCards(gridId, cardsData) {
             <div style="font-size:14px; font-weight:700; color:var(--chalk);">+${c.margin.toFixed(2)}</div>
           </div>
         </div>
-
         <ul class="acca-reasons">
           <li>Expected goals: <strong>${c.home} ${c.lh.toFixed(2)} &ndash; ${c.la.toFixed(2)} ${c.away}</strong>.</li>
           <li>Draw ${pct(c.drawProb)} &middot; ${opp} win ${pct(c.oppProb)}.</li>
-          <li>Model: <strong>${c.calcMode === 'Early Boost' ? 'Overall averages + home advantage (+0.25 xG)' : 'Venue-split averages'}</strong>.</li>
+          <li>Model: recency-weighted, shrunk attack/defence ratings with measured home advantage.</li>
+          ${c.overround ? `<li>Bookmaker margin: <strong>${((c.overround - 1) * 100).toFixed(1)}%</strong>.</li>` : ''}
         </ul>
       </div>
     </div>`;
   }).join('');
 }
 
+/* Model vs bookmaker table, sorted by EV, value bets highlighted */
+function renderValueBets(bets) {
+  const box = document.getElementById('valueBets');
+  if (!bets.length) {
+    box.innerHTML = '<p class="card-note">Enter bookmaker odds (decimal like 2.50 or fractional like 3/2) on each fixture, then run the analysis.</p>';
+    return;
+  }
+  const minEV = (parseFloat(document.getElementById('minEV').value) || 0) / 100;
+  const pc = v => (v * 100).toFixed(1) + '%';
+  bets.sort((a, b) => b.ev - a.ev);
 
-/* Tab Switching Event Listeners */
+  const rows = bets.map(b => {
+    const book = b.fair ?? 1 / b.odds;       // fair if all 3 odds entered, else raw implied (includes margin)
+    const edge = b.model - book;
+    const isValue = b.ev >= minEV;
+    const suspect = Math.abs(edge) > 0.10;   // huge gaps are more often model error than a real edge
+    const verdict = isValue ? (suspect ? 'VALUE - check (big gap)' : 'VALUE') : 'No value';
+    return `<tr class="${isValue ? 'row-value' : ''}">
+      <td>${b.fixture}</td><td>${b.label}</td><td>${b.odds.toFixed(2)}</td>
+      <td>${pc(book)}${b.fair ? '' : '*'}</td><td>${pc(b.model)}</td>
+      <td class="${edge > 0 ? 'val-green' : 'val-red'}">${edge > 0 ? '+' : ''}${(edge * 100).toFixed(1)}pp</td>
+      <td class="${b.ev > 0 ? 'val-green' : 'val-red'}">${b.ev > 0 ? '+' : ''}${(b.ev * 100).toFixed(1)}%</td>
+      <td>${isValue ? (b.kelly * 25).toFixed(1) + '%' : '-'}</td>
+      <td class="${isValue ? 'val-green' : ''}">${verdict}</td></tr>`;
+  }).join('');
+
+  box.innerHTML = `<table><thead><tr><th>Fixture</th><th>Selection</th><th>Odds</th><th>Book %</th>
+    <th>Model %</th><th>Edge</th><th>EV / &pound;1</th><th>&frac14; Kelly</th><th>Verdict</th></tr></thead>
+    <tbody>${rows}</tbody></table>
+    <p class="card-note" style="margin-top:12px;">* Only some odds entered, so Book % still includes the bookmaker margin. Enter all three (H/D/A) for a fair comparison.
+    &frac14; Kelly = suggested stake as % of bankroll.</p>`;
+}
+
+/* Tab switching */
 document.querySelectorAll('.tab').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
