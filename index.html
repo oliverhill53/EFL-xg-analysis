@@ -184,6 +184,9 @@ tbody tr:hover{background:var(--panel2);}
 .acca-reasons li::before{content:"•"; position:absolute; left:0; color:var(--gold);}
 
 .disclaimer-note{background:rgba(232,185,75,0.08); border-left:3px solid var(--gold); padding:12px 16px; border-radius:0 8px 8px 0; font-size:12px; color:var(--muted); line-height:1.5; margin-top:20px;}
+.btn-secondary.bt-lbl{display:flex; align-items:center; gap:8px;}
+.bt-in{width:64px; background:var(--panel); color:var(--chalk); border:1px solid var(--line); border-radius:4px; padding:4px; font-family:'IBM Plex Mono',monospace;}
+.bt-scroll{max-height:420px; overflow-y:auto;}
 footer{text-align:center; padding:30px 20px 50px; color:var(--muted); font-size:12px; border-top:1px dashed var(--line); margin-top:20px;}
 </style>
 </head>
@@ -276,6 +279,7 @@ footer{text-align:center; padding:30px 20px 50px; color:var(--muted); font-size:
   <button class="tab" data-tab="trends">Trends Over Time</button>
   <button class="tab" data-tab="leaderboard">Leaderboard</button>
   <button class="tab" data-tab="acca">Acca Analysis</button>
+  <button class="tab" data-tab="backtest">Backtest</button>
 </nav>
 
 <main>
@@ -438,6 +442,23 @@ footer{text-align:center; padding:30px 20px 50px; color:var(--muted); font-size:
     </div>
   </section>
 
+  <!-- BACKTEST PANEL -->
+  <section class="panel" id="backtest">
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-head">
+        <h3>Backtest <span class="unit">walk-forward test vs closing odds</span></h3>
+        <p class="card-note">For every matchday after the warm-up, the model is rebuilt using <strong>only earlier matches</strong>, predicts that day's games, and is scored against the real results and the bookmaker's closing odds. Needs dates as YYYY-MM-DD and odds columns in your CSV, e.g. <span class="mono">HomeOdds, DrawOdds, AwayOdds</span> (football-data.co.uk names like PSCH/PSCD/PSCA or B365CH/B365CD/B365CA also work).</p>
+      </div>
+      <div class="acca-btn-group">
+        <label class="btn-secondary bt-lbl">Warm-up matchdays <input id="btWarm" class="bt-in" type="number" value="5" min="1" step="1"></label>
+        <label class="btn-secondary bt-lbl">Min EV <input id="btMinEV" class="bt-in" type="number" value="5" min="0" step="1"> %</label>
+        <label class="btn-secondary bt-lbl">Max gap vs book <input id="btGap" class="bt-in" type="number" value="10" min="1" step="1"> pp</label>
+        <button class="btn-action" onclick="runBacktest()">Run Backtest</button>
+      </div>
+    </div>
+    <div id="btResults"></div>
+  </section>
+
 </main>
 
 <footer>
@@ -481,7 +502,7 @@ const leagueData = {
 };
 
 let activeLeagueKey = "leagueOne";
-let overviewBarChartRef, attDefScatterChartRef, radarChart, compareBarChart, trendBarChart;
+let overviewBarChartRef, attDefScatterChartRef, radarChart, compareBarChart, trendBarChart, btChartRef;
 
 const GOLD='#E8B94B', WIN='#57A373', LOSS='#C1544A', CHALK='#F2EFE4';
 
@@ -536,6 +557,7 @@ function processAndStoreData(key, rawMatches, timestampStr, persist = true) {
   L.teamLevel = processed.teamLevel;
   L.league = processed.league;
   L.warnings = processed.warnings;
+  L.raw = rawMatches;
   L.lastUpdated = timestampStr || new Date().toLocaleDateString();
 
   // Only cache real data (fetched/uploaded), never the demo fallback
@@ -725,10 +747,23 @@ function mapRawHeaders(rows) {
     HomeGoals: find(h=>h.includes('home')&&h.includes('goal')),
     AwayGoals: find(h=>h.includes('away')&&h.includes('goal')),
   };
+  // Optional odds columns (used by the Backtest tab)
+  const lc = headers.map(x => x.toLowerCase().trim());
+  const pick = n => { const i = lc.indexOf(n); return i >= 0 ? headers[i] : null; };
+  let oc = null;
+  const generic = [find(x=>x.includes('home')&&x.includes('odd')), find(x=>x.includes('draw')&&x.includes('odd')), find(x=>x.includes('away')&&x.includes('odd'))];
+  if (generic.every(Boolean)) oc = generic;
+  else {
+    for (const tr of [['psch','pscd','psca'],['avgch','avgcd','avgca'],['b365ch','b365cd','b365ca'],['maxch','maxcd','maxca'],['psh','psd','psa'],['avgh','avgd','avga'],['b365h','b365d','b365a']]) {
+      const f = tr.map(pick);
+      if (f.every(Boolean)) { oc = f; break; }
+    }
+  }
   return rows.map((r, i) => ({
     MatchID: r[col.MatchID] || i+1, Date: r[col.Date] || '2026-09-01',
     HomeTeam: (r[col.HomeTeam]||'').trim(), AwayTeam: (r[col.AwayTeam]||'').trim(),
-    HomeXG: r[col.HomeXG], AwayXG: r[col.AwayXG], HomeGoals: r[col.HomeGoals], AwayGoals: r[col.AwayGoals]
+    HomeXG: r[col.HomeXG], AwayXG: r[col.AwayXG], HomeGoals: r[col.HomeGoals], AwayGoals: r[col.AwayGoals],
+    OddsH: oc ? parseOdds(r[oc[0]]) : null, OddsD: oc ? parseOdds(r[oc[1]]) : null, OddsA: oc ? parseOdds(r[oc[2]]) : null
   }));
 }
 
@@ -780,6 +815,7 @@ function renderActiveDashboard() {
   renderTrends();
   renderLeaderboard(data);
   renderAccaFixtureInputs();
+  document.getElementById('btResults').innerHTML = '';
 }
 
 function renderHeroStats(data) {
@@ -1132,9 +1168,7 @@ function runAccaAnalysis() {
     if (!H || !A) { skipped.push(`#${idx + 1} (team not found)`); return null; }
 
     // League baseline x attack x opposing defence; home advantage measured from the league itself
-    const lh = lg.avgHome * H.attH * A.defA;
-    const la = lg.avgAway * A.attA * H.defH;
-    const p = winProbs(lh, la);
+    const { lh, la, p } = predictMatch(H, A, lg);
     const homeFav = p.h >= p.a;
     const minGames = Math.min(H.HomePlayed, A.AwayPlayed);
 
@@ -1254,6 +1288,148 @@ function renderValueBets(bets) {
     <tbody>${rows}</tbody></table>
     <p class="card-note" style="margin-top:12px;">* Only some odds entered, so Book % still includes the bookmaker margin. Enter all three (H/D/A) for a fair comparison.
     &frac14; Kelly = suggested stake as % of bankroll.</p>`;
+}
+
+/* =========================================================
+   BACKTEST (walk-forward: each matchday uses only earlier matches)
+   ========================================================= */
+function predictMatch(H, A, lg) {
+  const lh = lg.avgHome * H.attH * A.defA;
+  const la = lg.avgAway * A.attA * H.defH;
+  return { lh, la, p: winProbs(lh, la) };
+}
+
+function runBacktest() {
+  const L = leagueData[activeLeagueKey];
+  const out = document.getElementById('btResults');
+  const warm = Math.max(1, parseInt(document.getElementById('btWarm').value) || 5);
+  const minEV = (parseFloat(document.getElementById('btMinEV').value) || 0) / 100;
+  const maxGap = (parseFloat(document.getElementById('btGap').value) || 100) / 100;
+
+  const rows = (L.raw || []).map(m => ({ m, hg: parseValue(m.HomeGoals), ag: parseValue(m.AwayGoals), d: String(m.Date) }))
+    .filter(r => r.hg !== null && r.ag !== null && clean(r.m.HomeTeam) && clean(r.m.AwayTeam));
+  const dates = [...new Set(rows.map(r => r.d))].sort();
+  if (dates.length <= warm) {
+    out.innerHTML = `<div class="disclaimer-note">Not enough matchdays: found ${dates.length} dates but the warm-up is ${warm}. Lower the warm-up or add more results.</div>`;
+    return;
+  }
+
+  const acc = { n: 0, ll: 0, br: 0, hit: 0, base: 0 };
+  const cmp = { n: 0, mll: 0, kll: 0, mbr: 0, kbr: 0 };
+  const preds = [], bets = [];
+
+  for (let di = warm; di < dates.length; di++) {
+    const d = dates[di];
+    const train = rows.filter(r => r.d < d);
+    const b = buildFromRawMatches(train.map(r => r.m));
+    const idx = {};
+    b.teams.forEach(t => idx[t.Team] = t);
+    const cnt = [0, 0, 0];
+    train.forEach(r => cnt[r.hg > r.ag ? 0 : r.hg === r.ag ? 1 : 2]++);
+    const baseP = cnt.map(c => (c + 1) / (train.length + 3));
+
+    rows.filter(r => r.d === d).forEach(r => {
+      const hn = clean(r.m.HomeTeam), an = clean(r.m.AwayTeam);
+      const H = idx[hn], A = idx[an];
+      if (!H || !A || !H.Played || !A.Played) return;
+      const { p } = predictMatch(H, A, b.league);
+      const P = [p.h, p.d, p.a];
+      const k = r.hg > r.ag ? 0 : r.hg === r.ag ? 1 : 2;
+      const y = [0, 0, 0]; y[k] = 1;
+      const ll = -Math.log(Math.max(P[k], 1e-9));
+      const br = P.reduce((s, v, i) => s + (v - y[i]) ** 2, 0);
+      acc.n++; acc.ll += ll; acc.br += br; acc.base += -Math.log(baseP[k]);
+      if (P.indexOf(Math.max(...P)) === k) acc.hit++;
+      P.forEach((v, i) => preds.push([v, y[i]]));
+
+      const odds = [r.m.OddsH, r.m.OddsD, r.m.OddsA];
+      if (odds.every(o => o > 1)) {
+        const raw = odds.map(o => 1 / o), tot = raw.reduce((s, v) => s + v, 0), F = raw.map(v => v / tot);
+        cmp.n++; cmp.mll += ll; cmp.mbr += br;
+        cmp.kll += -Math.log(Math.max(F[k], 1e-9));
+        cmp.kbr += F.reduce((s, v, i) => s + (v - y[i]) ** 2, 0);
+        const labels = [hn + ' win', 'Draw', an + ' win'];
+        for (let o = 0; o < 3; o++) {
+          const ev = P[o] * odds[o] - 1;
+          if (ev >= minEV && Math.abs(P[o] - F[o]) <= maxGap) {
+            bets.push({ d, fixture: hn + ' v ' + an, label: labels[o], odds: odds[o], model: P[o], fair: F[o], ev, ret: o === k ? odds[o] - 1 : -1 });
+          }
+        }
+      }
+    });
+  }
+
+  if (!acc.n) { out.innerHTML = '<div class="disclaimer-note">No matches could be tested. Check team names and dates.</div>'; return; }
+
+  const f3 = v => v.toFixed(3), pc = v => (v * 100).toFixed(1) + '%';
+  const nb = bets.length;
+  const profit = bets.reduce((s, b) => s + b.ret, 0);
+  const mean = nb ? profit / nb : 0;
+  const sd = nb > 1 ? Math.sqrt(bets.reduce((s, b) => s + (b.ret - mean) ** 2, 0) / (nb - 1)) : 0;
+  const se = nb > 1 ? sd / Math.sqrt(nb) : 0;
+  const wins = bets.filter(b => b.ret > 0).length;
+  const avgOdds = nb ? bets.reduce((s, b) => s + b.odds, 0) / nb : 0;
+
+  let verdict;
+  if (!cmp.n) {
+    verdict = 'No odds columns were found in this league\'s data, so only the model-vs-baseline checks are shown. Add HomeOdds, DrawOdds and AwayOdds (closing) columns to your CSV to compare against the market and simulate betting.';
+  } else {
+    const diff = cmp.kll / cmp.n - cmp.mll / cmp.n;
+    verdict = diff > 0
+      ? `On the ${cmp.n} matches with odds, the model\'s log loss is ${f3(diff)} <strong>better</strong> than the bookmaker\'s closing odds (lower is better).`
+      : `On the ${cmp.n} matches with odds, the model\'s log loss is ${f3(-diff)} <strong>worse</strong> than the bookmaker\'s closing odds (lower is better). Closing odds are very hard to beat, so this is the normal result for an xG-only model.`;
+  }
+
+  const cards = [
+    { label: 'Matches tested', value: acc.n, sub: (dates.length - warm) + ' matchdays after warm-up', cls: '' },
+    { label: 'Model log loss', value: f3(acc.ll / acc.n), sub: 'Baseline (H/D/A rates): ' + f3(acc.base / acc.n), cls: (acc.ll < acc.base ? 'pos' : 'neg') },
+    { label: 'Model Brier score', value: f3(acc.br / acc.n), sub: 'lower is better', cls: '' },
+    { label: 'Picks correct', value: pc(acc.hit / acc.n), sub: 'highest-probability outcome', cls: '' }
+  ];
+  if (cmp.n) {
+    cards.push({ label: 'Bookmaker log loss', value: f3(cmp.kll / cmp.n), sub: 'model on same matches: ' + f3(cmp.mll / cmp.n), cls: (cmp.mll < cmp.kll ? 'pos' : 'neg') });
+    cards.push({ label: 'Bookmaker Brier', value: f3(cmp.kbr / cmp.n), sub: 'model on same matches: ' + f3(cmp.mbr / cmp.n), cls: '' });
+    cards.push({ label: 'Value bets placed', value: nb, sub: nb ? 'strike rate ' + pc(wins / nb) + ' &middot; avg odds ' + avgOdds.toFixed(2) : 'none cleared the filters', cls: '' });
+    cards.push({ label: 'Profit (1 unit flat)', value: (profit >= 0 ? '+' : '') + profit.toFixed(2), sub: nb ? 'ROI ' + (mean * 100).toFixed(1) + '% &plusmn; ' + (se * 100).toFixed(1) + '% (1 s.e.)' : '', cls: profit >= 0 ? 'pos' : 'neg' });
+  }
+
+  // Calibration: when the model says X%, how often does it happen?
+  const bins = Array.from({ length: 10 }, () => ({ n: 0, p: 0, y: 0 }));
+  preds.forEach(([v, yv]) => { const i = Math.min(9, Math.floor(v * 10)); bins[i].n++; bins[i].p += v; bins[i].y += yv; });
+  const calRows = bins.map((b, i) => b.n ? `<tr><td>${i * 10}-${i * 10 + 10}%</td><td>${b.n}</td><td>${pc(b.p / b.n)}</td><td>${pc(b.y / b.n)}</td>
+      <td class="${Math.abs(b.y / b.n - b.p / b.n) > 0.08 ? 'val-red' : ''}">${((b.y - b.p) / b.n * 100).toFixed(1)}pp</td></tr>` : '').join('');
+
+  const lastBets = bets.slice(-60).reverse().map(b => `<tr class="${b.ret > 0 ? 'row-value' : ''}"><td>${b.d}</td><td>${b.fixture}</td><td>${b.label}</td>
+      <td>${b.odds.toFixed(2)}</td><td>${pc(b.model)}</td><td>${pc(b.fair)}</td><td>${(b.ev * 100).toFixed(1)}%</td>
+      <td class="${b.ret > 0 ? 'val-green' : 'val-red'}">${b.ret > 0 ? '+' : ''}${b.ret.toFixed(2)}</td></tr>`).join('');
+
+  out.innerHTML = `
+    <div class="grid cards">${cards.map(c => `<div class="stat-card ${c.cls}"><div class="label">${c.label}</div><div class="value">${c.value}</div><div class="sub">${c.sub}</div></div>`).join('')}</div>
+    <div class="disclaimer-note" style="margin:0 0 24px;">${verdict}</div>
+    ${nb ? `<div class="card chart-card" style="margin-bottom:24px;"><div class="card-head"><h3>Cumulative Profit <span class="unit">1 unit flat stakes on value bets</span></h3></div><div style="height:300px;position:relative;"><canvas id="chartBtProfit"></canvas></div></div>` : ''}
+    <div class="card" style="margin-bottom:24px;">
+      <div class="card-head"><h3>Calibration <span class="unit">model probability vs what actually happened</span></h3>
+      <p class="card-note">Each fixture counts three times (home, draw, away). If the model is well calibrated, "Predicted" and "Actual" should be close. Red = more than 8 points apart (small groups are noisy).</p></div>
+      <div class="table-scroll"><table style="min-width:520px;"><thead><tr><th>Bucket</th><th>Predictions</th><th>Predicted</th><th>Actual</th><th>Diff</th></tr></thead><tbody>${calRows}</tbody></table></div>
+    </div>
+    ${nb ? `<div class="card"><div class="card-head"><h3>Value Bets <span class="unit">latest ${Math.min(60, nb)} of ${nb}</span></h3></div>
+      <div class="table-scroll bt-scroll"><table><thead><tr><th>Date</th><th>Fixture</th><th>Selection</th><th>Odds</th><th>Model</th><th>Book</th><th>EV</th><th>Result</th></tr></thead><tbody>${lastBets}</tbody></table></div></div>` : ''}
+    <div class="disclaimer-note"><strong>How to read this:</strong> log loss and Brier measure how good the probabilities are (lower = better). Beating the bookmaker's closing odds on log loss is the real test of an edge. Profit over a small number of bets is mostly luck: a result inside &plusmn;2 standard errors of zero is not evidence either way. The constants at the top of the script (PRIOR_GAMES, PRIOR_VENUE, DECAY, DC_RHO) are what you would tune, ideally on one season and re-tested on another to avoid overfitting.</div>`;
+
+  if (btChartRef) { btChartRef.destroy(); btChartRef = null; }
+  if (nb) {
+    let run = 0;
+    const series = bets.map(b => +(run += b.ret).toFixed(2));
+    btChartRef = new Chart(document.getElementById('chartBtProfit'), {
+      type: 'line',
+      data: { labels: bets.map((b, i) => '#' + (i + 1) + ' ' + b.d), datasets: [{ label: 'Cumulative profit (units)', data: series, borderColor: GOLD, backgroundColor: 'rgba(232,185,75,0.15)', fill: true, pointRadius: 0, tension: 0.15 }] },
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: false,
+        plugins: { legend: { labels: { color: CHALK } } },
+        scales: { x: { ticks: { color: '#95AA9F', maxTicksLimit: 8, font: { size: 10 } }, grid: { color: 'rgba(242,239,228,0.05)' } }, y: { ticks: { color: '#95AA9F' }, grid: { color: 'rgba(242,239,228,0.08)' } } }
+      }
+    });
+  }
 }
 
 /* Tab switching */
